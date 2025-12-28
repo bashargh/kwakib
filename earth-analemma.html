@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Analemma (equation of time) tour showing solar noon shifts and mean vs real Sun positions." />
+  <link rel="canonical" href="https://kwakib.netlify.app/earth-analemma.html" />
+  <link rel="alternate" hreflang="en" href="https://kwakib.netlify.app/earth-analemma.html" />
+  <link rel="alternate" hreflang="ar" href="https://kwakib.netlify.app/earth-analemma-ar.html" />
+  <link rel="alternate" hreflang="x-default" href="https://kwakib.netlify.app/earth-analemma.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Earth Analemma Tour | Equation of Time" />
+  <meta property="og:description" content="Analemma (equation of time) tour showing solar noon shifts and mean vs real Sun positions." />
+  <meta property="og:image" content="https://kwakib.netlify.app/2k_earth_daymap.jpg" />
+  <meta property="og:url" content="https://kwakib.netlify.app/earth-analemma.html" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:site_name" content="Earth Analemma Tour" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Earth Analemma Tour | Equation of Time" />
+  <meta name="twitter:description" content="Analemma (equation of time) tour showing solar noon shifts and mean vs real Sun positions." />
+  <meta name="twitter:image" content="https://kwakib.netlify.app/2k_earth_daymap.jpg" />
+  <title>Earth Analemma Tour | Equation of Time</title>
+  <script>window.FORCED_LANG='en'; window.PAGE_LANG_MAP={en:'earth-analemma.html', ar:'earth-analemma-ar.html'};</script>
+  <script type="application/ld+json">
+
+    {
+
+      "@context": "https://schema.org",
+
+      "@type": "BreadcrumbList",
+
+      "itemListElement": [
+
+        {
+
+          "@type": "ListItem",
+
+          "position": 1,
+
+          "name": "Home",
+
+          "item": "https://kwakib.netlify.app/"
+
+        },
+
+        {
+
+          "@type": "ListItem",
+
+          "position": 2,
+
+          "name": "Earth Analemma Tour",
+
+          "item": "https://kwakib.netlify.app/earth-analemma.html"
+
+        }
+
+      ]
+
+    }
+
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "url": "https://kwakib.netlify.app/earth-analemma.html",
+      "name": "Earth Analemma Tour | Equation of Time",
+      "inLanguage": "en",
+      "description": "Analemma (equation of time) tour showing solar noon shifts and mean vs real Sun positions.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "url": "https://kwakib.netlify.app/",
+        "name": "Qibla Earth Simulator"
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="viewerBase.css" />
+  <link rel="stylesheet" href="earthViewer.css" />
+<script id="earthCopy" type="application/json">
+  {
+    "metricsRouteLabel": "A-B",
+    "metricsDistanceLabel": "Distance ({route})",
+    "metricsHeadingLabel": "Initial heading ({route})",
+    "durationsPrompt": "Select a point to see day/night duration.",
+    "pointLabelSingle": "Point",
+    "pointLabelA": "Point A",
+    "pointLabelB": "Point B",
+    "labelDay": "Day",
+    "labelNight": "Night",
+    "labelMoonUp": "Moon up",
+    "durationsSummary": "At your point: Day {day}, Night {night}",
+    "hoverLabel": "Hover: lat {lat}, lon {lon}",
+    "noonUnchanged": "unchanged",
+    "noonEarlier": "{value} earlier",
+    "noonLater": "{value} later",
+    "analemmaCumulativeLabel": "Cumulative: {value}",
+    "analemmaDailyDifference": "Daily difference: {value}",
+    "eotShortLabel": "EoT",
+    "analemmaEotValue": "{label} = {value}",
+    "analemmaInspectorEcc": "Ecc {value}",
+    "analemmaInspectorObliq": "Compression factor {value}",
+    "analemmaInspectorCombined": "Daily difference = {mean} - ({mean} {ecc}) * {compression} = {diff} ({diffSeconds})",
+    "tooltipDate": "Date: {value}",
+    "tooltipExtraAngle": "Extra angle: {value}",
+    "tooltipDeltaMean": "Delta vs mean: {value}",
+    "tooltipTiltFactor": "Tilt factor: {value}",
+    "eotChartTitle": "Equation of time",
+    "chartMinutesUnit": "min",
+    "chartTodayLabel": "Today",
+    "insetDeltaLon": "Δlon {value}",
+    "insetDeltaLat": "Δlat {value}",
+    "insetRealSunLabel": "Real Sun λ",
+    "timeAgo": "{value} ago",
+    "timeIn": "in {value}",
+    "eotHintEarlier": "apparent noon earlier",
+    "eotHintLater": "apparent noon later",
+    "eotHintMatches": "apparent noon matches",
+    "eotSummary": "Equation of time: {value} ({hint})",
+    "meridianRealLeads": "real Sun leads",
+    "meridianMeanLeads": "mean Sun leads",
+    "meridianAligned": "aligned",
+    "meridianSummary": "Meridian: mean Sun {mean}, real Sun {real} (real - mean {delta}, {hint})",
+    "meridianSummarySolarDay": "Meridian: mean Sun {mean}, real Sun {real} (real - mean {delta}, {hint}). Solar day ≈ {sidereal} + {extra} = {apparent} ({delta24} vs 24:00:00)",
+    "seasonsInsetDaylight": "Daylight: {hours}",
+    "seasonsInsetTwilightAngle": "Twilight duration (-{angle} deg): {hours}",
+    "seasonsInsetTwilight": "Twilight duration: {hours}",
+    "seasonsInsetLatYear": "Lat {lat} deg, {year}",
+    "seasonsInsetHeading": "Today at this latitude",
+    "seasonsInsetDayLabel": "Day",
+    "seasonsInsetNightLabel": "Night",
+    "seasonsInsetLocalSolarTime": "Local solar time: {hhmm}",
+    "subsolarRealLabel": "Subsolar (real)",
+    "subsolarMeanLabel": "Subsolar (mean)",
+    "sublunarLabel": "Sublunar",
+    "coordLatLabel": "lat",
+    "coordLonLabel": "lon",
+    "coordDegLabel": "deg",
+    "tourStepProgress": "Step {current} / {total}",
+    "tourPoiLocked": "POI locked: lat {lat}, lon {lon}",
+    "tourPoiPrompt": "Pick a point to continue.",
+    "tourPoiInvalid": "Enter a valid lat/lon first.",
+    "tourPoiFirst": "Pick a point first.",
+    "tour_seasons_title": "Day/night through the seasons",
+    "tour_seasons_step0_title": "Pick a place",
+    "tour_seasons_step0_body": "Click the globe (or enter lat/lon and press \"Use typed point\"). We will track how daylight changes here.",
+    "tour_seasons_step1_title": "March equinox",
+    "tour_seasons_step1_body": "Day and night are roughly equal everywhere. Your point should see ~12h daylight.",
+    "tour_seasons_step2_title": "June solstice",
+    "tour_seasons_step2_body": "Northern points enjoy longer days; southern points get shorter ones.",
+    "tour_seasons_step3_title": "September equinox",
+    "tour_seasons_step3_body": "Day and night balance again as the subsolar point crosses the equator.",
+    "tour_seasons_step4_title": "December solstice",
+    "tour_seasons_step4_body": "Southern summer / northern winter. Daylight flips from June.",
+    "tour_analemma_title": "Analemma (equation of time)",
+    "tour_analemma_step0_title": "Choose a point",
+    "tour_analemma_step0_body": "Pick a site; we will compare the mean (reference) Sun with the apparent Sun at your meridian.",
+    "tour_analemma_step1_title": "Baseline: mean noon",
+    "tour_analemma_step1_body": "Start near the day when equation of time is ~0. At local noon the mean and real Sun align over your longitude. Inset: top compares mean vs real longitude over one sidereal day; bottom shows the real daily motion vector with longitude scaled by cos(dec).",
+    "tour_analemma_step2_title": "Eccentricity (speed change)",
+    "tour_analemma_step2_body": "Near perihelion in early January Earth moves faster, so the apparent Sun runs ahead of the mean Sun. Solar noon shifts earlier, stretching the analemma east-west.",
+    "tour_analemma_step3_title": "Obliquity (tilt projection)",
+    "tour_analemma_step3_body": "Around solstice the Sun is far north or south. Its daily motion tilts out of the equatorial plane, so the east-west component is compressed by cos(dec). This adds the vertical loop and another time offset.",
+    "tour_analemma_step4_title": "Full-year trace",
+    "tour_analemma_step4_body": "Hold mean noon fixed at your longitude and step through a full year. The real subsolar point traces the analemma as eccentricity and tilt combine.",
+    "tour_analemma_step5_title": "Explore any date",
+    "tour_analemma_step5_body": "Use the date/time input to jump anywhere; the inset and equation-of-time readout update for your longitude."
+  }
+  </script>
+</head>
+<body class="analemma-page">
+  <h1 class="sr-only">Earth Analemma Tour</h1>
+  <div id="scene"></div>
+  <div id="langSwitcher">
+    <a id="langLinkEn" href="earth-analemma.html">English</a> |
+    <a id="langLinkAr" href="earth-analemma-ar.html">العربية</a>
+  </div>
+  <div class="topic-select" aria-label="Earth topics">
+    <label for="topicSelect">Earth topics</label>
+        <select id="topicSelect">
+      <option value="index.html">Earth overview</option>
+      <option value="earth-seasons.html">Seasons tour</option>
+      <option value="earth-analemma.html">Analemma tour</option>
+      <option value="planets.html">Planets</option>
+      <option value="venus.html">Venus visibility</option>
+    </select>
+  </div>
+  <script type="module" src="topicSelect.js"></script>
+  <div id="leftPanels">
+    <div class="section analemma-breakdown" id="analemmaBreakdown">
+      <h3 id="analemmaBreakdownHeading">Analemma Breakdown</h3>
+      <div class="analemma-controls-bar" id="analemmaControls">
+        <div class="analemma-control-block analemma-control-date">
+          <label id="datetimeLabel" for="datetime">Date/Time (UTC)</label>
+          <div class="row date-row">
+            <input id="datetime" type="text" style="flex:1; min-width: 0;" placeholder="YYYY-MM-DDTHH:MM" title="Format: YYYY-MM-DDTHH:MM" />
+            <button id="resetNowBtn" title="Set to current UTC time" type="button">Now</button>
+          </div>
+          <div class="row analemma-control-buttons" style="margin-top:6px;">
+            <button id="siderealMinusBtn" title="Jump back 1 sidereal day (23h56m)" type="button">-1 sidereal day</button>
+            <button id="siderealPlusBtn" title="Jump forward 1 sidereal day (23h56m)" type="button">+1 sidereal day</button>
+          </div>
+        </div>
+        <div class="analemma-control-block analemma-control-playback">
+          <span class="analemma-control-label">Annual animation</span>
+          <div class="row analemma-control-buttons">
+            <button id="analemmaPlayBtn" type="button">Play</button>
+            <button id="analemmaPauseBtn" type="button">Pause</button>
+            <button id="analemmaResetBtn" type="button">Reset</button>
+          </div>
+        </div>
+      </div>
+      <div class="analemma-tabs" role="tablist" aria-label="Analemma panels">
+        <button class="analemma-tab active" type="button" data-tab="prereq">Prerequisites</button>
+        <button class="analemma-tab" type="button" data-tab="components">Components</button>
+        <button class="analemma-tab" type="button" data-tab="combined">Combined</button>
+      </div>
+      <div class="analemma-tab-panels">
+        <div class="analemma-tab-panel active" data-tab="prereq">
+          <div class="analemma-cards">
+            <section class="analemma-card analemma-card-compact" id="analemmaCardPrereq">
+              <div class="analemma-card-header">
+                <h4 class="analemma-card-title">Prerequisites</h4>
+              </div>
+              <div class="analemma-card-content">
+                <p class="analemma-card-lede">
+                  Understanding the difference between a sidereal day and a solar day is a prerequisite for this topic.
+                  If you want a refresher, watch this explainer:
+                  <a href="https://www.youtube.com/watch?v=WWw4JY2dNXM" target="_blank" rel="noopener">Sidereal vs solar day (YouTube)</a>.
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div class="analemma-tab-panel" data-tab="components">
+          <div class="analemma-cards">
+            <section class="analemma-card is-collapsed" id="analemmaCardObliq">
+              <div class="analemma-card-header">
+                <h4 class="analemma-card-title">Axial tilt (obliquity projection)</h4>
+                <button class="analemma-card-toggle" type="button" aria-expanded="false" aria-controls="analemmaCardObliqBody" data-label-collapse="Collapse" data-label-expand="Expand">Expand</button>
+              </div>
+              <div class="analemma-card-content" id="analemmaCardObliqBody" hidden>
+                <p class="analemma-card-lede">
+                  Axial tilt is the main component shaping the analemma.<br>
+                  Look at the ecliptic path (the green circle on Earth), which traces the subsolar point through the zodiac markers.<br>
+                  Each day the Sun shifts slightly eastward along this circle across the year.<br>
+                  Suppose the subsolar point moves one degree per sidereal day on the ecliptic and follow how that translates to longitude.<br>
+                  At the equinoxes, a one-degree step corresponds to less than one degree of longitude, because the ecliptic is tilted relative to lines of latitude. The motion splits into eastward plus north/south components; the eastward part is less than one degree, so noon comes earlier than average.<br>
+                  At the solstices, the ecliptic is nearly parallel to lines of latitude and most motion is eastward. Because the Sun sits at a different latitude from the equator, longitude lines are closer together there, so one degree along the ecliptic becomes more than one degree of longitude; noon comes later.<br>
+                  The chart shows the early/late pattern over the year from tilt alone. This component alone would make a symmetric, regular figure-eight. The real analemma is wider in the southern lobe and asymmetric left/right, because of the other component: orbital speed.
+                </p>
+                <div class="analemma-card-body">
+                  <div class="analemma-card-spacer analemma-mini-charts">
+                    <div class="analemma-mini-block">
+                      <div class="analemma-mini-label">Equinox</div>
+                      <div class="analemma-mini-row">
+                        <div class="analemma-mini-frame">
+                          <canvas class="analemma-mini-chart" data-mini="equinox"></canvas>
+                          <div class="analemma-mini-note">
+                            Horizontal: <span class="analemma-mini-value" data-mini-value="equinox-h">0.00</span>°<br>
+                            Vertical: <span class="analemma-mini-value" data-mini-value="equinox-v">0.00</span>°
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="analemma-mini-block">
+                      <div class="analemma-mini-label">Solstice</div>
+                      <div class="analemma-mini-row">
+                        <div class="analemma-mini-frame">
+                          <canvas class="analemma-mini-chart" data-mini="solstice"></canvas>
+                          <div class="analemma-mini-note">
+                            Horizontal: <span class="analemma-mini-value" data-mini-value="solstice-h">0.00</span>°<br>
+                            Vertical: <span class="analemma-mini-value" data-mini-value="solstice-v">0.00</span>°
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="analemma-card-chart">
+                    <div class="analemma-legend">
+                      <span class="analemma-legend-item"><span class="analemma-swatch" style="--swatch:#7ee787;"></span>Tilt factor</span>
+                    </div>
+                    <canvas id="obliquityChart" width="800" height="360"></canvas>
+                  </div>
+                </div>
+                <div class="analemma-key-row">
+                  <span class="analemma-key-label">Tilt factor</span>
+                  <span class="analemma-key-value" id="obliqKeyValue">--</span>
+                </div>
+              </div>
+            </section>
+            <section class="analemma-card is-collapsed" id="analemmaCardEcc">
+              <div class="analemma-card-header">
+                <h4 class="analemma-card-title">Orbit speed (eccentricity)</h4>
+                <button class="analemma-card-toggle" type="button" aria-expanded="false" aria-controls="analemmaCardEccBody" data-label-collapse="Collapse" data-label-expand="Expand">Expand</button>
+              </div>
+              <div class="analemma-card-content" id="analemmaCardEccBody" hidden>
+                <p class="analemma-card-lede">
+                  In the tilt component we assumed the subsolar point moves one degree per sidereal day. In reality the daily step changes over the year.<br>
+                  The chart shows the pattern: the subsolar point moves more in January than in July because Earth's orbital speed varies. Earth is fastest near perihelion and slowest near aphelion.
+                </p>
+                <div class="analemma-card-body">
+                  <div class="analemma-card-chart">
+                    <div class="analemma-legend">
+                      <span class="analemma-legend-item"><span class="analemma-swatch" style="--swatch:#78c8ff;"></span>Extra angle</span>
+                      <span class="analemma-legend-item"><span class="analemma-swatch" style="--swatch:#ffd655;"></span>Mean</span>
+                    </div>
+                    <canvas id="eccentricityChart" width="800" height="360"></canvas>
+                  </div>
+                </div>
+                <div class="analemma-key-row">
+                  <span class="analemma-key-label">Extra angle</span>
+                  <span class="analemma-key-value" id="eccKeyValue">--</span>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div class="analemma-tab-panel" data-tab="combined">
+          <div class="analemma-combined-grid">
+            <div class="analemma-inset-embed" id="analemmaInsetBox">
+              <canvas id="analemmaInset" width="800" height="500"></canvas>
+              <div id="analemmaInsetCaption" class="analemma-inset-caption"></div>
+            </div>
+            <div class="analemma-combined-sidebar">
+              <div class="analemma-combined-chart">
+                <div class="analemma-combined-chart-heading">Equation of time</div>
+                <div class="analemma-combined-chart-legend">
+                  <span><span class="swatch" style="background:#ffd655;"></span>Combined</span>
+                </div>
+                <canvas id="analemmaCombinedChart" width="320" height="240"></canvas>
+              </div>
+              <div class="analemma-combined-inspector" aria-live="polite">
+                <div class="analemma-inspector-heading">
+                  <span>EoT</span>
+                  <span class="analemma-inspector-caption">Equation of time</span>
+                </div>
+                <div class="analemma-inspector-value">
+                  <span id="analemmaEoTValue">EoT --</span>
+                  <span class="analemma-inspector-diff" id="analemmaEoTDelta">+--m --s</span>
+                </div>
+                <div class="analemma-inspector-detail" id="analemmaEoTDetail">--</div>
+                <div class="analemma-inspector-row" aria-label="Component contributions">
+                  <span class="analemma-inspector-chip" id="analemmaInspectorEcc">Ecc --°</span>
+                  <span class="analemma-inspector-chip" id="analemmaInspectorObliq">Compression factor --x</span>
+                  <span class="analemma-inspector-chip" id="analemmaInspectorCombined">Daily difference = --° - (--° + --°) * --x = --° (+--m --s)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="analemmaTooltip" class="analemma-tooltip" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+  <div id="sidePanels">
+    <div id="controls">
+      <div class="section" style="display:none;">
+        <h3 id="sunMoonHeading">Sun & Moon</h3>
+        <label id="sunVisLabel"><input id="toggleSunVisibility" type="checkbox" checked /> <span id="sunVisText">Night visibility</span></label>
+    </div>
+
+      <div class="section" style="display:none;">
+        <h3 id="cameraHeading">Camera</h3>
+        <div class="segment-group" id="cameraSegments">
+        <button data-mode="geo" class="active">Geosync</button>
+        <button data-mode="sun">Sun-sync</button>
+        <button data-mode="dawn">Dawn</button>
+        <button data-mode="dusk">Dusk</button>
+      </div>
+    </div>
+
+      <div class="section" style="display:none;">
+        <h3 id="twilightHeading">Twilight Band</h3>
+        <label class="row inputs-inline" style="margin-top:2px; align-items:flex-start; gap:10px;">
+        <span id="twilightLimitLabel" style="min-width:130px;">Twilight limit (deg below horizon):</span>
+        <div style="display:flex; flex-direction:column; gap:4px; width:100%;">
+          <input id="twilightAngle" type="range" min="0" max="18" step="0.5" value="18" />
+          <span id="twilightValue" style="font-size:12px; color:#cfdcff;">18 deg</span>
+        </div>
+      </label>
+    </div>
+
+      <div class="section" style="display:none;">
+        <h3 id="pointsHeading">Points</h3>
+        <label id="pointALabel">Point A (lat, lon) <span style="color:#ff6699;">•</span></label>
+      <div class="row inputs-inline">
+        <input id="lat1" type="number" step="0.1" />
+        <input id="lon1" type="number" step="0.1" />
+      </div>
+      <label id="pointBLabel">Point B (lat, lon) <span style="color:#66ff99;">•</span></label>
+      <div class="row inputs-inline">
+        <input id="lat2" type="number" step="0.1" />
+        <input id="lon2" type="number" step="0.1" />
+      </div>
+      <div class="row" style="margin-top:6px;">
+        <button id="plotBtn">Plot points</button>
+        <button id="clearPointsBtn" style="background:#444a5a;">Clear</button>
+      </div>
+    </div>
+
+  </div>
+    <div id="dataPanel" style="display:none;">
+    <h3 id="dataHeading">Sun & Moon Data</h3>
+    <div id="subpoints" style="font-size:12px; line-height:1.4;"></div>
+    <div id="durations" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;"></div>
+    <div id="pointMetrics" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;"></div>
+    <div id="hoverBox" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;">
+      <div id="hoverLabel"></div>
+    </div>
+  </div>
+  </div>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.module.js",
+        "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.js"></script>
+
+  <script type="module" src="earthViewer.js"></script>
+  <footer>
+    Texture map credit: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a>
+    <div style="margin-top:4px;">Questions/feedback: <a href="mailto:qibla-site@proton.me">qibla-site@proton.me</a></div>
+  </footer>
+</body>
+</html>
+
+
+
+

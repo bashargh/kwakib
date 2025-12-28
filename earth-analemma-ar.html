@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="جولة الأناليمّا (معادلة الزمن) لشرح تغير الظهر الشمسي والفارق بين الشمس الحقيقية والمتوسطة." />
+  <link rel="canonical" href="https://kwakib.netlify.app/earth-analemma-ar.html" />
+  <link rel="alternate" hreflang="en" href="https://kwakib.netlify.app/earth-analemma.html" />
+  <link rel="alternate" hreflang="ar" href="https://kwakib.netlify.app/earth-analemma-ar.html" />
+  <link rel="alternate" hreflang="x-default" href="https://kwakib.netlify.app/earth-analemma.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="جولة الأناليمّا | معادلة الزمن" />
+  <meta property="og:description" content="جولة الأناليمّا (معادلة الزمن) لشرح تغير الظهر الشمسي والفارق بين الشمس الحقيقية والمتوسطة." />
+  <meta property="og:image" content="https://kwakib.netlify.app/2k_earth_daymap.jpg" />
+  <meta property="og:url" content="https://kwakib.netlify.app/earth-analemma-ar.html" />
+  <meta property="og:locale" content="ar_AR" />
+  <meta property="og:site_name" content="جولة الأناليمّا" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="جولة الأناليمّا | معادلة الزمن" />
+  <meta name="twitter:description" content="جولة الأناليمّا (معادلة الزمن) لشرح تغير الظهر الشمسي والفارق بين الشمس الحقيقية والمتوسطة." />
+  <meta name="twitter:image" content="https://kwakib.netlify.app/2k_earth_daymap.jpg" />
+  <script>window.FORCED_LANG='ar'; window.PAGE_LANG_MAP={en:'earth-analemma.html', ar:'earth-analemma-ar.html'};</script>
+  <script type="application/ld+json">
+
+    {
+
+      "@context": "https://schema.org",
+
+      "@type": "BreadcrumbList",
+
+      "itemListElement": [
+
+        {
+
+          "@type": "ListItem",
+
+          "position": 1,
+
+          "name": "Home",
+
+          "item": "https://kwakib.netlify.app/"
+
+        },
+
+        {
+
+          "@type": "ListItem",
+
+          "position": 2,
+
+          "name": "جولة الأناليمّا",
+
+          "item": "https://kwakib.netlify.app/earth-analemma-ar.html"
+
+        }
+
+      ]
+
+    }
+
+  </script>
+  <title>جولة الأناليمّا | معادلة الزمن</title>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "url": "https://kwakib.netlify.app/earth-analemma-ar.html",
+      "name": "جولة الأناليمّا | معادلة الزمن",
+      "inLanguage": "ar",
+      "description": "جولة الأناليمّا (معادلة الزمن) لشرح تغير الظهر الشمسي والفارق بين الشمس الحقيقية والمتوسطة.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "url": "https://kwakib.netlify.app/",
+        "name": "Qibla Earth Simulator"
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="viewerBase.css" />
+  <link rel="stylesheet" href="earthViewer.css" />
+<script id="earthCopy" type="application/json">
+  {
+  "metricsRouteLabel": "A-B",
+  "metricsDistanceLabel": "??????? ({route})",
+  "metricsHeadingLabel": "??????? ????????? ({route})",
+  "durationsPrompt": "???? ???? ????? ??? ?????? ??????.",
+  "pointLabelSingle": "????",
+  "pointLabelA": "???? ?",
+  "pointLabelB": "???? ?",
+  "labelDay": "????",
+  "labelNight": "???",
+  "labelMoonUp": "???? ?????",
+  "durationsSummary": "??? ?????: ???? {day}? ??? {night}",
+  "hoverLabel": "??????: ?? ??? {lat}? ?? ??? {lon}",
+  "noonUnchanged": "\u0627\u0644\u0638\u0647\u0631 \u0645\u0637\u0627\u0628\u0642",
+  "noonEarlier": "\u0627\u0644\u0638\u0647\u0631 \u0623\u0628\u0643\u0631 \u0628\u0640 {value}",
+  "noonLater": "\u0627\u0644\u0638\u0647\u0631 \u0645\u062a\u0623\u062e\u0631 \u0628\u0640 {value}",
+  "analemmaCumulativeLabel": "\u0627\u0644\u062a\u0631\u0627\u0643\u0645\u064a: {value}",
+  "analemmaDailyDifference": "\u0627\u0644\u0641\u0631\u0642 \u0627\u0644\u064a\u0648\u0645\u064a: {value}",
+  "eotShortLabel": "\u0645\u0639\u0627\u062f\u0644\u0629 \u0627\u0644\u0632\u0645\u0646",
+  "analemmaEotValue": "{label} = {value}",
+  "analemmaInspectorEcc": "\u0627\u0644\u0644\u0627\u0645\u0631\u0643\u0632\u064a\u0629 {value}",
+  "analemmaInspectorObliq": "\u0645\u0639\u0627\u0645\u0644 \u0627\u0644\u0636\u063a\u0637 {value}",
+  "analemmaInspectorCombined": "\u0627\u0644\u0641\u0631\u0642 \u0627\u0644\u064a\u0648\u0645\u064a = {mean} - ({mean} {ecc}) * {compression} = {diff} ({diffSeconds})",
+  "tooltipDate": "\u0627\u0644\u062a\u0627\u0631\u064a\u062e: {value}",
+  "tooltipExtraAngle": "\u0627\u0644\u0632\u0627\u0648\u064a\u0629 \u0627\u0644\u0632\u0627\u0626\u062f\u0629: {value}",
+  "tooltipDeltaMean": "\u0641\u0631\u0642 \u0639\u0646 \u0627\u0644\u0645\u062a\u0648\u0633\u0637: {value}",
+  "tooltipTiltFactor": "\u0639\u0627\u0645\u0644 \u0627\u0644\u0645\u064a\u0644: {value}",
+  "eotChartTitle": "\u0645\u0639\u0627\u062f\u0644\u0629 \u0627\u0644\u0632\u0645\u0646",
+  "chartMinutesUnit": "\u062f",
+  "chartTodayLabel": "\u0627\u0644\u064a\u0648\u0645",
+  "insetDeltaLon": "\u0394\u062e\u0637 \u0627\u0644\u0637\u0648\u0644 {value}",
+  "insetDeltaLat": "\u0394\u062e\u0637 \u0627\u0644\u0639\u0631\u0636 {value}",
+  "insetRealSunLabel": "\u0627\u0644\u0634\u0645\u0633 \u0627\u0644\u062d\u0642\u064a\u0642\u064a\u0629",
+  "timeAgo": "\u0645\u0646\u0630 {value}",
+  "timeIn": "\u0628\u0639\u062f {value}",
+  "eotHintEarlier": "\u0627\u0644\u0638\u0647\u0631 \u0623\u0628\u0643\u0631",
+  "eotHintLater": "\u0627\u0644\u0638\u0647\u0631 \u0645\u062a\u0623\u062e\u0631",
+  "eotHintMatches": "\u0627\u0644\u0638\u0647\u0631 \u0645\u0637\u0627\u0628\u0642",
+  "eotSummary": "\u0645\u0639\u0627\u062f\u0644\u0629 \u0627\u0644\u0632\u0645\u0646: {value} ({hint})",
+  "meridianRealLeads": "\u0627\u0644\u062d\u0642\u064a\u0642\u064a \u0645\u062a\u0642\u062f\u0645",
+  "meridianMeanLeads": "\u0627\u0644\u0645\u062a\u0648\u0633\u0637 \u0645\u062a\u0642\u062f\u0645",
+  "meridianAligned": "\u0645\u062a\u0637\u0627\u0628\u0642\u0627\u0646",
+  "meridianSummary": "\u0639\u0646\u062f \u062e\u0637 \u0637\u0648\u0644\u0643: \u0627\u0644\u0638\u0647\u0631 \u0627\u0644\u0645\u062a\u0648\u0633\u0637 {mean}\u060c \u0648\u0627\u0644\u0638\u0647\u0631 \u0627\u0644\u062d\u0642\u064a\u0642\u064a {real} (\u0627\u0644\u062d\u0642\u064a\u0642\u064a - \u0627\u0644\u0645\u062a\u0648\u0633\u0637 {delta}\u060c {hint})",
+  "meridianSummarySolarDay": "\u0639\u0646\u062f \u062e\u0637 \u0637\u0648\u0644\u0643: \u0627\u0644\u0638\u0647\u0631 \u0627\u0644\u0645\u062a\u0648\u0633\u0637 {mean}\u060c \u0648\u0627\u0644\u0638\u0647\u0631 \u0627\u0644\u062d\u0642\u064a\u0642\u064a {real} (\u0627\u0644\u062d\u0642\u064a\u0642\u064a - \u0627\u0644\u0645\u062a\u0648\u0633\u0637 {delta}\u060c {hint}). \u0627\u0644\u064a\u0648\u0645 \u0627\u0644\u0634\u0645\u0633\u064a = {sidereal} + {extra} = {apparent} ({delta24} \u0645\u0646 24:00:00)",
+  "seasonsInsetDaylight": "??? ?????? (?? ????? ??? ?????): {hours}",
+  "seasonsInsetTwilightAngle": "??? ????? (-{angle}\u0173): {hours}",
+  "seasonsInsetTwilight": "??? ?????: {hours}",
+  "seasonsInsetLatYear": "?? ??? {lat}\u0173? {year}",
+  "seasonsInsetHeading": "????? ??? ?? ????? ???",
+  "seasonsInsetDayLabel": "????",
+  "seasonsInsetNightLabel": "???",
+  "seasonsInsetLocalSolarTime": "????? ?????? ??????: {hhmm}",
+  "subsolarRealLabel": "????? ????? (?????)",
+  "subsolarMeanLabel": "????? ????? (?????)",
+  "sublunarLabel": "????? ?????",
+  "coordLatLabel": "?? ???",
+  "coordLonLabel": "?? ???",
+  "coordDegLabel": "????",
+  "tourStepProgress": "?????? {current} / {total}",
+  "tourPoiLocked": "?? ????? ??????: ?? ??? {lat}? ?? ??? {lon}",
+  "tourPoiPrompt": "???? ???? ????????.",
+  "tourPoiInvalid": "???? ?? ???/??? ???? ?????.",
+  "tourPoiFirst": "???? ???? ?????.",
+  "tour_seasons_title": "??????/????? ??? ??????",
+  "tour_seasons_step0_title": "???? ??????",
+  "tour_seasons_step0_body": "???? ????? ??????? (?? ???? ?? ????? ?????? ????? \"?????? ?????? ????????\"). ?????? ??? ????? ??? ?????? ???.",
+  "tour_seasons_step1_title": "?????? ????",
+  "tour_seasons_step1_body": "?????? ?????? ???????? ??????? ?? ?? ????. ????? ?? ??? ????? ??? 12 ???? ????.",
+  "tour_seasons_step2_title": "?????? ?????",
+  "tour_seasons_step2_body": "?????? ???????? ???? ????? ????? ????????? ????.",
+  "tour_seasons_step3_title": "?????? ??????",
+  "tour_seasons_step3_body": "?????? ?????? ?????? ?????? ?? ???? ???? ????? ????? ?? ????????.",
+  "tour_seasons_step4_title": "?????? ??????",
+  "tour_seasons_step4_body": "??? ????? / ???? ?????. ????? ??? ?????? ?????? ??????.",
+  "tour_analemma_title": "?????????? (?????? ?????)",
+  "tour_analemma_step0_title": "???? ????",
+  "tour_analemma_step0_body": "???? ??????? ?????? ????? ???????? (????????) ?????? ???????? ??? ?? ?????? ????.",
+  "tour_analemma_step1_title": "??????: ????? ???????",
+  "tour_analemma_step1_body": "???? ??? ????? ???? ???? ??? ?????? ????? \u00f7 0. ??? ????? ?????? ???? ????? ???????? ????????? ??? ?? ????. ?? ??????: ?????? ????? ?? ????? ??????? ???????? ??? ??? ???? ????? ??????? ????? ???? ?????? ??????? ??????? ?? ??? ?? ????? ?? cos(dec).",
+  "tour_analemma_step2_title": "?????????? (???? ??????)",
+  "tour_analemma_step2_body": "??? ?????? ?? ????? ????? ????? ????? ????? ?????? ????? ???????? ??? ????????. ????? ????? ??????? ?????? ??? ?????????? ????? ??????.",
+  "tour_analemma_step3_title": "??? ?????? (????? ?????)",
+  "tour_analemma_step3_body": "??? ???????? ???? ????? ????? ?????? ?? ??????. ???? ?????? ??????? ???? ??????? ?????????? ?????? ??????? ??????-?????? ?? cos(dec). ??? ???? ?????? ???????? ????????? ?????? ???.",
+  "tour_analemma_step4_title": "???? ??? ?????",
+  "tour_analemma_step4_body": "???? ????? ??????? ??? ?? ???? ???? ??? ??? ?????. ????? ???? ????? ????? ???????? ??? ?????????? ?? ?????? ?????????? ??????.",
+  "tour_analemma_step5_title": "?????? ?? ?????",
+  "tour_analemma_step5_body": "?????? ????? ???????/????? ???????? ??? ???? ??????? ?????? ?????? ?????? ????? ??? ????."
+}</script>
+  <script>
+    window.FORCED_LANG = 'ar';
+    document.documentElement.lang = 'ar';
+    document.documentElement.dir = 'rtl';
+  </script>
+</head>
+<body class="analemma-page">
+  <h1 class="sr-only">جولة الأناليمّا</h1>
+  <div id="scene"></div>
+  <div id="langSwitcher">
+    <a id="langLinkEn" href="earth-analemma.html">English</a> |
+    <a id="langLinkAr" href="earth-analemma-ar.html" class="active">العربية</a>
+  </div>
+  <div class="topic-select" aria-label="مواضيع الأرض">
+    <label for="topicSelect">مواضيع الأرض</label>
+        <select id="topicSelect">
+      <option value="earth-ar.html">نظرة عامة على الأرض</option>
+      <option value="earth-seasons-ar.html">جولة الفصول</option>
+      <option value="earth-analemma-ar.html">جولة الأناليمّا</option>
+      <option value="planets-ar.html">الكواكب</option>
+      <option value="venus-ar.html">رؤية الزهرة</option>
+    </select>
+  </div>
+  <script type="module" src="topicSelect.js"></script>
+  <div id="leftPanels">
+        <div class="section analemma-breakdown" id="analemmaBreakdown">
+      <h3 id="analemmaBreakdownHeading">تفصيل الأنالِمَّة</h3>
+      <div class="analemma-controls-bar" id="analemmaControls">
+        <div class="analemma-control-block analemma-control-date">
+          <label id="datetimeLabel" for="datetime">التاريخ/الوقت (UTC)</label>
+          <div class="row date-row">
+            <input id="datetime" type="text" style="flex:1; min-width: 0;" placeholder="YYYY-MM-DDTHH:MM" title="Format: YYYY-MM-DDTHH:MM" />
+            <button id="resetNowBtn" title="Set to current UTC time" type="button">الآن</button>
+          </div>
+          <div class="row analemma-control-buttons" style="margin-top:6px;">
+            <button id="siderealMinusBtn" title="يوم نجمي للخلف" type="button">-1 يوم نجمي</button>
+            <button id="siderealPlusBtn" title="يوم نجمي للأمام" type="button">+1 يوم نجمي</button>
+          </div>
+        </div>
+        <div class="analemma-control-block analemma-control-playback">
+          <span class="analemma-control-label">حركة سنوية</span>
+          <div class="row analemma-control-buttons">
+            <button id="analemmaPlayBtn" type="button">تشغيل</button>
+            <button id="analemmaPauseBtn" type="button">إيقاف</button>
+            <button id="analemmaResetBtn" type="button">إعادة</button>
+          </div>
+        </div>
+      </div>
+      <div class="analemma-tabs" role="tablist" aria-label="لوحات الأنالِمَّة">
+        <button class="analemma-tab active" type="button" data-tab="prereq">المتطلبات</button>
+        <button class="analemma-tab" type="button" data-tab="components">المكوّنات</button>
+        <button class="analemma-tab" type="button" data-tab="combined">المحصلة</button>
+      </div>
+      <div class="analemma-tab-panels">
+        <div class="analemma-tab-panel active" data-tab="prereq">
+          <div class="analemma-cards">
+            <section class="analemma-card analemma-card-compact" id="analemmaCardPrereq">
+              <div class="analemma-card-header">
+                <h4 class="analemma-card-title">المتطلبات</h4>
+              </div>
+              <div class="analemma-card-content">
+                <p class="analemma-card-lede">
+                  لفهم موضوع الأنالِمَّة (معادلة الزمن)، من المهم معرفة الفرق بين اليوم النجمي واليوم الشمسي.<br>
+                  شرح بالإنجليزية: <a href="https://www.youtube.com/watch?v=WWw4JY2dNXM" target="_blank" rel="noopener">فيديو اليوم النجمي واليوم الشمسي</a><br>
+                  شرح بالعربية: <a href="https://youtu.be/1LZXMEpsLs0?si=U1l7ycfPI6bsKaza&t=675" target="_blank" rel="noopener">فيديو إضافي</a>
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div class="analemma-tab-panel" data-tab="components">
+          <div class="analemma-cards">
+            <section class="analemma-card is-collapsed" id="analemmaCardObliq">
+              <div class="analemma-card-header">
+
+                <h4 class="analemma-card-title">الميل المحوري (إسقاط الميل)</h4>
+
+                <button class="analemma-card-toggle" type="button" aria-expanded="false" aria-controls="analemmaCardObliqBody" data-label-collapse="طي" data-label-expand="توسيع">توسيع</button>
+
+              </div>
+
+              <div class="analemma-card-content" id="analemmaCardObliqBody" hidden>
+              <p class="analemma-card-lede">
+                ميل المحور هو المكون الأهم لتحديد شكل الاناليمة.<br>
+                انظر الى مسار الدائرة الكسوفية (الدائرة الخضراء على الأرض) والذي يمثل حركة موقع تعامد الشمس على الأرض مع علامات الأبراج.<br>
+                في كل يوم, ستتحرك الشمس قليلا باتجاه الشرق على هذه الدائرة مارة على علامات الأبراج عبر السنة<br>
+                لو. فرضنا ان نقطة تعامد الشمس تتحرك يوميا بمقدار درجة واحدة على الدائرة الكسوفية ولنتابع كيف ستترجم هذه الحركة بالنسبة لخطوط الطول<br>
+                عند. الاعتدالين, نرى ان الحركة بدرجة واحدة تعادل اقل من درجة طول واحدة, لان الدائرة الكسوفية مائلة بالنسبة لدائرة العرض. وبالتالي فحركة نقطة التعامد موزعة بين جزئين: جزء باتجاه الشرق و و الأخر باتجاه الشمال أو الجنوب. فجزء الحركة باتجاه الشرق سيكون اقل من درجة واحدة. النتيجة ان الظهر سيأتي ابكر من المعدل<br>
+                ,عند الانقلابين, الدائرة الكسوفية متوازية تقريبا مع دوائر العرض ومعظم الحركة ستكون باتجاه الشرق. ولأن الشمس على دائرة عرض مختلفة عن دائرة الاستواء, فالمسافة بين خطوط الطول في ذلك الموقع اقل مقارنة بدائرة الاستواء. بالتالي درجة واحدة على المدار الكسوفي ستترجم لأكثر من درجة طول في ذلك الموقع. النتيجة ان الظهر سيتأخر.<br>
+                الرسم البياني يوضح التغير ما بين الابكار و التأخير عبر السنة بسبب الميل لوحده. فهذا المكون لوحده سيعطينا شكل 8 منتظم ومتناسق. لكن شكل الانالمة المعروف ليس متسقا, فهو اعرض في الجزء الجنوبي وغير متناسق بين اليمين و اليسار. السبب في عدم التناسق هو المكون الاخر "سرعة المدار
+              </p>
+              <div class="analemma-card-body">
+                <div class="analemma-card-spacer analemma-mini-charts">
+                  <div class="analemma-mini-block">
+                    <div class="analemma-mini-label">الاعتدال</div>
+                    <div class="analemma-mini-row">
+                      <div class="analemma-mini-frame">
+                        <canvas class="analemma-mini-chart" data-mini="equinox"></canvas>
+                        <div class="analemma-mini-note">
+                          الأفقي: <span class="analemma-mini-value" data-mini-value="equinox-h">0.00</span>°<br>
+                          العمودي: <span class="analemma-mini-value" data-mini-value="equinox-v">0.00</span>°
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="analemma-mini-block">
+                    <div class="analemma-mini-label">الانقلاب</div>
+                    <div class="analemma-mini-row">
+                      <div class="analemma-mini-frame">
+                        <canvas class="analemma-mini-chart" data-mini="solstice"></canvas>
+                        <div class="analemma-mini-note">
+                          الأفقي: <span class="analemma-mini-value" data-mini-value="solstice-h">0.00</span>°<br>
+                          العمودي: <span class="analemma-mini-value" data-mini-value="solstice-v">0.00</span>°
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="analemma-card-chart">
+                  <div class="analemma-legend">
+                    <span class="analemma-legend-item"><span class="analemma-swatch" style="--swatch:#7ee787;"></span>عامل الميل</span>
+                  </div>
+                  <canvas id="obliquityChart" width="800" height="360"></canvas>
+                </div>
+              </div>
+              <div class="analemma-key-row">
+                <span class="analemma-key-label">عامل الميل</span>
+                <span class="analemma-key-value" id="obliqKeyValue">--</span>
+              </div>
+</div>
+
+            </section>
+            <section class="analemma-card is-collapsed" id="analemmaCardEcc">
+              <div class="analemma-card-header">
+
+                <h4 class="analemma-card-title">سرعة المدار (اللامركزية)</h4>
+
+                <button class="analemma-card-toggle" type="button" aria-expanded="false" aria-controls="analemmaCardEccBody" data-label-collapse="طي" data-label-expand="توسيع">توسيع</button>
+
+              </div>
+
+              <div class="analemma-card-content" id="analemmaCardEccBody" hidden>
+              <p class="analemma-card-lede">
+                افترضنا في مكون الميل المحور ان نقطة تعامد الشمس تتحرك بمقدار درجة واحدة كل يوم نجمي. لكن في الواقع مقدار الحركة يتغير عبر السنة<br>
+                الرسم البياني يوضح نمط التغير. حيث تتحرك نقطة تعامد الشمس بمقدار اكبر في شهر 1 مقارنة بشهر 7 وذلك بسبب تغير سرعة دوران الأرض حول الشمس. حيث تكون الأرض اسرع وقت الحضيض وأبطأ وقت الأوج
+              </p>
+              <div class="analemma-card-body">
+                <div class="analemma-card-chart">
+                  <div class="analemma-legend">
+                    <span class="analemma-legend-item"><span class="analemma-swatch" style="--swatch:#78c8ff;"></span>زاوية إضافية</span>
+                    <span class="analemma-legend-item"><span class="analemma-swatch" style="--swatch:#ffd655;"></span>متوسط</span>
+                  </div>
+                  <canvas id="eccentricityChart" width="800" height="360"></canvas>
+                </div>
+              </div>
+              <div class="analemma-key-row">
+                <span class="analemma-key-label">الزاوية الإضافية</span>
+                <span class="analemma-key-value" id="eccKeyValue">--</span>
+              </div>
+</div>
+
+            </section>
+          </div>
+        </div>
+        <div class="analemma-tab-panel" data-tab="combined">
+          <div class="analemma-combined-grid">
+            <div class="analemma-inset-embed" id="analemmaInsetBox"
+              data-caption-sidereal="مقارنة خط الطول للشمس المتوسطة والحقيقية خلال يوم نجمي واحد.">
+              <canvas id="analemmaInset" width="800" height="500"></canvas>
+              <div id="analemmaInsetCaption" class="analemma-inset-caption"></div>
+            </div>
+            <div class="analemma-combined-sidebar">
+              <div class="analemma-combined-chart">
+                <div class="analemma-combined-chart-heading">معادلة الزمن</div>
+                <div class="analemma-combined-chart-legend"><span><span class="swatch" style="background:#ffd655;"></span>المحصلة</span></div>
+                <canvas id="analemmaCombinedChart" width="320" height="240"></canvas>
+              </div>
+              <div class="analemma-combined-inspector" aria-live="polite">
+                <div class="analemma-inspector-heading"><span>معادلة الزمن</span><span class="analemma-inspector-caption">معادلة الزمن</span></div>
+                <div class="analemma-inspector-value">
+                  <span id="analemmaEoTValue">معادلة الزمن --</span>
+                  <span class="analemma-inspector-diff" id="analemmaEoTDelta">الفرق اليومي: +--د --ث</span>
+                </div>
+                <div class="analemma-inspector-detail" id="analemmaEoTDetail">--</div>
+                <div class="analemma-inspector-row" aria-label="مساهمات المكونات">
+                  <span class="analemma-inspector-chip" id="analemmaInspectorEcc">اللامركزية --°</span>
+                  <span class="analemma-inspector-chip" id="analemmaInspectorObliq">معامل الضغط --x</span>
+                  <span class="analemma-inspector-chip" id="analemmaInspectorCombined">الفرق اليومي = --° - (--° + --°) * --x = --° (+--د --ث)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="analemmaTooltip" class="analemma-tooltip" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+  <div id="sidePanels">
+    <div id="controls">
+    <div class="section" style="display:none;">
+      <h3 id="sunMoonHeading">الشمس والقمر</h3>
+        <label id="sunVisLabel"><input id="toggleSunVisibility" type="checkbox" checked /> <span id="sunVisText">إظهار الليل</span></label>
+      
+    </div>
+
+    <div class="section" style="display:none;">
+      <h3 id="cameraHeading">الكاميرا</h3>
+      <div class="segment-group" id="cameraSegments">
+        <button data-mode="geo" class="active">متزامنة أرضياً</button>
+        <button data-mode="sun">متزامنة مع الشمس</button>
+        <button data-mode="dawn">الفجر</button>
+        <button data-mode="dusk">الغروب</button>
+      </div>
+    </div>
+
+    <div class="section" style="display:none;">
+      <h3 id="twilightHeading">نطاق الشفق</h3>
+      <label class="row inputs-inline" style="margin-top:2px; align-items:flex-start; gap:10px;">
+        <span id="twilightLimitLabel" style="min-width:130px;">حد الشفق (درجات تحت الأفق):</span>
+        <div style="display:flex; flex-direction:column; gap:4px; width:100%;">
+          <input id="twilightAngle" type="range" min="0" max="18" step="0.5" value="18" />
+          <span id="twilightValue" style="font-size:12px; color:#cfdcff;">18 درجة</span>
+        </div>
+      </label>
+    </div>
+
+    <div class="section" style="display:none;">
+      <h3 id="pointsHeading">النقاط</h3>
+      <label id="pointALabel">النقطة أ (خط عرض/طول) <span style="color:#ff6699;">&bull;</span></label>
+      <div class="row inputs-inline">
+        <input id="lat1" type="number" step="0.1" />
+        <input id="lon1" type="number" step="0.1" />
+      </div>
+      <label id="pointBLabel">النقطة ب (خط عرض/طول) <span style="color:#66ff99;">&bull;</span></label>
+      <div class="row inputs-inline">
+        <input id="lat2" type="number" step="0.1" />
+        <input id="lon2" type="number" step="0.1" />
+      </div>
+      <div class="row" style="margin-top:6px;">
+        <button id="plotBtn">ارسم النقاط</button>
+        <button id="clearPointsBtn" style="background:#444a5a;">مسح</button>
+      </div>
+    </div>
+
+  </div>
+  <div id="dataPanel" style="display:none;">
+    <h3 id="dataHeading">بيانات الشمس والقمر</h3>
+    <div id="subpoints" style="font-size:12px; line-height:1.4;"></div>
+    <div id="durations" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;"></div>
+    <div id="pointMetrics" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;"></div>
+    <div id="hoverBox" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;">
+      <div id="hoverLabel"></div>
+    </div>
+  </div>
+  </div>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.module.js",
+        "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.js"></script>
+
+  <script type="module" src="earthViewer.js"></script>
+  <footer>
+    Texture map credit: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a>
+    <div style="margin-top:4px;">Questions/feedback: <a href="mailto:qibla-site@proton.me">qibla-site@proton.me</a></div>
+  </footer>
+</body>
+</html>
+
+
+
+
+
+
+
+

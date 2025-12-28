@@ -1,0 +1,178 @@
+{
+  "faq_question_compare_points": {
+    "en": "How do I compare two locations?",
+    "ar": "كيف أقارن بين موقعين؟"
+  },
+  "faq_answer_compare_points": {
+    "en": "Enter Point A/B or click the globe; the great-circle path shows distance and initial heading.",
+    "ar": "أدخل النقطتين أ/ب أو انقر الكرة؛ يظهر مسار الدائرة العظمى مع المسافة والاتجاه الابتدائي."
+  },
+  "faq_question_camera_modes": {
+    "en": "How do I keep the view aligned with daylight?",
+    "ar": "كيف أجعل العرض متوافقاً مع النهار؟"
+  },
+  "faq_answer_camera_modes": {
+    "en": "Use Sun-sync, Dawn, or Dusk camera modes to follow the subsolar point or terminator line.",
+    "ar": "استخدم أوضاع الكاميرا متزامن مع الشمس/الفجر/الغروب لتتبع النقطة تحت الشمس أو خط الفصل."
+  },
+  "faq_question_seasons_inset": {
+    "en": "What does the seasons inset show?",
+    "ar": "ماذا يعرض ملحق الفصول؟"
+  },
+  "faq_answer_seasons_inset": {
+    "en": "It charts daylight and twilight duration through the year for your latitude and highlights today.",
+    "ar": "يعرض مدة النهار والشفق عبر السنة لخط عرضك ويحدد اليوم الحالي."
+  },
+  "faq_heading": {
+    "en": "FAQ",
+    "ar": "الأسئلة الشائعة"
+  },
+  "faq_question_day_night": {
+    "en": "How do I explore day and night changes?",
+    "ar": "كيف أستكشف تغيرات النهار والليل؟"
+  },
+  "faq_answer_day_night": {
+    "en": "Start the seasons tour, pick a point, and step through equinoxes and solstices to see daylight and twilight update.",
+    "ar": "ابدأ جولة الفصول، اختر نقطة، وتنقّل بين الاعتدالات والانقلابات لترى طول النهار وتدرّج الشفق (قبل الشروق وبعد الغروب)."
+  },
+  "faq_question_equation_of_time": {
+    "en": "What does the equation-of-time inset show?",
+    "ar": "ماذا يعرض مخطط معادلة الزمن؟"
+  },
+  "faq_answer_equation_of_time": {
+    "en": "It compares the reference (expected) solar longitude against the apparent (real) solar longitude over the next sidereal day and visualizes how longitude is squeezed by declination.",
+    "ar": "يقارن المخطط بين الموقع \"المرجعي\" المتوقع للشمس وبين موقعها الظاهري الحقيقي خلال اليوم النجمي التالي، ويعرض متجه الحركة. كما يوضّح أن الإزاحة على خطوط الطول تُضغط بعامل ‎cos(δ)‎ بسبب الميل (δ)، لذلك قد لا تقابل «درجة واحدة» على دائرة البروج درجة واحدة على خطوط طول الأرض."
+  },
+  "faq_question_overlays": {
+    "en": "Can I toggle overlays?",
+    "ar": "هل يمكنني تشغيل الطبقات؟"
+  },
+  "faq_answer_overlays": {
+    "en": "Use Twilight Band to set the horizon offset and the Night visibility checkbox to enable/disable the night overlay.",
+    "ar": "استخدم نطاق الشفق لتحديد البعد عن الأفق ومربع إظهار الليل لتفعيل أو إيقاف طبقة الليل."
+  },
+  "tour_seasons_step0_body": {
+    "en": "Click the globe (or enter lat/lon and press \"Use typed point\"). We will track how daylight changes here.",
+    "ar": "اختر موقعاً على الأرض (بالنقر على الكرة أو بإدخال خط العرض/الطول). سنرى كيف يتغير طول النهار والليل هناك."
+  },
+  "tour_seasons_step1_body": {
+    "en": "Day and night are roughly equal everywhere. Your point should see ~12h daylight.",
+    "ar": "الاعتدال الربيعي: طول النهار والليل متقارب في معظم الأماكن، وموقعك يرى تقريباً 12 ساعة نهار."
+  },
+  "tour_seasons_step2_body": {
+    "en": "Northern points enjoy longer days; southern points get shorter ones.",
+    "ar": "الانقلاب الصيفي: في الشمال يطول النهار، وفي الجنوب يقصر."
+  },
+  "tour_seasons_step3_body": {
+    "en": "Day and night balance again as the subsolar point crosses the equator.",
+    "ar": "الاعتدال الخريفي: تعود ساعات النهار والليل للتوازن تقريباً مع عبور نقطة تعامد الشمس خط الاستواء."
+  },
+  "tour_seasons_step4_body": {
+    "en": "Southern summer / northern winter. Daylight flips from June.",
+    "ar": "الانقلاب الشتوي: صيف في الجنوب وشتاء في الشمال، وينعكس طول النهار عمّا كان في يونيو."
+  },
+  "tour_analemma_step0_title": {
+    "en": "Choose a point",
+    "ar": "اختر موقعاً"
+  },
+  "tour_analemma_step0_body": {
+    "en": "Pick a site; we will compare the mean (reference) Sun with the apparent Sun at your meridian.",
+    "ar": "اختر موقعا؛ سنقارن الشمس المتوسطة (المرجعية) بالشمس الظاهرية عند خط الزوال لديك."
+  },
+  "tour_analemma_step1_body": {
+    "en": "Start near the day when equation of time is ~0. At local noon the mean and real Sun align over your longitude. Inset: top compares mean vs real longitude over one sidereal day; bottom shows the real daily motion vector with longitude scaled by cos(dec).",
+    "ar": "نبدأ قرب اليوم الذي تكون فيه معادلة الزمن قرابة الصفر. عند الظهر المحلي تتطابق الشمس المتوسطة والحقيقية فوق خط طولك. المخطط المصغر: في الاعلى نقارن خط الطول المتوسط والحقيقي خلال يوم نجمي واحد؛ في الاسفل نعرض متجه الحركة اليومية الحقيقي مع ضغط مركبة خط الطول بعامل cos(dec)."
+  },
+  "tour_analemma_step2_body": {
+    "en": "Near perihelion in early January Earth moves faster, so the apparent Sun runs ahead of the mean Sun. Solar noon shifts earlier, stretching the analemma east-west.",
+    "ar": "قرب الحضيض في اوائل يناير تتحرك الارض اسرع، فتتقدم الشمس الظاهرية على الشمس المتوسطة. يتقدم الظهر الشمسي، ويتمدّد الاناليمّا افقيا شرقا وغربا."
+  },
+  "tour_analemma_step3_body": {
+    "en": "Around solstice the Sun is far north or south. Its daily motion tilts out of the equatorial plane, so the east-west component is compressed by cos(dec). This adds the vertical loop and another time offset.",
+    "ar": "حول الانقلاب تكون الشمس بعيدة شمالا او جنوبا. تميل حركتها اليومية خارج مستوى خط الاستواء، لذلك يضغط المكون الشرقي/الغربي بعامل cos(dec). هذا يضيف الحلقة العمودية وازاحة زمنية اخرى."
+  },
+  "tour_analemma_step4_body": {
+    "en": "Hold mean noon fixed at your longitude and step through a full year. The real subsolar point traces the analemma as eccentricity and tilt combine.",
+    "ar": "ثبت الظهر المتوسط عند خط طولك وتقدم يوما بعد يوم عبر سنة كاملة. يرسم موضع الشمس الحقيقي (نقطة التعامد) شكل الاناليمّا عند تداخل الشذوذ والميل."
+  },
+  "tour_analemma_step5_body": {
+    "en": "Use the date/time input to jump anywhere; the inset and equation-of-time readout update for your longitude.",
+    "ar": "استخدم ادخال التاريخ/الوقت للانتقال الى اي لحظة؛ ويتحدث المخطط وقيمة معادلة الزمن وفق خط طولك."
+  },
+  "seasons_inset_heading_today": {
+    "en": "Today at this latitude",
+    "ar": "في هذا اليوم على دائرة العرض المختارة"
+  },
+  "seasons_inset_label_daylight": {
+    "en": "Daylight: {hours}",
+    "ar": "مدة النهار (من الشروق إلى الغروب): {hours}"
+  },
+  "seasons_inset_label_twilight_duration_with_angle": {
+    "en": "Twilight duration (-{angle} deg): {hours}",
+    "ar": "مدة الشفق (−{angle}°): {hours}"
+  },
+  "seasons_inset_label_twilight_duration": {
+    "en": "Twilight duration: {hours}",
+    "ar": "مدة الشفق: {hours}"
+  },
+  "seasons_inset_label_local_solar_time": {
+    "en": "Local solar time: {hhmm}",
+    "ar": "الوقت الشمسي المحلي: {hhmm}"
+  },
+  "seasons_inset_label_day": {
+    "en": "Day",
+    "ar": "النهار"
+  },
+  "seasons_inset_label_night": {
+    "en": "Night",
+    "ar": "الليل"
+  },
+  "tour_seasons_title": {
+    "en": "Day/night through the seasons",
+    "ar": "النهار/الليل عبر الفصول"
+  },
+  "tour_seasons_step0_title": {
+    "en": "Pick a place",
+    "ar": "اختر موقعاً"
+  },
+  "tour_seasons_step1_title": {
+    "en": "March equinox",
+    "ar": "الاعتدال الربيعي"
+  },
+  "tour_seasons_step2_title": {
+    "en": "June solstice",
+    "ar": "الانقلاب الصيفي"
+  },
+  "tour_seasons_step3_title": {
+    "en": "September equinox",
+    "ar": "الاعتدال الخريفي"
+  },
+  "tour_seasons_step4_title": {
+    "en": "December solstice",
+    "ar": "الانقلاب الشتوي"
+  },
+  "tour_analemma_title": {
+    "en": "Analemma (equation of time)",
+    "ar": "الأنالِمَّة (معادلة الزمن)"
+  },
+  "tour_analemma_step1_title": {
+    "en": "Baseline: mean noon",
+    "ar": "الخط الاساس: الظهر المتوسط"
+  },
+  "tour_analemma_step2_title": {
+    "en": "Eccentricity (speed change)",
+    "ar": "الشذوذ المداري (تغير السرعة)"
+  },
+  "tour_analemma_step3_title": {
+    "en": "Obliquity (tilt projection)",
+    "ar": "الميل المحوري (اسقاط الحركة)"
+  },
+  "tour_analemma_step4_title": {
+    "en": "Full-year trace",
+    "ar": "تتبع سنة كاملة"
+  },
+  "tour_analemma_step5_title": {
+    "en": "Explore any date",
+    "ar": "استكشف اي تاريخ"
+  }
+}

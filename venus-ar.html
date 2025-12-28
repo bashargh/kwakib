@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="رؤية الزهرة من الأرض مع تعامد الشمس والزهرة وخط الليل ونطاقات الشفق." />
+  <link rel="canonical" href="https://kwakib.netlify.app/venus-ar.html" />
+  <link rel="alternate" hreflang="en" href="https://kwakib.netlify.app/venus.html" />
+  <link rel="alternate" hreflang="ar" href="https://kwakib.netlify.app/venus-ar.html" />
+  <link rel="alternate" hreflang="x-default" href="https://kwakib.netlify.app/venus.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="رؤية الزهرة من الأرض | خريطة الظهور" />
+  <meta property="og:description" content="رؤية الزهرة من الأرض مع تعامد الشمس والزهرة وخط الليل ونطاقات الشفق." />
+  <meta property="og:image" content="https://kwakib.netlify.app/2k_earth_daymap.jpg" />
+  <meta property="og:url" content="https://kwakib.netlify.app/venus-ar.html" />
+  <meta property="og:locale" content="ar_AR" />
+  <meta property="og:site_name" content="Qibla Earth Simulator" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="رؤية الزهرة من الأرض | خريطة الظهور" />
+  <meta name="twitter:description" content="رؤية الزهرة من الأرض مع تعامد الشمس والزهرة وخط الليل ونطاقات الشفق." />
+  <meta name="twitter:image" content="https://kwakib.netlify.app/2k_earth_daymap.jpg" />
+  <script type="application/ld+json">
+
+    {
+
+      "@context": "https://schema.org",
+
+      "@type": "BreadcrumbList",
+
+      "itemListElement": [
+
+        {
+
+          "@type": "ListItem",
+
+          "position": 1,
+
+          "name": "Home",
+
+          "item": "https://kwakib.netlify.app/"
+
+        },
+
+        {
+
+          "@type": "ListItem",
+
+          "position": 2,
+
+          "name": "رؤية الزهرة من الأرض",
+
+          "item": "https://kwakib.netlify.app/venus-ar.html"
+
+        }
+
+      ]
+
+    }
+
+  </script>
+  <script type="application/ld+json">
+
+    {
+
+      "@context": "https://schema.org",
+
+      "@graph": [
+
+        {
+
+          "@type": "WebSite",
+
+          "@id": "https://kwakib.netlify.app/#website",
+
+          "name": "Qibla Earth Simulator",
+
+          "url": "https://kwakib.netlify.app/"
+
+        },
+
+        {
+
+          "@type": "WebPage",
+
+          "name": "رؤية الزهرة من الأرض",
+
+          "url": "https://kwakib.netlify.app/venus-ar.html",
+
+          "description": "رؤية الزهرة من الأرض مع تعامد الشمس والزهرة وخط الليل ونطاقات الشفق.",
+
+          "isPartOf": {
+
+            "@id": "https://kwakib.netlify.app/#website"
+
+          },
+
+          "inLanguage": "ar"
+
+        },
+
+        {
+
+          "@type": "FAQPage",
+
+          "url": "https://kwakib.netlify.app/venus-ar.html#faq",
+
+          "mainEntity": [
+
+            {
+
+              "@type": "Question",
+
+              "name": "لماذا تُرى الزهرة بعد الغروب أو قبل الشروق؟",
+
+              "acceptedAnswer": {
+
+                "@type": "Answer",
+
+                "text": "لأن الزهرة تدور أقرب إلى الشمس فتظهر قرب اتجاهها، لذلك تُرى في الشفق المسائي أو الصباحي قرب الأفق."
+
+              }
+
+            },
+
+            {
+
+              "@type": "Question",
+
+              "name": "كيف أجد الزهرة في السماء؟",
+
+              "acceptedAnswer": {
+
+                "@type": "Answer",
+
+                "text": "انظر قرب اتجاه شروق أو غروب الشمس، واستخدم الأسهم في الإطار لقراءة السمت والارتفاع لموقعك ووقتك."
+
+              }
+
+            }
+
+          ]
+
+        }
+
+      ]
+
+    }
+
+  </script>
+  <title>رؤية الزهرة من الأرض | خريطة الظهور</title>
+  <!-- Dev note: Built with OpenAI Codex. Generation prompt stored in venus_codex_prompt.md (linked in footer, not visible in UI). -->
+  <link rel="stylesheet" href="viewerBase.css" />
+  <link rel="stylesheet" href="venusViewer.css" />
+</head>
+<body class="venus-page">
+  <h1 class="sr-only">رؤية الزهرة من الأرض</h1>
+  <div id="scene"></div>
+  <button id="toggleInfoBtn" class="floating-btn" title="إظهار أو إخفاء لوحة المعلومات">معلومات</button>
+  <button id="toggleControlsBtn" class="floating-btn">عناصر التحكم</button>
+  <div id="langSwitcher">
+    <a id="langLinkEn" href="venus.html">English</a> |
+    <a id="langLinkAr" href="venus-ar.html" class="active">العربية</a>
+  </div>
+  <div class="topic-select" aria-label="مواضيع الأرض">
+    <label for="topicSelect">مواضيع الأرض</label>
+        <select id="topicSelect">
+      <option value="earth-ar.html">نظرة عامة على الأرض</option>
+      <option value="earth-seasons-ar.html">جولة الفصول</option>
+      <option value="earth-analemma-ar.html">جولة الأناليمّا</option>
+      <option value="planets-ar.html">الكواكب</option>
+      <option value="venus-ar.html">رؤية الزهرة</option>
+    </select>
+  </div>
+  <script type="module" src="topicSelect.js"></script>
+    <div id="tourPanel">
+    <div class="tour-title" style="margin:0;">السماء المحلية (الشمس والزهرة)</div>
+    <div class="tour-body">عرض للنظام الشمسي مع السماء المحلية: استخدم أدوات الزمن للتحريك، ودوّر اللوحة لرؤية الاتجاهات.</div>
+    <canvas id="orbitCanvas" width="320" height="320" style="width:100%; height:auto; margin-top:6px; background:#0b1222; border:1px solid #2a89ff; border-radius:8px;"></canvas>
+    <div id="sky3dContainer" style="margin-top:8px;">
+      <div id="skyHint">اختر نقطة لرؤية اتجاهات السماء المحلية.</div>
+      <div id="skySunWarning">الشمس فوق الأفق</div>
+    </div>
+    <div id="venusReadout"></div>
+    <div id="dataPanel" style="margin-top:10px;">
+      <h3>بيانات الشمس والزهرة</h3>
+      <div id="subpoints" style="font-size:12px; line-height:1.4;"></div>
+      <div id="orbitData" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;"></div>
+      <div id="localTime" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;"></div>
+      <div id="skyView"></div>
+      <div id="hoverBox" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;">
+        <div id="hoverLabel"></div>
+      </div>
+    </div>
+  </div>
+  <div id="infoPanel">
+    <h2>رؤية الزهرة من الأرض</h2>
+    <p>اعرف موضع الشمس والزهرة فوق الأرض مع رسم مبسط لمركزية الشمس.</p>
+    <ul>
+      <li>ارسم نقطة مخصصة (خط عرض/خط طول) مع حلقات تمييز.</li>
+      <li>راقب نقاط تحت الشمس وتحت الزهرة مع طبقات رؤية النهار.</li>
+      <li>حرّك التاريخ/الوقت أو اقفز بالشهور لتحريك الآثار.</li>
+      <li>بدّل طبقات الشمس/الزهرة واطلع على قراءات النقاط رقميا.</li>
+      <li>فعّل الكاميرا المتزامنة مع الشمس لتتبع نقطة تحت الشمس.</li>
+      <li>استخدم منظور خط الفجر/الغروب للبقاء في مركز خط الفصل.</li>
+      <li>أظهر نطاقات الشفق مع ضبط زاوية انخفاض الشمس تحت الأفق.</li>
+      <li>لوحة السماء المحلية تعرض أسهما للشمس/الزهرة؛ دوّرها لقراءة الاتجاهات.</li>
+    </ul>
+    <div id="faq">
+      <div class="q">س: لماذا تُرى الزهرة بعد الغروب أو قبل الشروق؟</div>
+      <div class="a">ج: لأن مدار الزهرة أقرب إلى الشمس، فتظل قريبة من اتجاه الشمس وتظهر في الشفق قرب الأفق.</div>
+      <div class="q" style="margin-top:6px;">س: كيف أجد الزهرة في السماء؟</div>
+      <div class="a">ج: ابحث قرب اتجاه غروب أو شروق الشمس، واستعمل أسهم اللوحة لقراءة السمت والارتفاع لموقعك ووقتك.</div>
+    </div>
+  </div>
+  <div id="sidePanels">
+    <div id="controls">
+    <div class="section" title="ضبط الوقت بالتوقيت العالمي؛ أزرار الشهر تغيّر التاريخ شهرياً.">
+      <h3>الوقت والتحريك</h3>
+      <label>التاريخ/الوقت (UTC)</label>
+      <div class="row">
+        <input id="datetime" type="text" style="flex:1; min-width: 0;" placeholder="YYYY-MM-DDTHH:MM" title="Format: YYYY-MM-DDTHH:MM" />
+        <button id="resetNowBtn" title="اضبط على الوقت الحالي">الآن</button>
+      </div>
+      <div class="row" style="margin-top:6px;">
+        <button id="monthMinusBtn" title="الرجوع شهرًا">-1 شهر</button>
+        <button id="monthPlusBtn" title="التقدّم شهرًا">+1 شهر</button>
+        <button class="timeStep" data-unit="day" data-delta="-1">-1 يوم</button>
+        <button class="timeStep" data-unit="day" data-delta="1">+1 يوم</button>
+      </div>
+      <div class="row" style="margin-top:6px;">
+        <button class="timeStep" data-unit="hour" data-delta="-1">-1 ساعة</button>
+        <button class="timeStep" data-unit="hour" data-delta="1">+1 ساعة</button>
+        <button class="timeStep" data-unit="minute" data-delta="-10">-10 دقيقة</button>
+        <button class="timeStep" data-unit="minute" data-delta="10">+10 دقيقة</button>
+      </div>
+    </div>
+
+    <div class="section collapsible" id="sunVenusSection">
+      <div class="section-header" data-target="sunVenusSection" tabindex="0" role="button" aria-controls="sunVenusSection"><span>الشمس والزهرة</span><span class="chevron">▾</span></div>
+      <div class="section-body">
+        <label><input id="toggleSunVisibility" type="checkbox" checked /> إظهار الليل</label>
+        <label><input id="toggleVenusVisibility" type="checkbox" checked /> إظهار الزهرة (بنفسجي)</label>
+        <label><input id="toggleSkyArrows" type="checkbox" checked /> أسهم السماء المحلية (الشمس والزهرة)</label>
+      </div>
+    </div>
+
+    <div class="section collapsible" id="cameraSection">
+      <div class="section-header" data-target="cameraSection" tabindex="0" role="button" aria-controls="cameraSection"><span>الكاميرا</span><span class="chevron">▾</span></div>
+      <div class="section-body">
+        <div class="segment-group" id="cameraSegments">
+          <button data-mode="geo" class="active">تزامن جغرافي</button>
+          <button data-mode="sun">تزامن مع الشمس</button>
+          <button data-mode="dawn">الفجر</button>
+          <button data-mode="dusk">الغروب</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section collapsible" id="twilightSection">
+      <div class="section-header" data-target="twilightSection" tabindex="0" role="button" aria-controls="twilightSection"><span>نطاق الشفق</span><span class="chevron">▾</span></div>
+      <div class="section-body">
+        <label class="row inputs-inline" style="margin-top:2px; align-items:flex-start; gap:10px;">
+          <span style="min-width:130px;">حد الشفق (درجات تحت الأفق):</span>
+          <div style="display:flex; flex-direction:column; gap:4px; width:100%;">
+            <input id="twilightAngle" type="range" min="0" max="18" step="0.5" value="18" />
+              <span id="twilightValue" style="font-size:12px; color:#cfdcff;">18 درجة</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="section collapsible" id="pointSection">
+      <div class="section-header" data-target="pointSection" tabindex="0" role="button" aria-controls="pointSection"><span>نقطة</span><span class="chevron">▾</span></div>
+      <div class="section-body">
+        <label>النقطة المختارة (خط عرض، خط طول) <span style="color:#ffaa33;">&bull;</span></label>
+        <div class="row inputs-inline">
+          <input id="lat1" type="number" step="0.1" />
+          <input id="lon1" type="number" step="0.1" />
+        </div>
+        <div class="row" style="margin-top:6px;">
+          <button id="plotBtn">ارسم النقطة</button>
+          <button id="clearPointsBtn" style="background:#444a5a;">مسح</button>
+        </div>
+        <div style="margin-top:6px; font-size:12px; color:#cfdcff;">انقر على الكرة لتحديد النقطة أو تحديثها.</div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.module.js",
+        "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.js"></script>
+  <script src="https://unpkg.com/tz-lookup@6.1.25/tz.js"></script>
+
+  <script type="module" src="venusViewer.js"></script>
+  <footer>
+    Texture map credit: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a>
+    <div style="margin-top:4px;">Questions/feedback: <a href="mailto:qibla-site@proton.me">qibla-site@proton.me</a></div>
+    <div style="margin-top:4px; font-size:11px;">Generated via Codex (GPT-5); <a href="venus_codex_prompt.md" target="_blank" rel="noopener">generation prompt</a></div>
+  </footer>
+  <button id="creditsToggle">Credits</button>
+</body>
+</html>
+
+
+

@@ -1,0 +1,316 @@
+html, body { margin: 0; height: 100%; overflow-x: hidden; overflow-y: auto; background:#020712; color:#eee; }
+    .collapsible {
+      padding: 0;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 6px;
+      padding: 10px 10px 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .section-header span {
+      font-size: 13px;
+      color: #9dc5ff;
+    }
+    .section-header .chevron {
+      font-size: 12px;
+      color: #cfdcff;
+      order: -1;
+    }
+    .section-body {
+      padding: 0 10px 10px;
+    }
+    .collapsed .section-body { display: none; }
+    .collapsed .chevron { transform: rotate(-90deg); }
+    .segment-group button.active {
+      background: #2a89ff;
+      color: #fff;
+    }
+    .floating-btn {
+      position: fixed;
+      z-index: 30;
+      padding: 6px 10px;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid #2a89ff;
+      color: #e6e6e6;
+      border-radius: 8px;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      cursor: pointer;
+      white-space: nowrap;
+      max-width: 140px;
+      text-align: center;
+    }
+    #langSwitcher {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 8px;
+      z-index: 65;
+      padding: 6px 10px;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid #2a89ff;
+      border-radius: 8px;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      color: #cfdcff;
+      white-space: nowrap;
+    }
+    #langSwitcher a {
+      color: #9dc5ff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    #langSwitcher a.active {
+      color: #fff;
+      cursor: default;
+      text-decoration: none;
+    }
+    #langSwitcher a:hover { text-decoration: underline; }
+    #toggleInfoBtn { left: 12px; top: 12px; }
+    #toggleControlsBtn { right: 12px; bottom: 12px; }
+    @media (min-width: 901px) {
+      #toggleControlsBtn { right: 12px; top: 12px; bottom: auto; }
+    }
+    @media (max-width: 900px) {
+      #sidePanels {
+        position: fixed;
+        left: 8px;
+        right: 8px;
+        bottom: 8px;
+        top: auto;
+        width: auto;
+        max-height: 50vh;
+        overflow-y: auto;
+        gap: 8px;
+        pointer-events: auto;
+      }
+      #controls, #dataPanel {
+        width: 100%;
+      }
+      #desktopHint { display: none; }
+    }
+    #infoPanel {
+      position: absolute;
+      left: 12px;
+      top: 44px;
+      width: 374px;
+      box-sizing: border-box;
+      background: rgba(0,0,0,0.6);
+      padding: 10px 12px;
+      border: 1px solid #2a89ff;
+      border-radius: 8px;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      color: #e6e6e6;
+      line-height: 1.5;
+    }
+    #infoPanel h2 {
+      margin: 0 0 6px;
+      font-size: 15px;
+      color: #9dc5ff;
+    }
+    #infoPanel ul {
+      margin: 6px 0 0 16px;
+      padding: 0;
+    }
+    #infoPanel li { margin-bottom: 4px; }
+    html[dir="rtl"] #infoPanel ul {
+      margin: 6px 0 0 0;
+      padding-right: 16px;
+      padding-left: 0;
+      list-style-position: inside;
+    }
+    #faq {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #e6e6e6;
+      line-height: 1.45;
+    }
+    #faq .q { font-weight: bold; color: #cfe2ff; }
+    #faq .a { margin-left: 6px; color: #cfdcff; }
+    #dataPanel {
+      background: rgba(0,0,0,0.6);
+      padding: 10px 12px;
+      border: 1px solid #2a89ff;
+      border-radius: 8px;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      color: #e6e6e6;
+      line-height: 1.5;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    #dataPanel h3 {
+      margin: 0 0 6px;
+      font-size: 14px;
+      color: #9dc5ff;
+    }
+    footer {
+      position: fixed;
+      left: 12px;
+      bottom: 52px;
+      padding: 8px 10px;
+      background: rgba(0,0,0,0.8);
+      border: 1px solid #2a89ff;
+      border-radius: 8px;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      color: #cfdcff;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+      display: none;
+      z-index: 40;
+      max-width: 280px;
+    }
+    footer.show { display: block; }
+    #creditsToggle {
+      position: fixed;
+      left: 12px;
+      bottom: 12px;
+      padding: 7px 12px;
+      background: rgba(0,0,0,0.8);
+      border: 1px solid #2a89ff;
+      border-radius: 20px;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      color: #cfdcff;
+      cursor: pointer;
+      z-index: 42;
+      display: block;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+    }
+    footer a {
+      color: #8fb5ff;
+      text-decoration: none;
+    }
+    footer a:hover { text-decoration: underline; }
+    #tourPanel {
+      position: fixed;
+      left: 12px;
+      top: 64px;
+      width: 374px;
+      max-width: calc(100vw - 24px);
+      box-sizing: border-box;
+      background: rgba(4,9,18,0.9);
+      border: 1px solid #2a89ff;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      color: #e6e6e6;
+      display: block;
+      z-index: 15;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+    #tourPanel .tour-title {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: #cfe2ff;
+    }
+    #tourPanel .tour-body {
+      line-height: 1.45;
+      margin-bottom: 6px;
+    }
+    .seo-blurb-ar{padding:10px 12px;color:#cfdcff;font-size:13px;line-height:1.6;direction:rtl;text-align:right}
+    .faq-ar{padding:10px 12px;color:#cfdcff;font-size:13px;line-height:1.6;direction:rtl;text-align:right}
+    .sr-only{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .seo-blurb-ar{padding:10px 12px;color:#cfdcff;font-size:13px;line-height:1.6;direction:rtl;text-align:right}
+    #sky3dContainer {
+      width: 100%;
+      height: 360px;
+      background: #0b1222;
+      border: 1px solid #2a89ff;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      box-sizing: border-box;
+    }
+    #skyHint {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 10px;
+      font-size: 12px;
+      color: #cfdcff;
+      background: rgba(11, 18, 34, 0.65);
+      pointer-events: none;
+      z-index: 2;
+    }
+    #skySunWarning {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(255, 190, 80, 0.2);
+      border: 1px solid rgba(255, 190, 80, 0.6);
+      color: #ffd9a6;
+      font-size: 11px;
+      letter-spacing: 0.2px;
+      display: none;
+      z-index: 2;
+      pointer-events: none;
+    }
+    #sky3dContainer.sun-visible {
+      box-shadow: inset 0 0 30px rgba(255, 170, 80, 0.35);
+    }
+    .planets-page #sky3dContainer { height: 360px; }
+@media (min-width: 901px) {
+      .venus-page #tourPanel { width: 440px; }
+      .planets-page #tourPanel { width: 440px; }
+      .planets-page #sidePanels { width: 360px; }
+    }
+    #orbitCanvas {
+      box-sizing: border-box;
+      width: 100% !important;
+      max-width: 100%;
+      height: auto !important;
+      display: block;
+    }
+    #venusReadout, #planetsReadout {
+      margin-top: 6px;
+      font-size: 13px;
+      color: #cfe2ff;
+      line-height: 1.5;
+    }
+    #skyView {
+      font-size: 12px;
+      line-height: 1.4;
+      margin-top: 6px;
+      color: #cfdcff;
+    }
+    @media (max-width: 900px) {
+      html, body { overflow-y: auto; }
+      #toggleControlsBtn, #toggleInfoBtn { display: none; }
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+      }
+      #scene { order: 1; width: 100%; height: 60vh; min-height: 280px; position: relative; margin: 0 auto; }
+      #sidePanels { order: 2; }
+      #tourPanel { order: 3; }
+      #infoPanel { order: 4; }
+      footer { order: 5; }
+      #tourPanel, #infoPanel, #sidePanels, footer {
+        position: static;
+        width: calc(100% - 16px);
+        max-width: calc(100% - 16px);
+        margin: 8px;
+        left: auto;
+        top: auto;
+      }
+      #tourPanel { max-width: calc(100% - 16px); width: calc(100% - 16px); }
+      #sidePanels { display: block; max-height: none; overflow: visible; }
+      #controls, #dataPanel { width: 100%; }
+      #sky3dContainer { height: 116px; }
+      .planets-page #sky3dContainer { height: 240px; }
+    }
+    /* Tour button removed; inset is always shown */

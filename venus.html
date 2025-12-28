@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Earth/Venus visibility with sun/Venus subpoints and twilight bands." />
+  <link rel="canonical" href="https://kwakib.netlify.app/venus.html" />
+  <link rel="alternate" hreflang="en" href="https://kwakib.netlify.app/venus.html" />
+  <link rel="alternate" hreflang="ar" href="https://kwakib.netlify.app/venus-ar.html" />
+  <link rel="alternate" hreflang="x-default" href="https://kwakib.netlify.app/venus.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Earth/Venus Visibility & Orbit Viewer" />
+  <meta property="og:description" content="Earth/Venus visibility with sun/Venus subpoints and twilight bands." />
+  <meta property="og:image" content="https://kwakib.netlify.app/2k_earth_daymap.jpg" />
+  <meta property="og:url" content="https://kwakib.netlify.app/venus.html" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:site_name" content="Qibla Earth Simulator" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Earth/Venus Visibility & Orbit Viewer" />
+  <meta name="twitter:description" content="Earth/Venus visibility with sun/Venus subpoints and twilight bands." />
+  <meta name="twitter:image" content="https://kwakib.netlify.app/2k_earth_daymap.jpg" />
+  <script type="application/ld+json">
+
+    {
+
+      "@context": "https://schema.org",
+
+      "@type": "BreadcrumbList",
+
+      "itemListElement": [
+
+        {
+
+          "@type": "ListItem",
+
+          "position": 1,
+
+          "name": "Home",
+
+          "item": "https://kwakib.netlify.app/"
+
+        },
+
+        {
+
+          "@type": "ListItem",
+
+          "position": 2,
+
+          "name": "Earth/Venus Visibility & Orbit Viewer",
+
+          "item": "https://kwakib.netlify.app/venus.html"
+
+        }
+
+      ]
+
+    }
+
+  </script>
+  <script type="application/ld+json">
+
+    {
+
+      "@context": "https://schema.org",
+
+      "@graph": [
+
+        {
+
+          "@type": "WebSite",
+
+          "@id": "https://kwakib.netlify.app/#website",
+
+          "name": "Qibla Earth Simulator",
+
+          "url": "https://kwakib.netlify.app/"
+
+        },
+
+        {
+
+          "@type": "WebPage",
+
+          "name": "Earth/Venus Visibility & Orbit Viewer",
+
+          "url": "https://kwakib.netlify.app/venus.html",
+
+          "description": "Earth/Venus visibility with sun/Venus subpoints and twilight bands.",
+
+          "isPartOf": {
+
+            "@id": "https://kwakib.netlify.app/#website"
+
+          },
+
+          "inLanguage": "en"
+
+        },
+
+        {
+
+          "@type": "FAQPage",
+
+          "url": "https://kwakib.netlify.app/venus.html#faq",
+
+          "mainEntity": [
+
+            {
+
+              "@type": "Question",
+
+              "name": "Why can Venus be seen after sunset or before sunrise?",
+
+              "acceptedAnswer": {
+
+                "@type": "Answer",
+
+                "text": "Venus orbits closer to the Sun, so it stays near the Sun's bearing. It can shine in evening or morning twilight near the horizon rather than opposite the Sun."
+
+              }
+
+            },
+
+            {
+
+              "@type": "Question",
+
+              "name": "How do I find Venus in the sky?",
+
+              "acceptedAnswer": {
+
+                "@type": "Answer",
+
+                "text": "Look near the Sun's setting or rising direction. Use the inset arrows to read Venus azimuth and altitude for your location and time."
+
+              }
+
+            }
+
+          ]
+
+        }
+
+      ]
+
+    }
+
+  </script>
+  <title>Earth/Venus Visibility & Orbit Viewer</title>
+  <!-- Dev note: Built with OpenAI Codex. Generation prompt stored in venus_codex_prompt.md (linked in footer, not visible in UI). -->
+  <link rel="stylesheet" href="viewerBase.css" />
+  <link rel="stylesheet" href="venusViewer.css" />
+</head>
+<body class="venus-page">
+  <h1 class="sr-only">Earth/Venus Visibility & Orbit Viewer</h1>
+  <div id="scene"></div>
+  <button id="toggleInfoBtn" class="floating-btn" title="Show or hide the info panel">Info panel</button>
+  <button id="toggleControlsBtn" class="floating-btn">Controls</button>
+  <div id="langSwitcher">
+    <a id="langLinkEn" href="venus.html" class="active">English</a> |
+    <a id="langLinkAr" href="venus-ar.html">العربية</a>
+  </div>
+  <div class="topic-select" aria-label="Earth topics">
+    <label for="topicSelect">Earth topics</label>
+        <select id="topicSelect">
+      <option value="index.html">Earth overview</option>
+      <option value="earth-seasons.html">Seasons tour</option>
+      <option value="earth-analemma.html">Analemma tour</option>
+      <option value="planets.html">Planets</option>
+      <option value="venus.html">Venus visibility</option>
+    </select>
+  </div>
+  <script type="module" src="topicSelect.js"></script>
+    <div id="tourPanel">
+    <div class="tour-title" style="margin:0;">Local Sky (Sun &amp; Venus)</div>
+    <div class="tour-body">Solar system view plus local sky: use time controls to animate. Rotate the inset to see bearings.</div>
+    <canvas id="orbitCanvas" width="320" height="320" style="width:100%; height:auto; margin-top:6px; background:#0b1222; border:1px solid #2a89ff; border-radius:8px;"></canvas>
+    <div id="sky3dContainer" style="margin-top:8px;">
+      <div id="skyHint">Select a point to see local sky directions.</div>
+      <div id="skySunWarning">Sun above horizon</div>
+    </div>
+    <div id="venusReadout"></div>
+    <div id="dataPanel" style="margin-top:10px;">
+      <h3>Sun &amp; Venus Data</h3>
+      <div id="subpoints" style="font-size:12px; line-height:1.4;"></div>
+      <div id="orbitData" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;"></div>
+      <div id="localTime" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;"></div>
+      <div id="skyView"></div>
+      <div id="hoverBox" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;">
+        <div id="hoverLabel"></div>
+      </div>
+    </div>
+  </div>
+  <div id="infoPanel">
+    <h2>Earth &amp; Venus Visibility</h2>
+    <p>Inspect where the Sun and Venus sit over Earth plus a quick heliocentric sketch.</p>
+    <ul>
+      <li>Plot one custom lat/lon point with highlight rings.</li>
+      <li>Inspect subsolar and sub-Venus points with day-side visibility overlays.</li>
+      <li>Scrub date/time or jump by months to animate footprints.</li>
+      <li>Toggle Sun/Venus overlays and view numeric subpoint readouts.</li>
+      <li>Enable sun-synchronous camera to track the subsolar point.</li>
+      <li>Use terminator view to stay centered on the dawn/dusk line.</li>
+      <li>Show twilight bands with a configurable sun-below-horizon angle.</li>
+      <li>Local sky inset shows Sun/Venus arrows; rotate to see bearings.</li>
+    </ul>
+    <div id="faq">
+      <div class="q">Q: Why can Venus be seen after sunset or before sunrise?</div>
+      <div class="a">A: Venus orbits closer to the Sun, so it stays near the Sun's bearing. It can shine in evening or morning twilight near the horizon rather than opposite the Sun.</div>
+      <div class="q" style="margin-top:6px;">Q: How do I find Venus in the sky?</div>
+      <div class="a">A: Look near the Sun's setting or rising direction. Use the inset arrows to read Venus azimuth and altitude for your location and time.</div>
+    </div>
+  </div>
+  <div id="sidePanels">
+    <div id="controls">
+    <div class="section" title="Set UTC time; month steps advance the date by calendar month.">
+      <h3>Time & Animation</h3>
+      <label>Date/Time (UTC)</label>
+      <div class="row">
+        <input id="datetime" type="text" style="flex:1; min-width: 0;" placeholder="YYYY-MM-DDTHH:MM" title="Format: YYYY-MM-DDTHH:MM" />
+        <button id="resetNowBtn" title="Set to current UTC time">Now</button>
+      </div>
+      <div class="row" style="margin-top:6px;">
+        <button id="monthMinusBtn" title="Jump back 1 month">-1 month</button>
+        <button id="monthPlusBtn" title="Jump forward 1 month">+1 month</button>
+        <button class="timeStep" data-unit="day" data-delta="-1">-1 day</button>
+        <button class="timeStep" data-unit="day" data-delta="1">+1 day</button>
+      </div>
+      <div class="row" style="margin-top:6px;">
+        <button class="timeStep" data-unit="hour" data-delta="-1">-1 hr</button>
+        <button class="timeStep" data-unit="hour" data-delta="1">+1 hr</button>
+        <button class="timeStep" data-unit="minute" data-delta="-10">-10 min</button>
+        <button class="timeStep" data-unit="minute" data-delta="10">+10 min</button>
+      </div>
+    </div>
+
+    <div class="section collapsible" id="sunVenusSection">
+      <div class="section-header" data-target="sunVenusSection" tabindex="0" role="button" aria-controls="sunVenusSection"><span>Sun &amp; Venus</span><span class="chevron">▾</span></div>
+      <div class="section-body">
+        <label><input id="toggleSunVisibility" type="checkbox" checked /> Night visibility</label>
+        <label><input id="toggleVenusVisibility" type="checkbox" checked /> Venus visibility (purple)</label>
+        <label><input id="toggleSkyArrows" type="checkbox" checked /> Local sky inset arrows (Sun &amp; Venus)</label>
+      </div>
+    </div>
+
+    <div class="section collapsible" id="cameraSection">
+      <div class="section-header" data-target="cameraSection" tabindex="0" role="button" aria-controls="cameraSection"><span>Camera</span><span class="chevron">▾</span></div>
+      <div class="section-body">
+        <div class="segment-group" id="cameraSegments">
+          <button data-mode="geo" class="active">Geosync</button>
+          <button data-mode="sun">Sun-sync</button>
+          <button data-mode="dawn">Dawn</button>
+          <button data-mode="dusk">Dusk</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section collapsible" id="twilightSection">
+      <div class="section-header" data-target="twilightSection" tabindex="0" role="button" aria-controls="twilightSection"><span>Twilight Band</span><span class="chevron">▾</span></div>
+      <div class="section-body">
+        <label class="row inputs-inline" style="margin-top:2px; align-items:flex-start; gap:10px;">
+          <span style="min-width:130px;">Twilight limit (deg below horizon):</span>
+          <div style="display:flex; flex-direction:column; gap:4px; width:100%;">
+            <input id="twilightAngle" type="range" min="0" max="18" step="0.5" value="18" />
+              <span id="twilightValue" style="font-size:12px; color:#cfdcff;">18 deg</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="section collapsible" id="pointSection">
+      <div class="section-header" data-target="pointSection" tabindex="0" role="button" aria-controls="pointSection"><span>Point</span><span class="chevron">▾</span></div>
+      <div class="section-body">
+        <label>Selected point (lat, lon) <span style="color:#ffaa33;">&bull;</span></label>
+        <div class="row inputs-inline">
+          <input id="lat1" type="number" step="0.1" />
+          <input id="lon1" type="number" step="0.1" />
+        </div>
+        <div class="row" style="margin-top:6px;">
+          <button id="plotBtn">Plot point</button>
+          <button id="clearPointsBtn" style="background:#444a5a;">Clear</button>
+        </div>
+        <div style="margin-top:6px; font-size:12px; color:#cfdcff;">Click the globe to set or update the point.</div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.module.js",
+        "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.js"></script>
+  <script src="https://unpkg.com/tz-lookup@6.1.25/tz.js"></script>
+
+  <script type="module" src="venusViewer.js"></script>
+  <footer>
+    Texture map credit: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a>
+    <div style="margin-top:4px;">Questions/feedback: <a href="mailto:qibla-site@proton.me">qibla-site@proton.me</a></div>
+    <div style="margin-top:4px; font-size:11px;">Generated via Codex (GPT-5); <a href="venus_codex_prompt.md" target="_blank" rel="noopener">generation prompt</a></div>
+  </footer>
+  <button id="creditsToggle">Credits</button>
+</body>
+</html>
+
+
+
