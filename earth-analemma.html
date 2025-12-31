@@ -77,98 +77,48 @@
   </script>
   <link rel="stylesheet" href="viewerBase.css" />
   <link rel="stylesheet" href="earthViewer.css" />
-<script id="earthCopy" type="application/json">
-  {
-    "metricsRouteLabel": "A-B",
-    "metricsDistanceLabel": "Distance ({route})",
-    "metricsHeadingLabel": "Initial heading ({route})",
-    "durationsPrompt": "Select a point to see day/night duration.",
-    "pointLabelSingle": "Point",
-    "pointLabelA": "Point A",
-    "pointLabelB": "Point B",
-    "labelDay": "Day",
-    "labelNight": "Night",
-    "labelMoonUp": "Moon up",
-    "durationsSummary": "At your point: Day {day}, Night {night}",
-    "hoverLabel": "Hover: lat {lat}, lon {lon}",
-    "noonUnchanged": "unchanged",
-    "noonEarlier": "{value} earlier",
-    "noonLater": "{value} later",
-    "analemmaCumulativeLabel": "Cumulative: {value}",
-    "analemmaDailyDifference": "Daily difference: {value}",
-    "eotShortLabel": "EoT",
-    "analemmaEotValue": "{label} = {value}",
-    "analemmaInspectorEcc": "Ecc {value}",
-    "analemmaInspectorObliq": "Compression factor {value}",
-    "analemmaInspectorCombined": "Daily difference = {mean} - ({mean} {ecc}) * {compression} = {diff} ({diffSeconds})",
-    "tooltipDate": "Date: {value}",
-    "tooltipExtraAngle": "Extra angle: {value}",
-    "tooltipDeltaMean": "Delta vs mean: {value}",
-    "tooltipTiltFactor": "Tilt factor: {value}",
-    "eotChartTitle": "Equation of time",
-    "chartMinutesUnit": "min",
-    "chartTodayLabel": "Today",
-    "insetDeltaLon": "Δlon {value}",
-    "insetDeltaLat": "Δlat {value}",
-    "insetRealSunLabel": "Real Sun λ",
-    "timeAgo": "{value} ago",
-    "timeIn": "in {value}",
-    "eotHintEarlier": "apparent noon earlier",
-    "eotHintLater": "apparent noon later",
-    "eotHintMatches": "apparent noon matches",
-    "eotSummary": "Equation of time: {value} ({hint})",
-    "meridianRealLeads": "real Sun leads",
-    "meridianMeanLeads": "mean Sun leads",
-    "meridianAligned": "aligned",
-    "meridianSummary": "Meridian: mean Sun {mean}, real Sun {real} (real - mean {delta}, {hint})",
-    "meridianSummarySolarDay": "Meridian: mean Sun {mean}, real Sun {real} (real - mean {delta}, {hint}). Solar day ≈ {sidereal} + {extra} = {apparent} ({delta24} vs 24:00:00)",
-    "seasonsInsetDaylight": "Daylight: {hours}",
-    "seasonsInsetTwilightAngle": "Twilight duration (-{angle} deg): {hours}",
-    "seasonsInsetTwilight": "Twilight duration: {hours}",
-    "seasonsInsetLatYear": "Lat {lat} deg, {year}",
-    "seasonsInsetHeading": "Today at this latitude",
-    "seasonsInsetDayLabel": "Day",
-    "seasonsInsetNightLabel": "Night",
-    "seasonsInsetLocalSolarTime": "Local solar time: {hhmm}",
-    "subsolarRealLabel": "Subsolar (real)",
-    "subsolarMeanLabel": "Subsolar (mean)",
-    "sublunarLabel": "Sublunar",
-    "coordLatLabel": "lat",
-    "coordLonLabel": "lon",
-    "coordDegLabel": "deg",
-    "tourStepProgress": "Step {current} / {total}",
-    "tourPoiLocked": "POI locked: lat {lat}, lon {lon}",
-    "tourPoiPrompt": "Pick a point to continue.",
-    "tourPoiInvalid": "Enter a valid lat/lon first.",
-    "tourPoiFirst": "Pick a point first.",
-    "tour_seasons_title": "Day/night through the seasons",
-    "tour_seasons_step0_title": "Pick a place",
-    "tour_seasons_step0_body": "Click the globe (or enter lat/lon and press \"Use typed point\"). We will track how daylight changes here.",
-    "tour_seasons_step1_title": "March equinox",
-    "tour_seasons_step1_body": "Day and night are roughly equal everywhere. Your point should see ~12h daylight.",
-    "tour_seasons_step2_title": "June solstice",
-    "tour_seasons_step2_body": "Northern points enjoy longer days; southern points get shorter ones.",
-    "tour_seasons_step3_title": "September equinox",
-    "tour_seasons_step3_body": "Day and night balance again as the subsolar point crosses the equator.",
-    "tour_seasons_step4_title": "December solstice",
-    "tour_seasons_step4_body": "Southern summer / northern winter. Daylight flips from June.",
-    "tour_analemma_title": "Analemma (equation of time)",
-    "tour_analemma_step0_title": "Choose a point",
-    "tour_analemma_step0_body": "Pick a site; we will compare the mean (reference) Sun with the apparent Sun at your meridian.",
-    "tour_analemma_step1_title": "Baseline: mean noon",
-    "tour_analemma_step1_body": "Start near the day when equation of time is ~0. At local noon the mean and real Sun align over your longitude. Inset: top compares mean vs real longitude over one sidereal day; bottom shows the real daily motion vector with longitude scaled by cos(dec).",
-    "tour_analemma_step2_title": "Eccentricity (speed change)",
-    "tour_analemma_step2_body": "Near perihelion in early January Earth moves faster, so the apparent Sun runs ahead of the mean Sun. Solar noon shifts earlier, stretching the analemma east-west.",
-    "tour_analemma_step3_title": "Obliquity (tilt projection)",
-    "tour_analemma_step3_body": "Around solstice the Sun is far north or south. Its daily motion tilts out of the equatorial plane, so the east-west component is compressed by cos(dec). This adds the vertical loop and another time offset.",
-    "tour_analemma_step4_title": "Full-year trace",
-    "tour_analemma_step4_body": "Hold mean noon fixed at your longitude and step through a full year. The real subsolar point traces the analemma as eccentricity and tilt combine.",
-    "tour_analemma_step5_title": "Explore any date",
-    "tour_analemma_step5_body": "Use the date/time input to jump anywhere; the inset and equation-of-time readout update for your longitude."
-  }
+<script id="pageStrings" type="application/json">
+{
+  "metricsRouteLabel": "A-B",
+  "metricsDistanceLabel": "Distance ({route})",
+  "metricsHeadingLabel": "Initial heading ({route})",
+  "durationsPrompt": "Select a point to see day/night duration.",
+  "pointLabelSingle": "Point",
+  "pointLabelA": "Point A",
+  "pointLabelB": "Point B",
+  "labelDay": "Day",
+  "labelNight": "Night",
+  "labelMoonUp": "Moon up",
+  "hoverLabel": "Hover: lat {lat}, lon {lon}",
+  "noonUnchanged": "unchanged",
+  "noonEarlier": "{value} earlier",
+  "noonLater": "{value} later",
+  "analemmaDailyDifference": "Daily difference: {value}",
+  "eotShortLabel": "EoT",
+  "analemmaEotValue": "{label} = {value}",
+  "analemmaInspectorEcc": "Ecc {value}",
+  "analemmaInspectorObliq": "Compression factor {value}",
+  "analemmaInspectorCombined": "Daily difference = {mean} - ({mean} {ecc}) * {compression}\n= {diff} ({diffSeconds})",
+  "tooltipDate": "Date: {value}",
+  "tooltipExtraAngle": "Extra angle: {value}",
+  "tooltipDeltaMean": "Delta vs mean: {value}",
+  "tooltipTiltFactor": "Tilt factor: {value}",
+  "eotChartTitle": "Equation of time",
+  "chartMinutesUnit": "min",
+  "chartTodayLabel": "Today",
+  "insetDeltaLon": "Δlon {value}",
+  "insetDeltaLat": "Δlat {value}",
+  "insetRealSunLabel": "Real Sun λ",
+  "subsolarRealLabel": "Subsolar (real)",
+  "subsolarMeanLabel": "Subsolar (mean)",
+  "sublunarLabel": "Sublunar",
+  "coordLatLabel": "lat",
+  "coordLonLabel": "lon",
+  "coordDegLabel": "deg"
+}
   </script>
 </head>
-<body class="analemma-page">
+<body class="analemma-page" data-show-ecliptic="true" data-include-mean-sun="true" data-include-moon="false" data-allow-point-selection="false" data-left-panels-always="true">
   <h1 class="sr-only">Earth Analemma Tour</h1>
   <div id="scene"></div>
   <div id="langSwitcher">
@@ -211,7 +161,7 @@
         </div>
       </div>
       <div class="analemma-tabs" role="tablist" aria-label="Analemma panels">
-        <button class="analemma-tab active" type="button" data-tab="prereq">Prerequisites</button>
+        <button class="analemma-tab active" type="button" data-tab="prereq">Introduction</button>
         <button class="analemma-tab" type="button" data-tab="components">Components</button>
         <button class="analemma-tab" type="button" data-tab="combined">Combined</button>
       </div>
@@ -220,9 +170,11 @@
           <div class="analemma-cards">
             <section class="analemma-card analemma-card-compact" id="analemmaCardPrereq">
               <div class="analemma-card-header">
-                <h4 class="analemma-card-title">Prerequisites</h4>
+                <h4 class="analemma-card-title">Introduction</h4>
               </div>
               <div class="analemma-card-content">
+                <p class="analemma-card-lede analemma-card-intro"></p>
+                <h5 class="analemma-card-subtitle">Prerequisites</h5>
                 <p class="analemma-card-lede">
                   Understanding the difference between a sidereal day and a solar day is a prerequisite for this topic.
                   If you want a refresher, watch this explainer:
@@ -318,7 +270,11 @@
         </div>
         <div class="analemma-tab-panel" data-tab="combined">
           <div class="analemma-combined-grid">
-            <div class="analemma-inset-embed" id="analemmaInsetBox">
+            <div class="analemma-inset-embed" id="analemmaInsetBox"
+              data-label-equinox="Equinox"
+              data-label-solstice="Solstice"
+              data-label-horizontal="Horizontal"
+              data-label-vertical="Vertical">
               <canvas id="analemmaInset" width="800" height="500"></canvas>
               <div id="analemmaInsetCaption" class="analemma-inset-caption"></div>
             </div>
@@ -343,7 +299,7 @@
                 <div class="analemma-inspector-row" aria-label="Component contributions">
                   <span class="analemma-inspector-chip" id="analemmaInspectorEcc">Ecc --°</span>
                   <span class="analemma-inspector-chip" id="analemmaInspectorObliq">Compression factor --x</span>
-                  <span class="analemma-inspector-chip" id="analemmaInspectorCombined">Daily difference = --° - (--° + --°) * --x = --° (+--m --s)</span>
+                  <span class="analemma-inspector-chip" id="analemmaInspectorCombined">Daily difference = --° - (--° + --°) * --x<br>= --° (+--m --s)</span>
                 </div>
               </div>
             </div>
@@ -421,13 +377,10 @@
   <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.js"></script>
 
   <script type="module" src="earthViewer.js"></script>
+  <script type="module" src="earthAnalemmaPage.js"></script>
   <footer>
     Texture map credit: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a>
-    <div style="margin-top:4px;">Questions/feedback: <a href="mailto:qibla-site@proton.me">qibla-site@proton.me</a></div>
   </footer>
 </body>
 </html>
-
-
-
 

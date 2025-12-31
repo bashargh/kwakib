@@ -19,7 +19,7 @@
   <meta name="twitter:title" content="جولة فصول الأرض | تغير النهار والليل" />
   <meta name="twitter:description" content="جولة فصول الأرض لشرح تغير طول النهار والشفق عبر الاعتدالين والانقلابين." />
   <meta name="twitter:image" content="https://kwakib.netlify.app/2k_earth_daymap.jpg" />
-  <script>window.FORCED_LANG='ar'; window.FORCED_TOUR='seasons'; window.SINGLE_POINT=true; window.PAGE_LANG_MAP={en:'earth-seasons.html', ar:'earth-seasons-ar.html'};</script>
+  <script>window.FORCED_LANG='ar'; window.SINGLE_POINT=true; window.PAGE_LANG_MAP={en:'earth-seasons.html', ar:'earth-seasons-ar.html'};</script>
   <script type="application/ld+json">
 
     {
@@ -77,102 +77,59 @@
   </script>
   <link rel="stylesheet" href="viewerBase.css" />
   <link rel="stylesheet" href="earthViewer.css" />
-<script id="earthCopy" type="application/json">
-  {
+<script id="pageStrings" type="application/json">
+{
   "metricsRouteLabel": "A-B",
-  "metricsDistanceLabel": "\u0627\u0644\u0645\u0633\u0627\u0641\u0629 ({route})",
-  "metricsHeadingLabel": "\u0627\u0644\u0627\u062a\u062c\u0627\u0647 \u0627\u0644\u0627\u0628\u062a\u062f\u0627\u0626\u064a ({route})",
-  "durationsPrompt": "\u0627\u062e\u062a\u0631 \u0646\u0642\u0637\u0629 \u0644\u0631\u0624\u064a\u0629 \u0645\u062f\u0629 \u0627\u0644\u0646\u0647\u0627\u0631 \u0648\u0627\u0644\u0644\u064a\u0644.",
-  "pointLabelSingle": "\u0646\u0642\u0637\u0629",
-  "pointLabelA": "\u0646\u0642\u0637\u0629 \u0623",
-  "pointLabelB": "\u0646\u0642\u0637\u0629 \u0628",
-  "labelDay": "\u0646\u0647\u0627\u0631",
-  "labelNight": "\u0644\u064a\u0644",
-  "labelMoonUp": "\u0638\u0647\u0648\u0631 \u0627\u0644\u0642\u0645\u0631",
-  "durationsSummary": "\u0639\u0646\u062f \u0646\u0642\u0637\u062a\u0643: \u0646\u0647\u0627\u0631 {day}\u060c \u0644\u064a\u0644 {night}",
-  "hoverLabel": "\u0627\u0644\u0645\u0624\u0634\u0631: \u062e\u0637 \u0639\u0631\u0636 {lat}\u060c \u062e\u0637 \u0637\u0648\u0644 {lon}",
-  "noonUnchanged": "\u0627\u0644\u0638\u0647\u0631 \u0645\u0637\u0627\u0628\u0642",
-  "noonEarlier": "\u0627\u0644\u0638\u0647\u0631 \u0623\u0628\u0643\u0631 \u0628\u0640 {value}",
-  "noonLater": "\u0627\u0644\u0638\u0647\u0631 \u0645\u062a\u0623\u062e\u0631 \u0628\u0640 {value}",
-  "analemmaCumulativeLabel": "\u0627\u0644\u062a\u0631\u0627\u0643\u0645\u064a: {value}",
-  "analemmaDailyDifference": "\u0627\u0644\u0641\u0631\u0642 \u0627\u0644\u064a\u0648\u0645\u064a: {value}",
-  "eotShortLabel": "\u0645\u0639\u0627\u062f\u0644\u0629 \u0627\u0644\u0632\u0645\u0646",
-  "analemmaEotValue": "{label} = {value}",
-  "analemmaInspectorEcc": "\u0627\u0644\u0644\u0627\u0645\u0631\u0643\u0632\u064a\u0629 {value}",
-  "analemmaInspectorObliq": "\u0645\u0639\u0627\u0645\u0644 \u0627\u0644\u0636\u063a\u0637 {value}",
-  "analemmaInspectorCombined": "\u0627\u0644\u0641\u0631\u0642 \u0627\u0644\u064a\u0648\u0645\u064a = {mean} - ({mean} {ecc}) * {compression} = {diff} ({diffSeconds})",
-  "tooltipDate": "\u0627\u0644\u062a\u0627\u0631\u064a\u062e: {value}",
-  "tooltipExtraAngle": "\u0627\u0644\u0632\u0627\u0648\u064a\u0629 \u0627\u0644\u0632\u0627\u0626\u062f\u0629: {value}",
-  "tooltipDeltaMean": "\u0641\u0631\u0642 \u0639\u0646 \u0627\u0644\u0645\u062a\u0648\u0633\u0637: {value}",
-  "tooltipTiltFactor": "\u0639\u0627\u0645\u0644 \u0627\u0644\u0645\u064a\u0644: {value}",
-  "eotChartTitle": "\u0645\u0639\u0627\u062f\u0644\u0629 \u0627\u0644\u0632\u0645\u0646",
-  "chartMinutesUnit": "\u062f",
-  "chartTodayLabel": "\u0627\u0644\u064a\u0648\u0645",
-  "insetDeltaLon": "\u0394\u062e\u0637 \u0627\u0644\u0637\u0648\u0644 {value}",
-  "insetDeltaLat": "\u0394\u062e\u0637 \u0627\u0644\u0639\u0631\u0636 {value}",
-  "insetRealSunLabel": "\u0627\u0644\u0634\u0645\u0633 \u0627\u0644\u062d\u0642\u064a\u0642\u064a\u0629",
-  "timeAgo": "\u0645\u0646\u0630 {value}",
-  "timeIn": "\u0628\u0639\u062f {value}",
-  "eotHintEarlier": "\u0627\u0644\u0638\u0647\u0631 \u0623\u0628\u0643\u0631",
-  "eotHintLater": "\u0627\u0644\u0638\u0647\u0631 \u0645\u062a\u0623\u062e\u0631",
-  "eotHintMatches": "\u0627\u0644\u0638\u0647\u0631 \u0645\u0637\u0627\u0628\u0642",
-  "eotSummary": "\u0645\u0639\u0627\u062f\u0644\u0629 \u0627\u0644\u0632\u0645\u0646: {value} ({hint})",
-  "meridianRealLeads": "\u0627\u0644\u062d\u0642\u064a\u0642\u064a \u0645\u062a\u0642\u062f\u0645",
-  "meridianMeanLeads": "\u0627\u0644\u0645\u062a\u0648\u0633\u0637 \u0645\u062a\u0642\u062f\u0645",
-  "meridianAligned": "\u0645\u062a\u0637\u0627\u0628\u0642\u0627\u0646",
-  "meridianSummary": "\u0639\u0646\u062f \u062e\u0637 \u0637\u0648\u0644\u0643: \u0627\u0644\u0638\u0647\u0631 \u0627\u0644\u0645\u062a\u0648\u0633\u0637 {mean}\u060c \u0648\u0627\u0644\u0638\u0647\u0631 \u0627\u0644\u062d\u0642\u064a\u0642\u064a {real} (\u0627\u0644\u062d\u0642\u064a\u0642\u064a - \u0627\u0644\u0645\u062a\u0648\u0633\u0637 {delta}\u060c {hint})",
-  "meridianSummarySolarDay": "\u0639\u0646\u062f \u062e\u0637 \u0637\u0648\u0644\u0643: \u0627\u0644\u0638\u0647\u0631 \u0627\u0644\u0645\u062a\u0648\u0633\u0637 {mean}\u060c \u0648\u0627\u0644\u0638\u0647\u0631 \u0627\u0644\u062d\u0642\u064a\u0642\u064a {real} (\u0627\u0644\u062d\u0642\u064a\u0642\u064a - \u0627\u0644\u0645\u062a\u0648\u0633\u0637 {delta}\u060c {hint}). \u0627\u0644\u064a\u0648\u0645 \u0627\u0644\u0634\u0645\u0633\u064a = {sidereal} + {extra} = {apparent} ({delta24} \u0645\u0646 24:00:00)",
-  "seasonsInsetDaylight": "\u0645\u062f\u0629 \u0627\u0644\u0646\u0647\u0627\u0631 (\u0645\u0639 \u0627\u0644\u0634\u0641\u0642 \u062d\u062a\u0649 \u0627\u0644\u0623\u0641\u0642): {hours}",
-  "seasonsInsetTwilightAngle": "\u0645\u062f\u0629 \u0627\u0644\u0634\u0641\u0642 (-{angle}\u00b0): {hours}",
-  "seasonsInsetTwilight": "\u0645\u062f\u0629 \u0627\u0644\u0634\u0641\u0642: {hours}",
-  "seasonsInsetLatYear": "\u062e\u0637 \u0639\u0631\u0636 {lat}\u00b0\u060c {year}",
-  "seasonsInsetHeading": "\u0627\u0644\u064a\u0648\u0645 \u0639\u0646\u062f \u062e\u0637 \u0627\u0644\u0639\u0631\u0636 \u0647\u0630\u0627",
-  "seasonsInsetDayLabel": "\u0646\u0647\u0627\u0631",
-  "seasonsInsetNightLabel": "\u0644\u064a\u0644",
-  "seasonsInsetLocalSolarTime": "\u0627\u0644\u0632\u0645\u0646 \u0627\u0644\u0634\u0645\u0633\u064a \u0627\u0644\u0645\u062d\u0644\u064a: {hhmm}",
-  "subsolarRealLabel": "\u062a\u0639\u0627\u0645\u062f \u0627\u0644\u0634\u0645\u0633 (\u062d\u0642\u064a\u0642\u064a)",
-  "subsolarMeanLabel": "\u062a\u0639\u0627\u0645\u062f \u0627\u0644\u0634\u0645\u0633 (\u0645\u062a\u0648\u0633\u0637)",
-  "sublunarLabel": "\u062a\u0639\u0627\u0645\u062f \u0627\u0644\u0642\u0645\u0631",
-  "coordLatLabel": "\u062e\u0637 \u0639\u0631\u0636",
-  "coordLonLabel": "\u062e\u0637 \u0637\u0648\u0644",
-  "coordDegLabel": "\u062f\u0631\u062c\u0629",
-  "tourStepProgress": "\u0627\u0644\u062e\u0637\u0648\u0629 {current} / {total}",
-  "tourPoiLocked": "\u062a\u0645 \u062a\u062b\u0628\u064a\u062a \u0627\u0644\u0646\u0642\u0637\u0629: \u062e\u0637 \u0639\u0631\u0636 {lat}\u060c \u062e\u0637 \u0637\u0648\u0644 {lon}",
-  "tourPoiPrompt": "\u0627\u062e\u062a\u0631 \u0646\u0642\u0637\u0629 \u0644\u0644\u0645\u062a\u0627\u0628\u0639\u0629.",
-  "tourPoiInvalid": "\u0623\u062f\u062e\u0644 \u062e\u0637 \u0639\u0631\u0636/\u0637\u0648\u0644 \u0635\u062d\u064a\u062d \u0623\u0648\u0644\u0627\u064b.",
-  "tourPoiFirst": "\u0627\u062e\u062a\u0631 \u0646\u0642\u0637\u0629 \u0623\u0648\u0644\u0627\u064b.",
-  "tour_seasons_title": "\u0627\u0644\u0646\u0647\u0627\u0631/\u0627\u0644\u0644\u064a\u0644 \u0639\u0628\u0631 \u0627\u0644\u0641\u0635\u0648\u0644",
-  "tour_seasons_step0_title": "\u0627\u062e\u062a\u0631 \u0645\u0643\u0627\u0646\u0627\u064b",
-  "tour_seasons_step0_body": "\u0627\u0646\u0642\u0631 \u0627\u0644\u0643\u0631\u0629 \u0627\u0644\u0623\u0631\u0636\u064a\u0629 (\u0623\u0648 \u0623\u062f\u062e\u0644 \u062e\u0637 \u0627\u0644\u0639\u0631\u0636 \u0648\u0627\u0644\u0637\u0648\u0644 \u0648\u0627\u0636\u063a\u0637 \"\u0627\u0633\u062a\u062e\u062f\u0645 \u0627\u0644\u0646\u0642\u0637\u0629 \u0627\u0644\u0645\u0643\u062a\u0648\u0628\u0629\"). \u0633\u0646\u0631\u0627\u0642\u0628 \u0643\u064a\u0641 \u064a\u062a\u063a\u064a\u0631 \u0637\u0648\u0644 \u0627\u0644\u0646\u0647\u0627\u0631 \u0647\u0646\u0627.",
-  "tour_seasons_step1_title": "\u0627\u0639\u062a\u062f\u0627\u0644 \u0645\u0627\u0631\u0633",
-  "tour_seasons_step1_body": "\u0627\u0644\u0646\u0647\u0627\u0631 \u0648\u0627\u0644\u0644\u064a\u0644 \u0645\u062a\u0633\u0627\u0648\u064a\u0627\u0646 \u062a\u0642\u0631\u064a\u0628\u0627\u064b \u0641\u064a \u0643\u0644 \u0645\u0643\u0627\u0646. \u064a\u0646\u0628\u063a\u064a \u0623\u0646 \u062a\u0631\u0649 \u0646\u0642\u0637\u062a\u0643 \u0646\u062d\u0648 12 \u0633\u0627\u0639\u0629 \u0646\u0647\u0627\u0631.",
-  "tour_seasons_step2_title": "\u0627\u0646\u0642\u0644\u0627\u0628 \u064a\u0648\u0646\u064a\u0648",
-  "tour_seasons_step2_body": "\u0627\u0644\u0646\u0642\u0627\u0637 \u0627\u0644\u0634\u0645\u0627\u0644\u064a\u0629 \u062a\u0646\u0639\u0645 \u0628\u0623\u064a\u0627\u0645 \u0623\u0637\u0648\u0644\u060c \u0648\u0627\u0644\u062c\u0646\u0648\u0628\u064a\u0629 \u0623\u0642\u0635\u0631.",
-  "tour_seasons_step3_title": "\u0627\u0639\u062a\u062f\u0627\u0644 \u0633\u0628\u062a\u0645\u0628\u0631",
-  "tour_seasons_step3_body": "\u064a\u062a\u0648\u0627\u0632\u0646 \u0627\u0644\u0646\u0647\u0627\u0631 \u0648\u0627\u0644\u0644\u064a\u0644 \u0645\u062c\u062f\u062f\u0627\u064b \u0645\u0639 \u0639\u0628\u0648\u0631 \u0646\u0642\u0637\u0629 \u062a\u0639\u0627\u0645\u062f \u0627\u0644\u0634\u0645\u0633 \u062e\u0637 \u0627\u0644\u0627\u0633\u062a\u0648\u0627\u0621.",
-  "tour_seasons_step4_title": "\u0627\u0646\u0642\u0644\u0627\u0628 \u062f\u064a\u0633\u0645\u0628\u0631",
-  "tour_seasons_step4_body": "\u0635\u064a\u0641 \u062c\u0646\u0648\u0628\u064a / \u0634\u062a\u0627\u0621 \u0634\u0645\u0627\u0644\u064a. \u064a\u0646\u0639\u0643\u0633 \u0637\u0648\u0644 \u0627\u0644\u0646\u0647\u0627\u0631 \u0645\u0642\u0627\u0631\u0646\u0629 \u0628\u064a\u0648\u0646\u064a\u0648.",
-  "tour_analemma_title": "\u0627\u0644\u0623\u0646\u0627\u0644\u0650\u0645\u0651\u0629 (\u0645\u0639\u0627\u062f\u0644\u0629 \u0627\u0644\u0632\u0645\u0646)",
-  "tour_analemma_step0_title": "\u0627\u062e\u062a\u0631 \u0646\u0642\u0637\u0629",
-  "tour_analemma_step0_body": "\u0627\u062e\u062a\u0631 \u0645\u0648\u0642\u0639\u0627\u064b\u061b \u0633\u0646\u0642\u0627\u0631\u0646 \u0627\u0644\u0634\u0645\u0633 \u0627\u0644\u0645\u062a\u0648\u0633\u0637\u0629 (\u0627\u0644\u0645\u0631\u062c\u0639\u064a\u0629) \u0628\u0627\u0644\u0634\u0645\u0633 \u0627\u0644\u0638\u0627\u0647\u0631\u064a\u0629 \u0639\u0644\u0649 \u062e\u0637 \u0627\u0644\u0632\u0648\u0627\u0644 \u0644\u062f\u064a\u0643.",
-  "tour_analemma_step1_title": "\u0627\u0644\u0623\u0633\u0627\u0633: \u0627\u0644\u0638\u0647\u0631 \u0627\u0644\u0645\u062a\u0648\u0633\u0637",
-  "tour_analemma_step1_body": "\u0627\u0628\u062f\u0623 \u0642\u0631\u0628 \u0627\u0644\u064a\u0648\u0645 \u0627\u0644\u0630\u064a \u062a\u0643\u0648\u0646 \u0641\u064a\u0647 \u0645\u0639\u0627\u062f\u0644\u0629 \u0627\u0644\u0632\u0645\u0646 \u2248 0. \u0639\u0646\u062f \u0627\u0644\u0638\u0647\u0631 \u0627\u0644\u0645\u062d\u0644\u064a \u062a\u0635\u0637\u0641 \u0627\u0644\u0634\u0645\u0633 \u0627\u0644\u0645\u062a\u0648\u0633\u0637\u0629 \u0648\u0627\u0644\u062d\u0642\u064a\u0642\u064a\u0629 \u0641\u0648\u0642 \u062e\u0637 \u0637\u0648\u0644\u0643. \u0641\u064a \u0627\u0644\u0645\u0644\u062d\u0642: \u0627\u0644\u0623\u0639\u0644\u0649 \u064a\u0642\u0627\u0631\u0646 \u062e\u0637 \u0627\u0644\u0637\u0648\u0644 \u0627\u0644\u0645\u062a\u0648\u0633\u0637 \u0648\u0627\u0644\u062d\u0642\u064a\u0642\u064a \u0639\u0628\u0631 \u064a\u0648\u0645 \u0646\u062c\u0645\u064a \u0648\u0627\u062d\u062f\u061b \u0648\u0627\u0644\u0623\u0633\u0641\u0644 \u064a\u0628\u064a\u0651\u0646 \u0645\u062a\u062c\u0647 \u0627\u0644\u062d\u0631\u0643\u0629 \u0627\u0644\u064a\u0648\u0645\u064a\u0629 \u0627\u0644\u062d\u0642\u064a\u0642\u064a \u0645\u0639 \u0636\u063a\u0637 \u062e\u0637 \u0627\u0644\u0637\u0648\u0644 \u0628\u0640 cos(dec).",
-  "tour_analemma_step2_title": "\u0627\u0644\u0644\u0627\u0645\u0631\u0643\u0632\u064a\u0629 (\u062a\u063a\u064a\u0631 \u0627\u0644\u0633\u0631\u0639\u0629)",
-  "tour_analemma_step2_body": "\u0642\u0631\u0628 \u0627\u0644\u062d\u0636\u064a\u0636 \u0641\u064a \u0623\u0648\u0627\u0626\u0644 \u064a\u0646\u0627\u064a\u0631 \u062a\u062a\u062d\u0631\u0643 \u0627\u0644\u0623\u0631\u0636 \u0623\u0633\u0631\u0639\u060c \u0641\u062a\u062a\u0642\u062f\u0645 \u0627\u0644\u0634\u0645\u0633 \u0627\u0644\u0638\u0627\u0647\u0631\u064a\u0629 \u0639\u0644\u0649 \u0627\u0644\u0645\u062a\u0648\u0633\u0637\u0629. \u064a\u062a\u0642\u062f\u0645 \u0627\u0644\u0638\u0647\u0631 \u0627\u0644\u0634\u0645\u0633\u064a\u060c \u0641\u064a\u062a\u0645\u062f\u062f \u0634\u0643\u0644 \u0627\u0644\u0623\u0646\u0627\u0644\u0650\u0645\u0651\u0629 \u0634\u0631\u0642\u0627\u064b \u0648\u063a\u0631\u0628\u0627\u064b.",
-  "tour_analemma_step3_title": "\u0645\u064a\u0644 \u0627\u0644\u0645\u062d\u0648\u0631 (\u0625\u0633\u0642\u0627\u0637 \u0627\u0644\u0645\u064a\u0644)",
-  "tour_analemma_step3_body": "\u062d\u0648\u0644 \u0627\u0644\u0627\u0646\u0642\u0644\u0627\u0628 \u062a\u0643\u0648\u0646 \u0627\u0644\u0634\u0645\u0633 \u0628\u0639\u064a\u062f\u0629 \u0634\u0645\u0627\u0644\u0627\u064b \u0623\u0648 \u062c\u0646\u0648\u0628\u0627\u064b. \u062a\u0645\u064a\u0644 \u062d\u0631\u0643\u062a\u0647\u0627 \u0627\u0644\u064a\u0648\u0645\u064a\u0629 \u062e\u0627\u0631\u062c \u0627\u0644\u0645\u0633\u062a\u0648\u0649 \u0627\u0644\u0627\u0633\u062a\u0648\u0627\u0626\u064a\u060c \u0641\u064a\u064f\u0636\u063a\u0637 \u0627\u0644\u0645\u0643\u0648\u0651\u0646 \u0627\u0644\u0634\u0631\u0642\u064a-\u0627\u0644\u063a\u0631\u0628\u064a \u0628\u0640 cos(dec). \u0647\u0630\u0627 \u064a\u0636\u064a\u0641 \u0627\u0644\u062d\u0644\u0642\u0629 \u0627\u0644\u0639\u0645\u0648\u062f\u064a\u0629 \u0648\u0627\u0646\u0632\u064a\u0627\u062d\u0627\u064b \u0632\u0645\u0646\u064a\u0627\u064b \u0622\u062e\u0631.",
-  "tour_analemma_step4_title": "\u062a\u062a\u0628\u0639 \u0633\u0646\u0629 \u0643\u0627\u0645\u0644\u0629",
-  "tour_analemma_step4_body": "\u062b\u0628\u0651\u062a \u0627\u0644\u0638\u0647\u0631 \u0627\u0644\u0645\u062a\u0648\u0633\u0637 \u0639\u0646\u062f \u062e\u0637 \u0637\u0648\u0644\u0643 \u0648\u0645\u0631\u0651 \u0639\u0644\u0649 \u0633\u0646\u0629 \u0643\u0627\u0645\u0644\u0629. \u062a\u062a\u062a\u0628\u0639 \u0646\u0642\u0637\u0629 \u062a\u0639\u0627\u0645\u062f \u0627\u0644\u0634\u0645\u0633 \u0627\u0644\u062d\u0642\u064a\u0642\u064a\u0629 \u0634\u0643\u0644 \u0627\u0644\u0623\u0646\u0627\u0644\u0650\u0645\u0651\u0629 \u0645\u0639 \u0627\u062c\u062a\u0645\u0627\u0639 \u0627\u0644\u0644\u0627\u0645\u0631\u0643\u0632\u064a\u0629 \u0648\u0627\u0644\u0645\u064a\u0644.",
-  "tour_analemma_step5_title": "\u0627\u0633\u062a\u0643\u0634\u0641 \u0623\u064a \u062a\u0627\u0631\u064a\u062e",
-  "tour_analemma_step5_body": "\u0627\u0633\u062a\u062e\u062f\u0645 \u0625\u062f\u062e\u0627\u0644 \u0627\u0644\u062a\u0627\u0631\u064a\u062e/\u0627\u0644\u0648\u0642\u062a \u0644\u0644\u0627\u0646\u062a\u0642\u0627\u0644 \u0644\u0623\u064a \u064a\u0648\u0645\u061b \u0633\u064a\u064f\u062d\u062f\u0651\u062b \u0627\u0644\u0645\u0644\u062d\u0642 \u0648\u0642\u0631\u0627\u0621\u0629 \u0645\u0639\u0627\u062f\u0644\u0629 \u0627\u0644\u0632\u0645\u0646 \u0644\u062e\u0637 \u0637\u0648\u0644\u0643."
-}</script>
+  "metricsDistanceLabel": "المسافة ({route})",
+  "metricsHeadingLabel": "الاتجاه الابتدائي ({route})",
+  "durationsPrompt": "اختر نقطة لرؤية مدة النهار والليل.",
+  "pointLabelSingle": "نقطة",
+  "pointLabelA": "نقطة أ",
+  "pointLabelB": "نقطة ب",
+  "labelDay": "نهار",
+  "labelNight": "ليل",
+  "labelMoonUp": "ظهور القمر",
+  "durationsSummary": "عند نقطتك: نهار {day}، ليل {night}",
+  "hoverLabel": "المؤشر: خط عرض {lat}، خط طول {lon}",
+  "seasonsInsetDaylight": "مدة النهار (مع الشفق حتى الأفق): {hours}",
+  "seasonsInsetTwilightAngle": "مدة الشفق (-{angle}°): {hours}",
+  "seasonsInsetTwilight": "مدة الشفق: {hours}",
+  "seasonsInsetLatYear": "خط عرض {lat}°، {year}",
+  "seasonsInsetHeading": "اليوم عند خط العرض هذا",
+  "seasonsInsetDayLabel": "نهار",
+  "seasonsInsetNightLabel": "ليل",
+  "seasonsInsetLocalSolarTime": "الزمن الشمسي المحلي: {hhmm}",
+  "subsolarRealLabel": "تعامد الشمس (حقيقي)",
+  "subsolarMeanLabel": "تعامد الشمس (متوسط)",
+  "sublunarLabel": "تعامد القمر",
+  "coordLatLabel": "خط عرض",
+  "coordLonLabel": "خط طول",
+  "coordDegLabel": "درجة",
+  "tourStepProgress": "الخطوة {current} / {total}",
+  "tourPoiLocked": "تم تثبيت النقطة: خط عرض {lat}، خط طول {lon}",
+  "tourPoiPrompt": "اختر نقطة للمتابعة.",
+  "tourPoiInvalid": "أدخل خط عرض/طول صحيح أولاً.",
+  "tourPoiFirst": "اختر نقطة أولاً.",
+  "tour_seasons_title": "النهار/الليل عبر الفصول",
+  "tour_seasons_step0_title": "اختر مكاناً",
+  "tour_seasons_step0_body": "انقر الكرة الأرضية (أو أدخل خط العرض والطول واضغط \"استخدم النقطة المكتوبة\"). سنراقب كيف يتغير طول النهار هنا.",
+  "tour_seasons_step1_title": "اعتدال مارس",
+  "tour_seasons_step1_body": "النهار والليل متساويان تقريباً في كل مكان. ينبغي أن ترى نقطتك نحو 12 ساعة نهار.",
+  "tour_seasons_step2_title": "انقلاب يونيو",
+  "tour_seasons_step2_body": "النقاط الشمالية تنعم بأيام أطول، والجنوبية أقصر.",
+  "tour_seasons_step3_title": "اعتدال سبتمبر",
+  "tour_seasons_step3_body": "يتوازن النهار والليل مجدداً مع عبور نقطة تعامد الشمس خط الاستواء.",
+  "tour_seasons_step4_title": "انقلاب ديسمبر",
+  "tour_seasons_step4_body": "صيف جنوبي / شتاء شمالي. ينعكس طول النهار مقارنة بيونيو."
+}
+  </script>
   <script>
     window.FORCED_LANG = 'ar';
     document.documentElement.lang = 'ar';
     document.documentElement.dir = 'rtl';
   </script>
 </head>
-<body class="seasons-page">
+<body class="seasons-page" data-show-ecliptic="false" data-include-mean-sun="false" data-include-moon="true" data-tour-reset-on-exit="true">
   <h1 class="sr-only">جولة فصول الأرض</h1>
   <div id="scene"></div>
   <button id="toggleInfoBtn" class="floating-btn">معلومات</button>
@@ -193,42 +150,9 @@
   </div>
   <script type="module" src="topicSelect.js"></script>
   <div id="leftPanels">
-    <div id="infoPanel">
-      <h2 id="infoTitle">محاكاة الأرض</h2>
-      <p id="infoIntro">تتبّع تغيّر طول النهار والشفق عبر السنة لموقع تختاره.</p>
-      <ul>
-        <li id="infoLi1">ارسم نقطة مخصّصة (خط عرض/طول) مع حلقة تمييز.</li>
-        <li id="infoLi2">ابدأ جولة الفصول للمرور على الاعتدالين والانقلابين.</li>
-        <li id="infoLi3">راقب تحديث مدد النهار والليل والشفق للموقع المختار.</li>
-        <li id="infoLi4">اعرض نقطتي تعامد الشمس والقمر مع تظليل جانب النهار.</li>
-        <li id="infoLi5">بدّل تراكبات الليل/القمر واعرض قراءات الإحداثيات الرقمية.</li>
-        <li id="infoLi6">اضبط نطاقات الشفق بزاوية شمس تحت الأفق.</li>
-        <li id="infoLi7">استخدم أوضاع الكاميرا المتزامنة مع الشمس أو خط الفجر/الغروب للمشاهدة.</li>
-      </ul>
-      <div class="faq-block">
-        <h4 id="faqHeading">الأسئلة الشائعة</h4>
-        <div class="qa">
-          <strong id="faqQ1">كيف أستكشف تغيرات النهار والليل؟</strong>
-          <span id="faqA1">ابدأ جولة الفصول، اختر نقطة، وتنقّل بين الاعتدالات والانقلابات لترى طول النهار وتدرّج الشفق (قبل الشروق وبعد الغروب).</span>
-        </div>
-        <div class="qa">
-          <strong id="faqQ2">ماذا يعرض ملحق الفصول؟</strong>
-          <span id="faqA2">يعرض مدة النهار والشفق عبر السنة لخط عرضك ويحدد اليوم الحالي.</span>
-        </div>
-        <div class="qa">
-          <strong id="faqQ3">هل يمكنني تشغيل الطبقات؟</strong>
-          <span id="faqA3">استخدم نطاق الشفق لتحديد البعد عن الأفق ومربع إظهار الليل لتفعيل أو إيقاف طبقة الليل.</span>
-        </div>
-      </div>
-    </div>
     <div class="section" id="tourSection">
       <h3 id="guidedTourHeading">جولة إرشادية</h3>
       <div id="tourMobileMsg" style="display:none; font-size:12px; color:#cfdcff;">الجولات متاحة على الشاشات المكتبية.</div>
-      <div id="tourDesktopControls">
-        <button id="startTourBtn">النهار/الليل عبر الفصول</button>
-        <button id="startAnalemmaBtn" style="margin-top:6px;">الأنالِمَّة</button>
-        <button id="useTypedPoiBtn" style="margin-top:6px;">استخدم النقطة المدخلة</button>
-      </div>
       <div id="tourCard" class="tour-card" style="display:none;">
         <div id="tourStepTitle" class="tour-step-title"></div>
         <div id="tourStepBody" class="tour-step-body"></div>
@@ -237,15 +161,11 @@
         <div id="seasonsInsetBox" style="display:none; margin:8px 0 6px;">
           <canvas id="seasonsInset" width="520" height="420" style="width:100%; height:360px; border:1px solid rgba(42,137,255,0.35); border-radius:8px; background: rgba(10,16,26,0.45); display:block;"></canvas>
         </div>
-        <div id="analemmaInsetBox" style="display:none; position:fixed; left:12px; top:12px; width:820px; max-width:calc(100vw - 24px); z-index:11; pointer-events:auto;">
-          <canvas id="analemmaInset" width="800" height="500" style="width:800px; height:500px; border:1px solid rgba(42,137,255,0.35); border-radius:8px; background: rgba(10,16,26,0.45); display:block;"></canvas>
-          <div style="font-size:12px; color:#8aa2d3; margin-top:4px;">المخطط المصغر: الأعلى = فجوة معادلة الزمن (المتوسط مقابل الحقيقي)، الأسفل = متجه السرعة اليومية للشمس الحقيقية (يوم نجمي)</div>
-        </div>
         <div class="row" style="gap:6px;">
           <button id="tourPrevBtn">السابق</button>
           <button id="tourNextBtn">التالي</button>
           <button id="tourReplayBtn" class="tour-secondary">إعادة الخطوة</button>
-          <button id="tourExitBtn" class="tour-secondary">إنهاء الجولة</button>
+          <button id="tourExitBtn" class="tour-secondary">إعادة ضبط</button>
         </div>
         <div id="tourAlert" class="tour-alert" style="display:none;"></div>
       </div>
@@ -336,9 +256,9 @@
   <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.js"></script>
 
   <script type="module" src="earthViewer.js"></script>
+  <script type="module" src="earthSeasonsPage.js"></script>
   <footer>
     Texture map credit: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a>
-    <div style="margin-top:4px;">Questions/feedback: <a href="mailto:qibla-site@proton.me">qibla-site@proton.me</a></div>
   </footer>
 </body>
 </html>

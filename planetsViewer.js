@@ -1,20 +1,14 @@
 import * as THREE from 'three';
-    import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
     import {
       OBLIQUITY_RAD,
       normalizeDeg as normalizeLon,
       subpointFromBody
     } from './astroCore.js';
-    import {
-      addEarthGrid,
-      createNightHemisphere,
+import {
       createTerminatorCircle,
-      createTwilightBand,
-      createVisibilityHemisphere,
-      latLonToVec3,
-      loadEarthTexture
+      latLonToVec3
     } from './viewerGlobe.js';
-    import {
+import {
       adjustDate,
       caretUnit,
       formatLocalTime,
@@ -23,14 +17,22 @@ import * as THREE from 'three';
       pointTimeZone,
       rangeForUnit
     } from './viewerTime.js';
+import { createViewerControls } from './viewerControls.js';
+import { initViewerPanels } from './viewerPanels.js';
+import { createGlobeViewerCore } from './globeViewerCore.js';
+import { createSkyInset } from './viewerSky.js';
+import { bindGlobePointer } from './viewerPointer.js';
+import { formatSkyRows } from './viewerSkyReadout.js';
+import { prepareOrbitCanvas, setOrbitLabelStyle, updateLocalTimeBox } from './viewerOrbit.js';
+import {
+      addLatLonLines,
+      addNightHemisphere,
+      addSubpointMarker,
+      addTerminator,
+      addTwilightBand
+    } from './viewerOverlays.js';
     const Astronomy = globalThis.Astronomy;
     let lastSubpoints = null;
-    let skyScene = null;
-    let skyRenderer = null;
-    let skyCamera = null;
-    let skyControls = null;
-    let skyArrowsGroup = null;
-    let skyBaseBuilt = false;
     const labelDataset = (typeof document !== 'undefined' && document.body) ? document.body.dataset : {};
     const LABELS = {
       sun: labelDataset.labelSun || 'Sun',
@@ -86,60 +88,37 @@ import * as THREE from 'three';
     };
 
     const container = document.getElementById('scene');
-    const scene = new THREE.Scene();
-
-    const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 0.1, 100);
-    camera.position.set(0, 0, 3);
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(innerWidth, innerHeight);
-    renderer.setPixelRatio(devicePixelRatio);
-    container.appendChild(renderer.domElement);
-    const raycaster = new THREE.Raycaster();
-    const pointer = new THREE.Vector2();
+    const {
+      scene,
+      camera,
+      renderer,
+      controls,
+      earth,
+      planetGroup,
+      groups: {
+        userHighlightGroup,
+        userMarkersGroup,
+        celestialGroup,
+        terminatorGroup,
+        visibilityGroup,
+        eclipticGroup
+      },
+      resize: resizeCore
+    } = createGlobeViewerCore({ container });
     const orbitCanvas = document.getElementById('orbitCanvas');
     const orbitCtx = orbitCanvas?.getContext('2d');
     const ROT_EQJ_TO_ECL = Astronomy.Rotation_EQJ_ECL();
     const defaultTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
 
-    const texLoader = new THREE.TextureLoader();
-    const earthMaterial = new THREE.MeshBasicMaterial({
-      color: 0xbbbbbb
-    });
-
-    loadEarthTexture({
-      loader: texLoader,
-      material: earthMaterial,
-      onLoad: () => render(),
-      onFallbackError: (err) => console.warn('Earth texture fallback failed', err)
-    });
-    const earth = new THREE.Mesh(
-      new THREE.SphereGeometry(1, 128, 128),
-      // Basic material keeps the whole globe evenly lit (no dark side)
-      earthMaterial
-    );
-    // Align texture so longitude 0 matches the grid (prime meridian at front)
-    earth.rotation.y = -Math.PI / 2;
-    scene.add(earth);
-    
-    const gridGroup = new THREE.Group();
-    const userHighlightGroup = new THREE.Group();
-    const userMarkersGroup = new THREE.Group();
-    const celestialGroup = new THREE.Group();
-    const terminatorGroup = new THREE.Group();
-    const visibilityGroup = new THREE.Group();
     const indicatorGroup = new THREE.Group(); // arrows or other indicators
-    const eclipticGroup = new THREE.Group();
-    scene.add(gridGroup);
-    scene.add(userHighlightGroup);
-    scene.add(userMarkersGroup);
-    scene.add(celestialGroup);
-    scene.add(terminatorGroup);
-    scene.add(visibilityGroup);
-    scene.add(indicatorGroup);
-    scene.add(eclipticGroup);
-
-    addEarthGrid(gridGroup);
+    planetGroup.add(indicatorGroup);
+    const skyInset = createSkyInset({
+      containerId: 'sky3dContainer',
+      cameraPosition: [1.6, 1.2, 1.6],
+      minDistance: 1.4,
+      maxDistance: 3.0,
+      target: [0, 0.2, 0]
+    });
     function updateEclipticLine(date) {
       eclipticGroup.clear();
       if (!date || typeof Astronomy === 'undefined') return;
@@ -181,16 +160,14 @@ import * as THREE from 'three';
       return { lat: THREE.MathUtils.clamp(lat, -90, 90), lon: normalizeLon(lonRaw) };
     }
     function updateLocalTime(date) {
-      const box = document.getElementById('localTime');
-      if (!box) return;
-      const point = getSelectedPoint();
-      if (!point) { box.innerHTML = ''; return; }
-      const utc = date ?? new Date();
-      const tz = pointTimeZone(point) || defaultTimeZone;
-        const formatted = formatLocalTime(utc, tz);
-        box.innerHTML = `
-          <div><strong>Local time (${tz}):</strong> ${formatted}</div>
-        `;
+      updateLocalTimeBox({
+        point: getSelectedPoint(),
+        date,
+        pointTimeZone,
+        formatLocalTime,
+        defaultTimeZone,
+        label: 'Local time'
+      });
     }
     function localBasis(latDeg, lonDeg) {
       const up = latLonToVec3(latDeg, lonDeg, 1).normalize();
@@ -276,161 +253,22 @@ import * as THREE from 'three';
       addTick(north.clone().multiplyScalar(-1), 0x9dc5ff);
       addTick(east.clone().multiplyScalar(-1), 0x9dc5ff);
     }
+    const skyPanelVisible = () => true;
     function ensureSkyScene() {
-      if (skyScene) return;
-      const container = document.getElementById('sky3dContainer');
-      if (!container) return;
-      skyScene = new THREE.Scene();
-      const w = container.clientWidth || 320;
-      const h = container.clientHeight || 220;
-      skyCamera = new THREE.PerspectiveCamera(40, w / h, 0.1, 10);
-      skyCamera.position.set(1.6, 1.2, 1.6);
-      skyRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      skyRenderer.setPixelRatio(devicePixelRatio);
-      skyRenderer.setSize(w, h);
-      container.appendChild(skyRenderer.domElement);
-      skyControls = new OrbitControls(skyCamera, skyRenderer.domElement);
-      skyControls.enablePan = false;
-      skyControls.minDistance = 1.4;
-      skyControls.maxDistance = 3;
-      skyControls.target.set(0, 0.2, 0);
-      skyControls.update();
-      skyArrowsGroup = new THREE.Group();
-      skyScene.add(skyArrowsGroup);
-      buildSkyBase();
+      skyInset.ensure();
     }
     function resizeSkyRenderer() {
-      if (!skyRenderer || !skyCamera) return;
-      const container = document.getElementById('sky3dContainer');
-      if (!container) return;
-      const w = container.clientWidth || 320;
-      const h = container.clientHeight || 220;
-      skyCamera.aspect = w / h;
-      skyCamera.updateProjectionMatrix();
-      skyRenderer.setSize(w, h);
+      skyInset.resize();
     }
-    function createLabelSprite(text, color = '#cfe2ff') {
-      const canvas = document.createElement('canvas');
-      canvas.width = 192;
-      canvas.height = 96;
-      const ctx = canvas.getContext('2d');
-      ctx.fillStyle = 'rgba(0,0,0,0)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = color;
-      ctx.font = '48px Arial';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(text, canvas.width / 2, canvas.height / 2);
-      const texture = new THREE.CanvasTexture(canvas);
-      const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
-      const sprite = new THREE.Sprite(material);
-      sprite.scale.set(0.45, 0.22, 1);
-      return sprite;
-    }
-    function buildSkyBase() {
-      if (!skyScene || skyBaseBuilt) return;
-      skyBaseBuilt = true;
-      const base = new THREE.Group();
-      const ring = new THREE.Mesh(
-        new THREE.RingGeometry(0.9, 1.0, 128),
-        new THREE.MeshBasicMaterial({ color: 0x2a89ff, opacity: 0.65, transparent: true, side: THREE.DoubleSide })
-      );
-      ring.rotation.x = -Math.PI / 2;
-      base.add(ring);
-      const innerRing = new THREE.Mesh(
-        new THREE.RingGeometry(0.5, 0.52, 128),
-        new THREE.MeshBasicMaterial({ color: 0x1f2b45, opacity: 0.9, transparent: true, side: THREE.DoubleSide })
-      );
-      innerRing.rotation.x = -Math.PI / 2;
-      base.add(innerRing);
-      const addAxisLine = (dir) => {
-        const geom = new THREE.BufferGeometry().setFromPoints([
-          dir.clone().multiplyScalar(-1),
-          dir.clone().multiplyScalar(1)
-        ]);
-        const line = new THREE.Line(geom, new THREE.LineBasicMaterial({ color: 0x3d4f70, linewidth: 1 }));
-        base.add(line);
-      };
-      addAxisLine(new THREE.Vector3(1, 0, 0));
-      addAxisLine(new THREE.Vector3(0, 0, 1));
-      const obs = new THREE.Mesh(
-        new THREE.SphereGeometry(0.04, 16, 16),
-        new THREE.MeshBasicMaterial({ color: 0xffaa33 })
-      );
-      obs.position.set(0, 0, 0);
-      base.add(obs);
-      const upLine = new THREE.Line(
-        new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0.4, 0)]),
-        new THREE.LineBasicMaterial({ color: 0x66aaff, linewidth: 2 })
-      );
-      const upCone = new THREE.Mesh(
-        new THREE.ConeGeometry(0.03, 0.1, 12),
-        new THREE.MeshBasicMaterial({ color: 0x66aaff })
-      );
-      upCone.position.set(0, 0.45, 0);
-      base.add(upLine);
-      base.add(upCone);
-      const north = createLabelSprite('N');
-      north.position.set(0, 0.02, 1.05);
-      base.add(north);
-      const south = createLabelSprite('S');
-      south.position.set(0, 0.02, -1.05);
-      base.add(south);
-      const east = createLabelSprite('E');
-      east.position.set(1.05, 0.02, 0);
-      base.add(east);
-      const west = createLabelSprite('W');
-      west.position.set(-1.05, 0.02, 0);
-      base.add(west);
-      skyScene.add(base);
-    }
-    const dirFromAzAlt = (azDeg, altDeg) => {
-      const azRad = THREE.MathUtils.degToRad(azDeg);
-      const altRad = THREE.MathUtils.degToRad(altDeg);
-      const north = new THREE.Vector3(0, 0, 1);
-      const east = new THREE.Vector3(1, 0, 0);
-      const up = new THREE.Vector3(0, 1, 0);
-      const horiz = new THREE.Vector3()
-        .addScaledVector(north, Math.cos(azRad))
-        .addScaledVector(east, Math.sin(azRad))
-        .normalize();
-      return new THREE.Vector3()
-        .addScaledVector(horiz, Math.cos(altRad))
-        .addScaledVector(up, Math.sin(altRad))
-        .normalize();
-    };
     function clearSkyArrows() {
-      if (skyArrowsGroup) skyArrowsGroup.clear();
+      skyInset.clearArrows();
     }
     function addSkyArrow(azDeg, altDeg, color, opts = {}) {
-      ensureSkyScene();
-      if (!skyArrowsGroup) return;
-      const floorAlt = opts.floorAlt !== undefined ? opts.floorAlt : altDeg;
-      const drawAlt = Math.max(altDeg, floorAlt);
-      const dir = dirFromAzAlt(azDeg, drawAlt);
-      const start = new THREE.Vector3(0, 0, 0);
-      const len = opts.length ?? 1.1;
-      const end = dir.clone().multiplyScalar(len);
-      const geom = new THREE.BufferGeometry().setFromPoints([start, end]);
-      const mat = opts.dashed
-        ? new THREE.LineDashedMaterial({ color, linewidth: 2, dashSize: 0.05, gapSize: 0.025, opacity: opts.opacity ?? 1, transparent: true })
-        : new THREE.LineBasicMaterial({ color, linewidth: 2, opacity: opts.opacity ?? 1, transparent: opts.opacity !== undefined });
-      const line = new THREE.Line(geom, mat);
-      if (opts.dashed) line.computeLineDistances();
-      skyArrowsGroup.add(line);
-      const cone = new THREE.Mesh(
-        new THREE.ConeGeometry(0.03, 0.12, 12),
-        new THREE.MeshBasicMaterial({ color, opacity: opts.opacity ?? 1, transparent: opts.opacity !== undefined })
-      );
-      cone.position.copy(end);
-      cone.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.clone().normalize());
-      skyArrowsGroup.add(cone);
+      skyInset.addArrow(azDeg, altDeg, color, opts);
     }
-    const skyPanelVisible = () => true;
     function renderSky() {
-      if (!skyRenderer || !skyScene || !skyCamera) return;
       if (!skyPanelVisible()) return;
-      skyRenderer.render(skyScene, skyCamera);
+      skyInset.render();
     }
     function computeHorizons(date) {
       const point = getSelectedPoint();
@@ -469,7 +307,7 @@ import * as THREE from 'three';
       const sunVisible = sunHor.altitude > 0;
       if (sunWarning) sunWarning.style.display = sunVisible ? 'block' : 'none';
       if (skyContainer) skyContainer.classList.toggle('sun-visible', sunVisible);
-      const overlayOn = (document.getElementById('toggleSkyArrows')?.checked ?? false) && skyPanelVisible();
+      const overlayOn = skyPanelVisible();
       clearSkyArrows();
       if (overlayOn) {
         ensureSkyScene();
@@ -482,15 +320,25 @@ import * as THREE from 'three';
           }
         });
       }
-      const fmtDeg = (v) => Number.isFinite(v) ? `${v.toFixed(1)}${LABELS.deg}` : LABELS.na;
-      const rows = [
-        `<div><strong>${LABELS.sun}:</strong> ${LABELS.az} ${fmtDeg(sunHor.azimuth)}${LABELS.pairSep} ${LABELS.alt} ${fmtDeg(sunHor.altitude)}${sunHor.altitude <= 0 ? LABELS.belowHorizon : ''}</div>`
+      const entries = [
+        { label: LABELS.sun, az: sunHor.azimuth, alt: sunHor.altitude },
+        ...planets.map(planet => ({
+          label: planet.label,
+          az: planet.hor.azimuth,
+          alt: planet.hor.altitude
+        }))
       ];
-      planets.forEach((planet) => {
-        const note = planet.hor.altitude <= 0 ? LABELS.belowHorizon : '';
-        rows.push(`<div><strong>${planet.label}:</strong> ${LABELS.az} ${fmtDeg(planet.hor.azimuth)}${LABELS.pairSep} ${LABELS.alt} ${fmtDeg(planet.hor.altitude)}${note}</div>`);
+      box.innerHTML = formatSkyRows({
+        entries,
+        labels: {
+          az: LABELS.az,
+          alt: LABELS.alt,
+          deg: LABELS.deg,
+          na: LABELS.na,
+          belowHorizon: LABELS.belowHorizon,
+          pairSep: LABELS.pairSep
+        }
       });
-      box.innerHTML = rows.join('');
       if (planetsBox) {
         const visible = planets.filter(p => p.hor.altitude > 0).map(p => p.label);
         planetsBox.innerHTML = `<div><strong>${LABELS.visiblePlanets}:</strong> ${visible.length ? visible.join(LABELS.joinSep) : LABELS.none}</div>`;
@@ -501,8 +349,6 @@ import * as THREE from 'three';
       const data = horizons || computeHorizons(date);
       if (!data) return;
       const { point, sunHor, planets } = data;
-      const overlayOn = document.getElementById('toggleSkyArrows')?.checked ?? false;
-      if (!overlayOn) return;
       updateUpArrow(point);
       if (sunHor.altitude > 0) {
         addAzAltArrow(point, sunHor.azimuth, sunHor.altitude, 0xffdd55, { length: 0.34, opacity: 0.9 });
@@ -530,25 +376,9 @@ import * as THREE from 'three';
         ...PLANET_DEFS.map(p => ORBIT_SCALE.radius(p.orbit)),
         1
       );
-      const w = orbitCanvas.width;
-      const h = orbitCanvas.height;
-      const cx = w / 2;
-      const cy = h / 2;
+      const { w, h, cx, cy } = prepareOrbitCanvas({ canvas: orbitCanvas, ctx: orbitCtx });
       const margin = 18;
       const scale = (Math.min(w, h) / 2 - margin) / maxScaled;
-
-      orbitCtx.clearRect(0, 0, w, h);
-      orbitCtx.fillStyle = '#0b1222';
-      orbitCtx.fillRect(0, 0, w, h);
-
-      orbitCtx.strokeStyle = '#1a2235';
-      orbitCtx.lineWidth = 1;
-      orbitCtx.beginPath();
-      orbitCtx.moveTo(0, cy);
-      orbitCtx.lineTo(w, cy);
-      orbitCtx.moveTo(cx, 0);
-      orbitCtx.lineTo(cx, h);
-      orbitCtx.stroke();
 
       const drawOrbit = (r, color) => {
         const rad = ORBIT_SCALE.radius(r) * scale;
@@ -584,8 +414,7 @@ import * as THREE from 'three';
         orbitCtx.fill();
       });
 
-      orbitCtx.fillStyle = '#cfdcff';
-      orbitCtx.font = '12px Arial';
+      setOrbitLabelStyle(orbitCtx);
       orbitCtx.fillText(LABELS.sun, cx + 8, cy - 8);
       const legend = [
         { label: LABELS.sun, color: '#ffdd55' },
@@ -692,50 +521,22 @@ import * as THREE from 'three';
       plotPoints();
       updateCelestial();
     });
-    document.getElementById('toggleSunVisibility').addEventListener('change', () => updateCelestial());
-    document.getElementById('toggleSkyArrows').addEventListener('change', () => updateCelestial());
     const applyCameraMode = () => {
       // Geo sync only for planets view.
     };
-    document.getElementById('datetime').addEventListener('change', () => {
-      updateCelestial();
+    createViewerControls({
+      parseUTC,
+      formatUTC,
+      caretUnit,
+      rangeForUnit,
+      adjustDate,
+      onDateInput: updateCelestial,
+      onDateChange: updateCelestial,
+      onNowClick: seedDateTime,
+      onTwilightInput: () => updateCelestial(),
+      onVisibilityChange: () => updateCelestial(),
+      visibilityToggleIds: ['toggleSunVisibility']
     });
-    const datetimeInput = document.getElementById('datetime');
-    let activeDateUnit = null;
-    datetimeInput.addEventListener('input', () => {
-      updateCelestial();
-    });
-    datetimeInput.addEventListener('click', () => {
-      const pos = datetimeInput.selectionStart ?? 0;
-      activeDateUnit = caretUnit(pos);
-    });
-    datetimeInput.addEventListener('keydown', (e) => {
-      if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') return;
-      e.preventDefault();
-      const pos = datetimeInput.selectionStart ?? 0;
-      const unit = activeDateUnit ?? caretUnit(pos);
-      activeDateUnit = unit;
-      const delta = e.key === 'ArrowUp' ? 1 : -1;
-      const current = parseUTC(datetimeInput.value) ?? new Date();
-      adjustDate(current, unit, delta);
-      datetimeInput.value = formatUTC(current);
-      const range = rangeForUnit(unit);
-      // Restore selection to the same segment after value change
-      requestAnimationFrame(() => datetimeInput.setSelectionRange(range.start, range.end));
-      updateCelestial();
-    });
-    document.getElementById('resetNowBtn').addEventListener('click', (e) => {
-      e.preventDefault();
-      seedDateTime();
-      updateCelestial();
-    });
-    const twilightInput = document.getElementById('twilightAngle');
-      const twilightValue = document.getElementById('twilightValue');
-      twilightValue.textContent = `${twilightInput.value} deg`;
-      twilightInput.addEventListener('input', () => {
-        twilightValue.textContent = `${twilightInput.value} deg`;
-        updateCelestial();
-      });
     const shiftMonth = (mult) => {
       const current = parseUTC(document.getElementById('datetime').value) ?? new Date();
       const shifted = new Date(Date.UTC(
@@ -770,62 +571,31 @@ import * as THREE from 'three';
       });
     });
     // Hover and click on globe to place points
-    let pointerDownPos = null;
-    let pointerMoved = false;
-    function onPointerDown(event) {
-      const rect = renderer.domElement.getBoundingClientRect();
-      pointerDownPos = { x: event.clientX - rect.left, y: event.clientY - rect.top };
-      pointerMoved = false;
-    }
-    function onPointerMove(event) {
-      const rect = renderer.domElement.getBoundingClientRect();
-      pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-      pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-      if (pointerDownPos) {
-        const dx = (event.clientX - rect.left) - pointerDownPos.x;
-        const dy = (event.clientY - rect.top) - pointerDownPos.y;
-        if (Math.hypot(dx, dy) > 5) pointerMoved = true;
-      }
-      raycaster.setFromCamera(pointer, camera);
-      const intersects = raycaster.intersectObject(earth, false);
-      if (intersects.length > 0) {
-        const p = intersects[0].point.clone().normalize();
-        const lat = THREE.MathUtils.radToDeg(Math.asin(p.y));
-        const lon = THREE.MathUtils.radToDeg(Math.atan2(p.x, p.z));
+    const hoverLabel = document.getElementById('hoverLabel');
+    bindGlobePointer({
+      renderer,
+      camera,
+      globe: earth,
+      getLocalVector: (point) => {
+        planetGroup.updateMatrixWorld();
+        return planetGroup.worldToLocal(point.clone()).normalize();
+      },
+      onHover: (lat, lon) => {
+        if (!hoverLabel) return;
+        if (lat === null || lon === null) {
+          hoverLabel.textContent = '';
+          return;
+        }
         hoverLabel.textContent = `Hover: lat ${lat.toFixed(2)}, lon ${lon.toFixed(2)}`;
-      } else {
-        hoverLabel.textContent = '';
-      }
-    }
-    function onPointerClick(event) {
-      if (pointerMoved) {
-        pointerDownPos = null;
-        pointerMoved = false;
-        return; // ignore clicks that were actually drags
-      }
-      const rect = renderer.domElement.getBoundingClientRect();
-      pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-      pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-      raycaster.setFromCamera(pointer, camera);
-      const intersects = raycaster.intersectObject(earth, false);
-      if (intersects.length > 0) {
-        const p = intersects[0].point.clone().normalize();
-        const lat = THREE.MathUtils.radToDeg(Math.asin(p.y));
-        const lon = THREE.MathUtils.radToDeg(Math.atan2(p.x, p.z));
+      },
+      onClick: (lat, lon) => {
+        if (lat === null || lon === null) return;
         setPoint(lat, lon);
+      },
+      onLeave: () => {
+        if (hoverLabel) hoverLabel.textContent = '';
       }
-      pointerDownPos = null;
-      pointerMoved = false;
-    }
-    function onPointerLeave() {
-      pointerDownPos = null;
-      pointerMoved = false;
-      hoverLabel.textContent = '';
-    }
-    renderer.domElement.addEventListener('pointerdown', onPointerDown);
-    renderer.domElement.addEventListener('pointermove', onPointerMove);
-    renderer.domElement.addEventListener('click', onPointerClick);
-    renderer.domElement.addEventListener('pointerleave', onPointerLeave);
+    });
     // set default datetime to now (UTC)
     function seedDateTime() {
       const dt = document.getElementById('datetime');
@@ -844,70 +614,44 @@ import * as THREE from 'three';
       lastSubpoints = { sun, planets };
       updateEclipticLine(date);
       const markerGeom = new THREE.SphereGeometry(markerRadius(), 16, 16);
-      const addMarker = (point, color) => {
-        const pos = latLonToVec3(point.lat, point.lon, 1.02);
-        const marker = new THREE.Mesh(markerGeom, new THREE.MeshBasicMaterial({ color }));
-        marker.position.copy(pos);
-        celestialGroup.add(marker);
-      };
-      const addLatLonLines = (point, color) => {
-        const latLine = new THREE.LineLoop(
-          new THREE.BufferGeometry().setFromPoints(
-            Array.from({ length: 181 }, (_, i) => {
-              const phi = THREE.MathUtils.degToRad(i * 2);
-              const lat = THREE.MathUtils.degToRad(point.lat);
-              return new THREE.Vector3(
-                Math.cos(lat) * Math.sin(phi),
-                Math.sin(lat),
-                Math.cos(lat) * Math.cos(phi)
-              );
-            })
-          ),
-          new THREE.LineBasicMaterial({ color, linewidth: 1.5 })
-        );
-        const lon = THREE.MathUtils.degToRad(point.lon);
-        const lonPts = [];
-        for (let l = -90; l <= 90; l += 2) {
-          const lr = THREE.MathUtils.degToRad(l);
-          lonPts.push(new THREE.Vector3(
-            Math.cos(lr) * Math.sin(lon),
-            Math.sin(lr),
-            Math.cos(lr) * Math.cos(lon)
-          ));
-        }
-        const lonLine = new THREE.Line(
-          new THREE.BufferGeometry().setFromPoints(lonPts),
-          new THREE.LineBasicMaterial({ color, linewidth: 1.5 })
-        );
-        celestialGroup.add(latLine);
-        celestialGroup.add(lonLine);
-      };
-
-      addMarker(sun, 0xffdd55);
-      addLatLonLines(sun, 0xffdd55);
-      const sunDir = latLonToVec3(sun.lat, sun.lon, 1).normalize();
-      terminatorGroup.add(createTerminatorCircle(sunDir, 0xffdd55, 1.01));
-      planets.forEach((planet) => addMarker(planet.point, planet.color));
+      addSubpointMarker({
+        group: celestialGroup,
+        markerGeom,
+        point: sun,
+        color: 0xffdd55,
+        latLonToVec3
+      });
+      addLatLonLines({ group: celestialGroup, point: sun, color: 0xffdd55 });
+      addTerminator({ group: terminatorGroup, point: sun, color: 0xffdd55, latLonToVec3 });
+      planets.forEach((planet) => {
+        addSubpointMarker({
+          group: celestialGroup,
+          markerGeom,
+          point: planet.point,
+          color: planet.color,
+          latLonToVec3
+        });
+      });
 
       // Night side overlay (dark blue) to match Earth viewer styling
       if (sun) {
-        const night = createNightHemisphere(latLonToVec3(sun.lat, sun.lon, 1), 0x0a1f4d, 0.42, 1.9);
-        night.visible = document.getElementById('toggleSunVisibility').checked;
-        night.userData.body = 'sun';
-        visibilityGroup.add(night);
+        addNightHemisphere({
+          group: visibilityGroup,
+          point: sun,
+          latLonToVec3,
+          visible: document.getElementById('toggleSunVisibility').checked,
+          body: 'sun'
+        });
       }
 
       const twilightAngle = Math.max(0, parseFloat(document.getElementById('twilightAngle').value) || 0);
-      if (twilightAngle > 0) {
-        const twilightBand = createTwilightBand(
-          latLonToVec3(sun.lat, sun.lon, 1),
-          0xcc9933,
-          0.18,
-          twilightAngle
-        );
-        twilightBand.userData.body = 'twilight';
-        visibilityGroup.add(twilightBand);
-      }
+      addTwilightBand({
+        group: visibilityGroup,
+        point: sun,
+        latLonToVec3,
+        angle: twilightAngle,
+        body: 'twilight'
+      });
 
       const fmt = (v) => v.toFixed(2);
       document.getElementById('subpoints').innerHTML =
@@ -927,7 +671,6 @@ import * as THREE from 'three';
     updateCelestial();
 
     // Hover coordinate display
-    const hoverLabel = document.getElementById('hoverLabel');
     const infoPanel = document.getElementById('infoPanel');
     const sidePanels = document.getElementById('sidePanels');
     const toggleInfoBtn = document.getElementById('toggleInfoBtn');
@@ -936,112 +679,31 @@ import * as THREE from 'three';
     const creditsToggle = document.getElementById('creditsToggle');
     const footer = document.querySelector('footer');
     const isMobile = () => innerWidth <= 900;
-    let infoVisible = innerWidth > 900 ? false : true;
-    let controlsVisible = true;
-    const collapsibleIds = ['sunVenusSection', 'cameraSection', 'twilightSection', 'pointSection'];
-    let lastMobileState = isMobile();
-    function setCollapsed(id, collapsed) {
-      const el = document.getElementById(id);
-      if (!el) return;
-      if (collapsed) el.classList.add('collapsed'); else el.classList.remove('collapsed');
-      const header = el.querySelector('.section-header');
-      if (header) header.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
-    }
-    function syncCollapsibles(forceMobileState = null) {
-      const mobile = forceMobileState !== null ? forceMobileState : isMobile();
-      collapsibleIds.forEach(id => setCollapsed(id, mobile));
-      lastMobileState = mobile;
-    }
-    document.querySelectorAll('.section-header').forEach(header => {
-      header.addEventListener('click', () => {
-        const target = header.dataset.target;
-        if (!target) return;
-        const el = document.getElementById(target);
-        if (!el) return;
-        const nextState = !el.classList.contains('collapsed');
-        setCollapsed(target, nextState);
-      });
-      header.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          header.click();
-        }
-      });
-    });
-    syncCollapsibles(lastMobileState);
 
     function resizeRendererToContainer() {
-      renderer.setSize(innerWidth, innerHeight, false);
-      camera.aspect = innerWidth / innerHeight;
-      camera.updateProjectionMatrix();
+      resizeCore();
     }
 
-    function positionTourPanel() {
-      if (!tourPanel) return;
-      const infoRect = infoPanel?.getBoundingClientRect();
-      if (infoPanel && infoVisible && infoPanel.style.display !== 'none' && infoRect && innerWidth > 900) {
-        tourPanel.style.left = `${infoPanel.offsetLeft}px`;
-        tourPanel.style.top = `${infoPanel.offsetTop + infoPanel.offsetHeight + 12}px`;
-      } else if (innerWidth > 900) {
-        tourPanel.style.left = '12px';
-        tourPanel.style.top = '64px';
-      }
-    }
-    function applyPanelVisibility() {
-      if (isMobile()) {
-        infoVisible = true;
-        controlsVisible = true;
-      }
-      const nowMobile = isMobile();
-      if (nowMobile !== lastMobileState) {
-        syncCollapsibles(nowMobile);
-      }
-      infoPanel.style.display = infoVisible ? 'block' : 'none';
-      sidePanels.style.display = controlsVisible ? (isMobile() ? 'block' : 'flex') : 'none';
-      positionTourPanel();
-      resizeRendererToContainer();
-    }
-    toggleInfoBtn.addEventListener('click', () => {
-      infoVisible = !infoVisible;
-      applyPanelVisibility();
+    initViewerPanels({
+      infoPanel,
+      sidePanels,
+      toggleInfoBtn,
+      toggleControlsBtn,
+      tourPanel,
+      creditsToggle,
+      footer,
+      isMobile,
+      collapsibleIds: ['sunVenusSection', 'cameraSection', 'twilightSection', 'pointSection'],
+      defaultInfoVisible: innerWidth > 900 ? false : true,
+      defaultControlsVisible: true,
+      onApply: resizeRendererToContainer,
+      onResize: resizeSkyRenderer
     });
-    toggleControlsBtn.addEventListener('click', () => {
-      controlsVisible = !controlsVisible;
-      applyPanelVisibility();
-    });
-    addEventListener('resize', () => {
-      applyPanelVisibility();
-      resizeSkyRenderer();
-    });
-    applyPanelVisibility();
-    let creditsOpen = false;
-    const setCreditsOpen = (open) => {
-      if (!footer) return;
-      creditsOpen = open;
-      footer.classList.toggle('show', open);
-    };
-    if (creditsToggle && footer) {
-      creditsToggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        setCreditsOpen(!creditsOpen);
-      });
-      document.addEventListener('click', (e) => {
-        if (!creditsOpen) return;
-        const target = e.target;
-        if (footer.contains(target) || creditsToggle.contains(target)) return;
-        setCreditsOpen(false);
-      });
-    }
 
     // Apply initial sizing
     resizeSkyRenderer();
 
     // No default point; user must select
-
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.08;
-    controls.rotateSpeed = 0.45;
 
     function onResize() {
       resizeRendererToContainer();
@@ -1053,7 +715,7 @@ import * as THREE from 'three';
     function animate() {
       requestAnimationFrame(animate);
       controls.update();
-      if (skyControls && skyPanelVisible()) skyControls.update();
+      if (skyPanelVisible()) skyInset.updateControls();
       render();
     }
     function render() {
