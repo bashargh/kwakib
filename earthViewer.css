@@ -286,6 +286,7 @@ html, body { margin: 0; height: 100%; overflow: hidden; background:#020712; colo
     }
     .subpoint-dot-sun { background: #ffdd55; }
     .subpoint-dot-moon { background: #55ddff; }
+    .mobile-scene-footer { display: none; }
     .seasons-page .page-layout {
       position: relative;
       width: 100%;
@@ -752,6 +753,10 @@ html, body { margin: 0; height: 100%; overflow: hidden; background:#020712; colo
         width: 100vw;
         height: 100vh;
         scroll-snap-align: start;
+      }
+      .seasons-page .page-layout > #scene {
+        position: relative;
+        inset: auto;
       }
       .seasons-page #leftPanels,
       .seasons-page #sidePanels {
