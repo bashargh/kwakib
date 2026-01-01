@@ -818,6 +818,7 @@ html, body { margin: 0; height: 100%; overflow: hidden; background:#020712; colo
       .seasons-page[data-active-slide="scene"] .topic-select { display: flex; }
       .seasons-page footer { display: none; }
       .seasons-page .mobile-scene-footer {
+        display: block;
         position: absolute;
         left: 12px;
         bottom: 12px;

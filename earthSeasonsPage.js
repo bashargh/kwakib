@@ -253,6 +253,10 @@ if (!api) {
       });
     }, { passive: true });
     updateActiveSlide();
+    if (isMobile() && slides[1]) {
+      pageLayout.scrollLeft = slides[1].offsetLeft;
+      updateActiveSlide();
+    }
   }
 
   if (!tourState?.active && (!isMobile() || allowMobileTours)) {
