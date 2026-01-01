@@ -233,6 +233,10 @@ export const createEarthTours = ({
       twilightInput.value = tourTwilightAngle;
       twilightValue.textContent = `${tourTwilightAngle} deg`;
     }
+    if (tourState.active && tourState.tourId === 'seasons') {
+      setCameraMode('dawn');
+      cameraModeButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.mode === getCameraMode()));
+    }
     setBasePlanetYaw(0);
     planetGroup.rotation.y = getBasePlanetYaw();
     earth.rotation.y = earthBaseYaw;
@@ -282,12 +286,6 @@ export const createEarthTours = ({
     });
     resetClickCount();
     if (typeof onTourStart === 'function') onTourStart(tourState);
-    if (tour.id === 'seasons') {
-      setCameraMode('dawn');
-      cameraModeButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.mode === getCameraMode()));
-      const last = getLastSubpoints ? getLastSubpoints() : null;
-      applyCameraMode(last?.sun);
-    }
     const initTwilight = parseFloat(twilightInput.value);
     tourTwilightAngle = Number.isFinite(initTwilight) ? initTwilight : null;
     setBasePlanetYaw(0);

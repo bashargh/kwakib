@@ -195,8 +195,6 @@ if (!api) {
     tours.updateTourStepCard();
     updateTourPoiSummary(api.getLastSubpoints?.()?.sun);
     api.setCameraFocusLat?.(lat);
-    const last = api.getLastSubpoints?.();
-    if (api.applyCameraMode) api.applyCameraMode(last?.sun);
   });
 
   api.hooks.onUpdate(({ sun }) => {
@@ -238,6 +236,7 @@ if (!api) {
       if (!slides.length) return;
       const clamped = Math.max(0, Math.min(slides.length - 1, index));
       pageLayout.scrollTo({ left: slides[clamped].offsetLeft, behavior: 'smooth' });
+      setTimeout(updateActiveSlide, 220);
     };
     carouselPrevBtn.addEventListener('click', () => {
       scrollToIndex(getCurrentIndex() - 1);

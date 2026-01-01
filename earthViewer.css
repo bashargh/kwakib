@@ -286,6 +286,15 @@ html, body { margin: 0; height: 100%; overflow: hidden; background:#020712; colo
     }
     .subpoint-dot-sun { background: #ffdd55; }
     .subpoint-dot-moon { background: #55ddff; }
+    .seasons-page .page-layout {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .seasons-page .page-layout > #scene {
+      position: absolute;
+      inset: 0;
+    }
     .panel-scroll {
       display: flex;
       flex-direction: column;
@@ -798,9 +807,11 @@ html, body { margin: 0; height: 100%; overflow: hidden; background:#020712; colo
         margin: 0;
         z-index: 61;
       }
+      .seasons-page #langSwitcher,
+      .seasons-page .topic-select { display: none; }
+      .seasons-page[data-active-slide="scene"] #langSwitcher,
+      .seasons-page[data-active-slide="scene"] .topic-select { display: flex; }
       .seasons-page footer { display: none; }
-      .seasons-page .mobile-scene-footer { display: none; }
-      .seasons-page[data-active-slide="scene"] .mobile-scene-footer { display: block; }
       .seasons-page .mobile-scene-footer {
         position: absolute;
         left: 12px;
