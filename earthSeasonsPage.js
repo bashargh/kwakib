@@ -216,6 +216,11 @@ if (!api) {
   if (pageLayout && carouselPrevBtn && carouselNextBtn) {
     const slideIds = ['leftPanels', 'scene', 'sidePanels'];
     const slides = slideIds.map((id) => document.getElementById(id)).filter(Boolean);
+    const updateActiveSlide = () => {
+      if (!slides.length) return;
+      const index = getCurrentIndex();
+      document.body.dataset.activeSlide = slideIds[index] || '';
+    };
     const getCurrentIndex = () => {
       const scrollLeft = pageLayout.scrollLeft;
       let bestIndex = 0;
@@ -240,6 +245,15 @@ if (!api) {
     carouselNextBtn.addEventListener('click', () => {
       scrollToIndex(getCurrentIndex() + 1);
     });
+    let rafId = 0;
+    pageLayout.addEventListener('scroll', () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = 0;
+        updateActiveSlide();
+      });
+    }, { passive: true });
+    updateActiveSlide();
   }
 
   if (!tourState?.active && (!isMobile() || allowMobileTours)) {

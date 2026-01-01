@@ -147,24 +147,26 @@
   <script type="module" src="topicSelect.js"></script>
   <div id="pageLayout" class="page-layout">
     <div id="leftPanels">
-      <div class="section" id="tourSection">
-        <h3 id="guidedTourHeading">Guided Tour</h3>
-        <div id="tourMobileMsg" style="display:none; font-size:12px; color:#cfdcff;">Tours are available on desktop screens.</div>
-        <div id="tourCard" class="tour-card" style="display:none;">
-          <div id="tourStepTitle" class="tour-step-title"></div>
-          <div id="tourStepBody" class="tour-step-body"></div>
-          <div id="tourProgress" class="tour-progress"></div>
-          <div id="tourPoiSummary" style="font-size:14px; color:#dce6ff; margin-bottom:6px;"></div>
-          <div id="seasonsInsetBox" style="display:none; margin:8px 0 6px;">
-            <canvas id="seasonsInset" width="520" height="420" style="width:100%; height:360px; border:1px solid rgba(42,137,255,0.35); border-radius:8px; background: rgba(10,16,26,0.45); display:block;"></canvas>
+      <div class="panel-scroll">
+        <div class="section" id="tourSection">
+          <h3 id="guidedTourHeading">Guided Tour</h3>
+          <div id="tourMobileMsg" style="display:none; font-size:12px; color:#cfdcff;">Tours are available on desktop screens.</div>
+          <div id="tourCard" class="tour-card" style="display:none;">
+            <div id="tourStepTitle" class="tour-step-title"></div>
+            <div id="tourStepBody" class="tour-step-body"></div>
+            <div id="tourProgress" class="tour-progress"></div>
+            <div id="tourPoiSummary" style="font-size:14px; color:#dce6ff; margin-bottom:6px;"></div>
+            <div id="seasonsInsetBox" style="display:none; margin:8px 0 6px;">
+              <canvas id="seasonsInset" width="520" height="420" style="width:100%; height:360px; border:1px solid rgba(42,137,255,0.35); border-radius:8px; background: rgba(10,16,26,0.45); display:block;"></canvas>
+            </div>
+            <div class="row" style="gap:6px;">
+              <button id="tourPrevBtn">Prev</button>
+              <button id="tourNextBtn">Next</button>
+              <button id="tourReplayBtn" class="tour-secondary">Replay step</button>
+              <button id="tourExitBtn" class="tour-secondary">Reset</button>
+            </div>
+            <div id="tourAlert" class="tour-alert" style="display:none;"></div>
           </div>
-          <div class="row" style="gap:6px;">
-            <button id="tourPrevBtn">Prev</button>
-            <button id="tourNextBtn">Next</button>
-            <button id="tourReplayBtn" class="tour-secondary">Replay step</button>
-            <button id="tourExitBtn" class="tour-secondary">Reset</button>
-          </div>
-          <div id="tourAlert" class="tour-alert" style="display:none;"></div>
         </div>
       </div>
     </div>
@@ -172,78 +174,79 @@
       <div class="mobile-scene-footer">Texture map credit: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a></div>
     </div>
     <div id="sidePanels">
-      <div id="controls">
-    <div class="section" title="Set UTC time; sidereal day steps shift subsolar longitude eastward (~360 deg / 23h56m).">
-      <h3 id="timeAnimHeading">Time & Animation</h3>
-      <label id="datetimeLabel">Date/Time (UTC)</label>
-      <div class="row">
-        <input id="datetime" type="text" style="flex:1; min-width: 0;" placeholder="YYYY-MM-DDTHH:MM" title="Format: YYYY-MM-DDTHH:MM" />
-        <button id="resetNowBtn" title="Set to current UTC time">Now</button>
-      </div>
-      <div class="row" style="margin-top:6px;">
-        <button id="siderealMinusBtn" title="Jump back 1 sidereal day (23h56m)">-1 sidereal day</button>
-        <button id="siderealPlusBtn" title="Jump forward 1 sidereal day (23h56m)">+1 sidereal day</button>
-      </div>
-      <div class="row" style="margin-top:6px;">
-        <button class="timeStep" data-unit="day" data-delta="-1">-1 day</button>
-        <button class="timeStep" data-unit="day" data-delta="1">+1 day</button>
-        <button class="timeStep" data-unit="hour" data-delta="-1">-1 hr</button>
-        <button class="timeStep" data-unit="hour" data-delta="1">+1 hr</button>
-        <button class="timeStep" data-unit="minute" data-delta="-10">-10 min</button>
-        <button class="timeStep" data-unit="minute" data-delta="10">+10 min</button>
-      </div>
-    </div>
+      <div class="panel-scroll">
+        <div id="controls">
+          <div class="section" title="Set UTC time; sidereal day steps shift subsolar longitude eastward (~360 deg / 23h56m).">
+            <h3 id="timeAnimHeading">Time & Animation</h3>
+            <label id="datetimeLabel">Date/Time (UTC)</label>
+            <div class="row">
+              <input id="datetime" type="text" style="flex:1; min-width: 0;" placeholder="YYYY-MM-DDTHH:MM" title="Format: YYYY-MM-DDTHH:MM" />
+              <button id="resetNowBtn" title="Set to current UTC time">Now</button>
+            </div>
+            <div class="row" style="margin-top:6px;">
+              <button id="siderealMinusBtn" title="Jump back 1 sidereal day (23h56m)">-1 sidereal day</button>
+              <button id="siderealPlusBtn" title="Jump forward 1 sidereal day (23h56m)">+1 sidereal day</button>
+            </div>
+            <div class="row" style="margin-top:6px;">
+              <button class="timeStep" data-unit="day" data-delta="-1">-1 day</button>
+              <button class="timeStep" data-unit="day" data-delta="1">+1 day</button>
+              <button class="timeStep" data-unit="hour" data-delta="-1">-1 hr</button>
+              <button class="timeStep" data-unit="hour" data-delta="1">+1 hr</button>
+              <button class="timeStep" data-unit="minute" data-delta="-10">-10 min</button>
+              <button class="timeStep" data-unit="minute" data-delta="10">+10 min</button>
+            </div>
+          </div>
 
-    <div class="section">
-      <h3 id="sunMoonHeading">Sun & Moon</h3>
-      <label id="sunVisLabel"><input id="toggleSunVisibility" type="checkbox" checked /> <span id="sunVisText">Night visibility</span></label>
-      <label id="moonVisLabel"><input id="toggleMoonVisibility" type="checkbox" checked /> <span id="moonVisText">Moon visibility</span></label>
-    </div>
+          <div class="section">
+            <h3 id="sunMoonHeading">Sun & Moon</h3>
+            <label id="sunVisLabel"><input id="toggleSunVisibility" type="checkbox" checked /> <span id="sunVisText">Night visibility</span></label>
+            <label id="moonVisLabel"><input id="toggleMoonVisibility" type="checkbox" checked /> <span id="moonVisText">Moon visibility</span></label>
+          </div>
 
-    <div class="section">
-      <h3 id="cameraHeading">Camera</h3>
-      <div class="segment-group" id="cameraSegments">
-        <button data-mode="geo" class="active">Geosync</button>
-        <button data-mode="sun">Sun-sync</button>
-        <button data-mode="dawn">Dawn</button>
-        <button data-mode="dusk">Dusk</button>
-      </div>
-    </div>
+          <div class="section">
+            <h3 id="cameraHeading">Camera</h3>
+            <div class="segment-group" id="cameraSegments">
+              <button data-mode="geo" class="active">Geosync</button>
+              <button data-mode="sun">Sun-sync</button>
+              <button data-mode="dawn">Dawn</button>
+              <button data-mode="dusk">Dusk</button>
+            </div>
+          </div>
 
-    <div class="section">
-      <h3 id="twilightHeading">Twilight Band</h3>
-      <label class="row inputs-inline" style="margin-top:2px; align-items:flex-start; gap:10px;">
-        <span id="twilightLimitLabel" style="min-width:130px;">Twilight limit (deg below horizon):</span>
-        <div style="display:flex; flex-direction:column; gap:4px; width:100%;">
-          <input id="twilightAngle" type="range" min="0" max="18" step="0.5" value="18" />
-          <span id="twilightValue" style="font-size:12px; color:#cfdcff;">18 deg</span>
+          <div class="section">
+            <h3 id="twilightHeading">Twilight Band</h3>
+            <label class="row inputs-inline" style="margin-top:2px; align-items:flex-start; gap:10px;">
+              <span id="twilightLimitLabel" style="min-width:130px;">Twilight limit (deg below horizon):</span>
+              <div style="display:flex; flex-direction:column; gap:4px; width:100%;">
+                <input id="twilightAngle" type="range" min="0" max="18" step="0.5" value="18" />
+                <span id="twilightValue" style="font-size:12px; color:#cfdcff;">18 deg</span>
+              </div>
+            </label>
+          </div>
+
+          <div class="section">
+            <h3 id="pointsHeading">Points</h3>
+            <label id="pointALabel">Point (lat, lon) <span style="color:#ff6699;">&bull;</span></label>
+            <div class="row inputs-inline">
+              <input id="lat1" type="number" step="0.1" />
+              <input id="lon1" type="number" step="0.1" />
+            </div>
+            <div class="row" style="margin-top:6px;">
+              <button id="plotBtn">Plot point</button>
+              <button id="clearPointsBtn" style="background:#444a5a;">Clear</button>
+            </div>
+          </div>
         </div>
-      </label>
-    </div>
-
-    <div class="section">
-      <h3 id="pointsHeading">Points</h3>
-      <label id="pointALabel">Point (lat, lon) <span style="color:#ff6699;">&bull;</span></label>
-      <div class="row inputs-inline">
-        <input id="lat1" type="number" step="0.1" />
-        <input id="lon1" type="number" step="0.1" />
+        <div id="dataPanel">
+          <h3 id="dataHeading">Sun & Moon Data</h3>
+          <div id="subpoints" style="font-size:12px; line-height:1.4;"></div>
+          <div id="durations" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;"></div>
+          <div id="pointMetrics" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;"></div>
+          <div id="hoverBox" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;">
+            <div id="hoverLabel"></div>
+          </div>
+        </div>
       </div>
-      <div class="row" style="margin-top:6px;">
-        <button id="plotBtn">Plot point</button>
-        <button id="clearPointsBtn" style="background:#444a5a;">Clear</button>
-      </div>
-    </div>
-
-  </div>
-    <div id="dataPanel">
-      <h3 id="dataHeading">Sun & Moon Data</h3>
-      <div id="subpoints" style="font-size:12px; line-height:1.4;"></div>
-      <div id="durations" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;"></div>
-      <div id="pointMetrics" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;"></div>
-      <div id="hoverBox" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;">
-        <div id="hoverLabel"></div>
-      </div>
-    </div>
     </div>
   </div>
   <script type="importmap">
