@@ -755,6 +755,7 @@ html, body { margin: 0; height: 100%; overflow: hidden; background:#020712; colo
       .seasons-page .mobile-carousel-btn { display: inline-flex; }
       .seasons-page #toggleInfoBtn,
       .seasons-page #toggleControlsBtn { display: none; }
+      .seasons-page .topic-select { margin-top: 52px; }
     }
     @media (max-height: 780px) {
       .analemma-breakdown { padding: 10px; }

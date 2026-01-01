@@ -24,6 +24,7 @@ if (!api) {
     return fallback;
   };
   const resetOnExit = parseBool(document.body?.dataset?.tourResetOnExit, false);
+  const allowMobileTours = parseBool(document.body?.dataset?.allowMobileTour, false);
   const formatHours = (hours) => {
     const h = Math.floor(hours);
     let m = Math.round((hours - h) * 60);
@@ -104,6 +105,7 @@ if (!api) {
     formatCopy: api.formatCopy,
     uiDir,
     isMobile,
+    allowMobileTours,
     resetOnExit,
     tourUi,
     collapseInfoPanelForTour,
@@ -240,7 +242,7 @@ if (!api) {
     });
   }
 
-  if (!tourState?.active && !isMobile()) {
+  if (!tourState?.active && (!isMobile() || allowMobileTours)) {
     tours.startTour('seasons');
   }
   if (typeof api.updateCelestial === 'function') {

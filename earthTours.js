@@ -3,6 +3,7 @@ export const createEarthTours = ({
   formatCopy,
   uiDir,
   isMobile,
+  allowMobileTours = false,
   resetOnExit = false,
   tourUi,
   collapseInfoPanelForTour,
@@ -120,9 +121,13 @@ export const createEarthTours = ({
 
   const updateTourAvailability = () => {
     const mobile = isMobile();
-    if (tourUi.mobileMsg) tourUi.mobileMsg.style.display = mobile ? 'block' : 'none';
-    if (tourUi.desktopControls) tourUi.desktopControls.style.display = mobile ? 'none' : 'block';
-    if (mobile && tourState.active) exitTour(true);
+    if (tourUi.mobileMsg) {
+      tourUi.mobileMsg.style.display = (mobile && !allowMobileTours) ? 'block' : 'none';
+    }
+    if (tourUi.desktopControls) {
+      tourUi.desktopControls.style.display = (mobile && !allowMobileTours) ? 'none' : 'block';
+    }
+    if (mobile && !allowMobileTours && tourState.active) exitTour(true);
   };
 
   const readPoiFromInputs = () => {
@@ -256,7 +261,7 @@ export const createEarthTours = ({
   };
 
   const startTour = (tourId = 'seasons') => {
-    if (isMobile()) {
+    if (isMobile() && !allowMobileTours) {
       setTourAlert('Tours are available on desktop screens.');
       return;
     }

@@ -56,7 +56,8 @@ import {
       showEcliptic: parseBool(pageData.showEcliptic, false),
       allowPointSelection: parseBool(pageData.allowPointSelection, true),
       leftPanelsAlways: parseBool(pageData.leftPanelsAlways, false),
-      mobilePanelsVisible: parseBool(pageData.mobilePanelsVisible, false)
+      mobilePanelsVisible: parseBool(pageData.mobilePanelsVisible, false),
+      mobileCameraDistance: Number.parseFloat(pageData.mobileCameraDistance)
     };
     const singlePointMode = (typeof window !== 'undefined' && window.SINGLE_POINT === true);
     const EARTH_RADIUS_KM = 6371;
@@ -660,8 +661,20 @@ import {
       isMobile
     });
 
+    const applyMobileCameraDistance = () => {
+      if (!isMobile()) return;
+      if (!Number.isFinite(viewerConfig.mobileCameraDistance)) return;
+      const next = Math.max(1.5, viewerConfig.mobileCameraDistance);
+      if (Math.abs(camera.position.length() - next) > 0.01) {
+        camera.position.setLength(next);
+        controls.update();
+      }
+    };
+    applyMobileCameraDistance();
+
       function onResize() {
         const size = resizeCore();
+        applyMobileCameraDistance();
         runHooks(hookRegistry.onResize, { width: size.width, height: size.height });
         render();
       }
