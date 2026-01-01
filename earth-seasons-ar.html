@@ -131,7 +131,6 @@
 </head>
 <body class="seasons-page" data-show-ecliptic="false" data-include-mean-sun="false" data-include-moon="true" data-tour-reset-on-exit="true">
   <h1 class="sr-only">جولة فصول الأرض</h1>
-  <div id="scene"></div>
   <button id="toggleInfoBtn" class="floating-btn">معلومات</button>
   <button id="toggleControlsBtn" class="floating-btn">التحكم</button>
   <div id="langSwitcher">
@@ -148,8 +147,14 @@
       <option value="venus-ar.html">رؤية الزهرة</option>
     </select>
   </div>
+  <nav id="mobileTabs" class="mobile-tabs" aria-label="Page sections">
+    <button type="button" data-target="leftPanels">&#1605;&#1593;&#1604;&#1608;&#1605;&#1575;&#1578;</button>
+    <button type="button" data-target="scene">&#1575;&#1604;&#1571;&#1585;&#1590;</button>
+    <button type="button" data-target="sidePanels">&#1575;&#1604;&#1578;&#1581;&#1603;&#1605;</button>
+  </nav>
   <script type="module" src="topicSelect.js"></script>
-  <div id="leftPanels">
+  <div id="pageLayout" class="page-layout">
+    <div id="leftPanels">
     <div class="section" id="tourSection">
       <h3 id="guidedTourHeading">جولة إرشادية</h3>
       <div id="tourMobileMsg" style="display:none; font-size:12px; color:#cfdcff;">الجولات متاحة على الشاشات المكتبية.</div>
@@ -170,9 +175,10 @@
         <div id="tourAlert" class="tour-alert" style="display:none;"></div>
       </div>
     </div>
-  </div>
-  <div id="sidePanels">
-    <div id="controls">
+    </div>
+    <div id="scene"></div>
+    <div id="sidePanels">
+      <div id="controls">
     <div class="section" title="ضبط الوقت بالتوقيت العالمي؛ القفز بالأيام النجمية يحرك خط الطول تحت الشمس شرقاً.">
       <h3 id="timeAnimHeading">الوقت والتحريك</h3>
       <label id="datetimeLabel">التاريخ/الوقت (UTC)</label>
@@ -262,6 +268,7 @@
   </footer>
 </body>
 </html>
+
 
 
 

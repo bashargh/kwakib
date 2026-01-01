@@ -126,7 +126,6 @@
 </head>
 <body class="seasons-page" data-show-ecliptic="false" data-include-mean-sun="false" data-include-moon="true" data-tour-reset-on-exit="true">
   <h1 class="sr-only">Earth Seasons Tour</h1>
-  <div id="scene"></div>
   <button id="toggleInfoBtn" class="floating-btn">Info</button>
   <button id="toggleControlsBtn" class="floating-btn">Controls</button>
   <div id="langSwitcher">
@@ -143,31 +142,38 @@
       <option value="venus.html">Venus visibility</option>
     </select>
   </div>
+  <nav id="mobileTabs" class="mobile-tabs" aria-label="Page sections">
+    <button type="button" data-target="leftPanels">Info</button>
+    <button type="button" data-target="scene">Globe</button>
+    <button type="button" data-target="sidePanels">Controls</button>
+  </nav>
   <script type="module" src="topicSelect.js"></script>
-  <div id="leftPanels">
-    <div class="section" id="tourSection">
-      <h3 id="guidedTourHeading">Guided Tour</h3>
-      <div id="tourMobileMsg" style="display:none; font-size:12px; color:#cfdcff;">Tours are available on desktop screens.</div>
-      <div id="tourCard" class="tour-card" style="display:none;">
-        <div id="tourStepTitle" class="tour-step-title"></div>
-        <div id="tourStepBody" class="tour-step-body"></div>
-        <div id="tourProgress" class="tour-progress"></div>
-        <div id="tourPoiSummary" style="font-size:14px; color:#dce6ff; margin-bottom:6px;"></div>
-        <div id="seasonsInsetBox" style="display:none; margin:8px 0 6px;">
-          <canvas id="seasonsInset" width="520" height="420" style="width:100%; height:360px; border:1px solid rgba(42,137,255,0.35); border-radius:8px; background: rgba(10,16,26,0.45); display:block;"></canvas>
+  <div id="pageLayout" class="page-layout">
+    <div id="leftPanels">
+      <div class="section" id="tourSection">
+        <h3 id="guidedTourHeading">Guided Tour</h3>
+        <div id="tourMobileMsg" style="display:none; font-size:12px; color:#cfdcff;">Tours are available on desktop screens.</div>
+        <div id="tourCard" class="tour-card" style="display:none;">
+          <div id="tourStepTitle" class="tour-step-title"></div>
+          <div id="tourStepBody" class="tour-step-body"></div>
+          <div id="tourProgress" class="tour-progress"></div>
+          <div id="tourPoiSummary" style="font-size:14px; color:#dce6ff; margin-bottom:6px;"></div>
+          <div id="seasonsInsetBox" style="display:none; margin:8px 0 6px;">
+            <canvas id="seasonsInset" width="520" height="420" style="width:100%; height:360px; border:1px solid rgba(42,137,255,0.35); border-radius:8px; background: rgba(10,16,26,0.45); display:block;"></canvas>
+          </div>
+          <div class="row" style="gap:6px;">
+            <button id="tourPrevBtn">Prev</button>
+            <button id="tourNextBtn">Next</button>
+            <button id="tourReplayBtn" class="tour-secondary">Replay step</button>
+            <button id="tourExitBtn" class="tour-secondary">Reset</button>
+          </div>
+          <div id="tourAlert" class="tour-alert" style="display:none;"></div>
         </div>
-        <div class="row" style="gap:6px;">
-          <button id="tourPrevBtn">Prev</button>
-          <button id="tourNextBtn">Next</button>
-          <button id="tourReplayBtn" class="tour-secondary">Replay step</button>
-          <button id="tourExitBtn" class="tour-secondary">Reset</button>
-        </div>
-        <div id="tourAlert" class="tour-alert" style="display:none;"></div>
       </div>
     </div>
-  </div>
-  <div id="sidePanels">
-    <div id="controls">
+    <div id="scene"></div>
+    <div id="sidePanels">
+      <div id="controls">
     <div class="section" title="Set UTC time; sidereal day steps shift subsolar longitude eastward (~360 deg / 23h56m).">
       <h3 id="timeAnimHeading">Time & Animation</h3>
       <label id="datetimeLabel">Date/Time (UTC)</label>
@@ -230,15 +236,16 @@
     </div>
 
   </div>
-  <div id="dataPanel">
-    <h3 id="dataHeading">Sun & Moon Data</h3>
-    <div id="subpoints" style="font-size:12px; line-height:1.4;"></div>
-    <div id="durations" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;"></div>
-    <div id="pointMetrics" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;"></div>
-    <div id="hoverBox" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;">
-      <div id="hoverLabel"></div>
+    <div id="dataPanel">
+      <h3 id="dataHeading">Sun & Moon Data</h3>
+      <div id="subpoints" style="font-size:12px; line-height:1.4;"></div>
+      <div id="durations" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;"></div>
+      <div id="pointMetrics" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;"></div>
+      <div id="hoverBox" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;">
+        <div id="hoverLabel"></div>
+      </div>
     </div>
-  </div>
+    </div>
   </div>
   <script type="importmap">
     {

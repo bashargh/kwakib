@@ -208,6 +208,16 @@ if (!api) {
   tours.updateTourStepCard();
   tours.applyTourCopy();
   addEventListener('resize', tours.updateTourAvailability);
+  const mobileTabs = document.getElementById('mobileTabs');
+  if (mobileTabs) {
+    mobileTabs.addEventListener('click', (event) => {
+      const button = event.target.closest('button[data-target]');
+      if (!button) return;
+      const target = document.getElementById(button.dataset.target);
+      if (!target) return;
+      target.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+    });
+  }
 
   if (!tourState?.active && !isMobile()) {
     tours.startTour('seasons');
