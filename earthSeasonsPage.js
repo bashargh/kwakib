@@ -208,14 +208,35 @@ if (!api) {
   tours.updateTourStepCard();
   tours.applyTourCopy();
   addEventListener('resize', tours.updateTourAvailability);
-  const mobileTabs = document.getElementById('mobileTabs');
-  if (mobileTabs) {
-    mobileTabs.addEventListener('click', (event) => {
-      const button = event.target.closest('button[data-target]');
-      if (!button) return;
-      const target = document.getElementById(button.dataset.target);
-      if (!target) return;
-      target.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+  const pageLayout = document.getElementById('pageLayout');
+  const carouselPrevBtn = document.getElementById('carouselPrevBtn');
+  const carouselNextBtn = document.getElementById('carouselNextBtn');
+  if (pageLayout && carouselPrevBtn && carouselNextBtn) {
+    const slideIds = ['leftPanels', 'scene', 'sidePanels'];
+    const slides = slideIds.map((id) => document.getElementById(id)).filter(Boolean);
+    const getCurrentIndex = () => {
+      const scrollLeft = pageLayout.scrollLeft;
+      let bestIndex = 0;
+      let bestDist = Infinity;
+      slides.forEach((slide, index) => {
+        const dist = Math.abs(slide.offsetLeft - scrollLeft);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestIndex = index;
+        }
+      });
+      return bestIndex;
+    };
+    const scrollToIndex = (index) => {
+      if (!slides.length) return;
+      const clamped = Math.max(0, Math.min(slides.length - 1, index));
+      pageLayout.scrollTo({ left: slides[clamped].offsetLeft, behavior: 'smooth' });
+    };
+    carouselPrevBtn.addEventListener('click', () => {
+      scrollToIndex(getCurrentIndex() - 1);
+    });
+    carouselNextBtn.addEventListener('click', () => {
+      scrollToIndex(getCurrentIndex() + 1);
     });
   }
 

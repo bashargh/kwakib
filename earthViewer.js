@@ -55,7 +55,8 @@ import {
       includeMoon: parseBool(pageData.includeMoon, true),
       showEcliptic: parseBool(pageData.showEcliptic, false),
       allowPointSelection: parseBool(pageData.allowPointSelection, true),
-      leftPanelsAlways: parseBool(pageData.leftPanelsAlways, false)
+      leftPanelsAlways: parseBool(pageData.leftPanelsAlways, false),
+      mobilePanelsVisible: parseBool(pageData.mobilePanelsVisible, false)
     };
     const singlePointMode = (typeof window !== 'undefined' && window.SINGLE_POINT === true);
     const EARTH_RADIUS_KM = 6371;
@@ -655,6 +656,7 @@ import {
       toggleInfoBtn,
       toggleControlsBtn,
       leftPanelsAlways: viewerConfig.leftPanelsAlways,
+      mobilePanelsVisible: viewerConfig.mobilePanelsVisible,
       isMobile
     });
 

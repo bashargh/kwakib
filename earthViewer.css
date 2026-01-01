@@ -312,6 +312,27 @@ html, body { margin: 0; height: 100%; overflow: hidden; background:#020712; colo
       font-size: 12px;
     }
     .mobile-tabs button:hover { background: rgba(42,137,255,0.35); }
+    .mobile-carousel-btn {
+      display: none;
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 14;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid #2a89ff;
+      background: rgba(0,0,0,0.7);
+      color: #e6e6e6;
+      font-size: 18px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+    .mobile-carousel-prev { left: 8px; }
+    .mobile-carousel-next { right: 8px; }
+    .mobile-carousel-btn:hover { background: rgba(42,137,255,0.35); }
     .seasons-page #leftPanels { width: 520px; }
     .analemma-page #controls { display: none; }
     .analemma-page #useTypedPoiBtn { display: none; }
@@ -730,7 +751,10 @@ html, body { margin: 0; height: 100%; overflow: hidden; background:#020712; colo
       .seasons-page #controls,
       .seasons-page #dataPanel { width: 100%; }
       .seasons-page #scene { width: 100%; height: 100%; }
-      .seasons-page .mobile-tabs { display: flex; }
+      .seasons-page .mobile-tabs { display: none; }
+      .seasons-page .mobile-carousel-btn { display: inline-flex; }
+      .seasons-page #toggleInfoBtn,
+      .seasons-page #toggleControlsBtn { display: none; }
     }
     @media (max-height: 780px) {
       .analemma-breakdown { padding: 10px; }

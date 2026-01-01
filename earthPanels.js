@@ -5,11 +5,13 @@ export const initEarthPanels = ({
   toggleInfoBtn,
   toggleControlsBtn,
   leftPanelsAlways = false,
+  mobilePanelsVisible = false,
   isMobile = () => false,
   onApply
 } = {}) => {
-  let infoVisible = !isMobile();
-  let controlsVisible = !isMobile();
+  const defaultVisible = isMobile() ? mobilePanelsVisible : true;
+  let infoVisible = defaultVisible;
+  let controlsVisible = defaultVisible;
 
   const applyPanelVisibility = () => {
     if (leftPanels) {

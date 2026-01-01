@@ -129,10 +129,12 @@
     document.documentElement.dir = 'rtl';
   </script>
 </head>
-<body class="seasons-page" data-show-ecliptic="false" data-include-mean-sun="false" data-include-moon="true" data-tour-reset-on-exit="true">
+<body class="seasons-page" data-show-ecliptic="false" data-include-mean-sun="false" data-include-moon="true" data-tour-reset-on-exit="true" data-mobile-panels-visible="true">
   <h1 class="sr-only">جولة فصول الأرض</h1>
   <button id="toggleInfoBtn" class="floating-btn">معلومات</button>
   <button id="toggleControlsBtn" class="floating-btn">التحكم</button>
+  <button id="carouselPrevBtn" class="mobile-carousel-btn mobile-carousel-prev" type="button" aria-label="Previous section">&#x2039;</button>
+  <button id="carouselNextBtn" class="mobile-carousel-btn mobile-carousel-next" type="button" aria-label="Next section">&#x203A;</button>
   <div id="langSwitcher">
     <a id="langLinkEn" href="earth-seasons.html">English</a> |
     <a id="langLinkAr" href="earth-seasons-ar.html" class="active">العربية</a>
@@ -147,12 +149,7 @@
       <option value="venus-ar.html">رؤية الزهرة</option>
     </select>
   </div>
-  <nav id="mobileTabs" class="mobile-tabs" aria-label="Page sections">
-    <button type="button" data-target="leftPanels">&#1605;&#1593;&#1604;&#1608;&#1605;&#1575;&#1578;</button>
-    <button type="button" data-target="scene">&#1575;&#1604;&#1571;&#1585;&#1590;</button>
-    <button type="button" data-target="sidePanels">&#1575;&#1604;&#1578;&#1581;&#1603;&#1605;</button>
-  </nav>
-  <script type="module" src="topicSelect.js"></script>
+<script type="module" src="topicSelect.js"></script>
   <div id="pageLayout" class="page-layout">
     <div id="leftPanels">
     <div class="section" id="tourSection">
@@ -268,6 +265,8 @@
   </footer>
 </body>
 </html>
+
+
 
 
 
