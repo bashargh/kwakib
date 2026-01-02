@@ -37,40 +37,34 @@ if (!api) {
     const slideIds = ['leftPanels', 'scene', 'sidePanels'];
     const slides = slideIds.map((id) => document.getElementById(id)).filter(Boolean);
     const creditEl = document.querySelector('.mobile-scene-footer');
-    const getCurrentIndex = () => {
-      const center = window.innerWidth / 2;
-      let bestIndex = 0;
-      let bestDist = Infinity;
-      slides.forEach((slide, index) => {
-        const rect = slide.getBoundingClientRect();
-        const slideCenter = rect.left + rect.width / 2;
-        const dist = Math.abs(slideCenter - center);
-        if (dist < bestDist) {
-          bestDist = dist;
-          bestIndex = index;
-        }
-      });
-      return bestIndex;
-    };
+    if (document.documentElement.dir === 'rtl') {
+      pageLayout.setAttribute('dir', 'ltr');
+      document.getElementById('leftPanels')?.setAttribute('dir', 'rtl');
+      document.getElementById('sidePanels')?.setAttribute('dir', 'rtl');
+    }
+    let currentIndex = 0;
     const updateActiveSlide = () => {
       if (!slides.length) return;
-      const index = getCurrentIndex();
-      document.body.dataset.activeSlide = slideIds[index] || '';
+      const width = pageLayout.clientWidth || window.innerWidth;
+      const rawIndex = width ? pageLayout.scrollLeft / width : 0;
+      currentIndex = Math.max(0, Math.min(slides.length - 1, Math.round(rawIndex)));
+      document.body.dataset.activeSlide = slideIds[currentIndex] || '';
       if (creditEl) {
-        creditEl.style.display = (isMobile() && slideIds[index] === 'scene') ? 'block' : 'none';
+        creditEl.style.display = (isMobile() && slideIds[currentIndex] === 'scene') ? 'block' : 'none';
       }
     };
     const scrollToIndex = (index) => {
       if (!slides.length) return;
       const clamped = Math.max(0, Math.min(slides.length - 1, index));
-      slides[clamped].scrollIntoView({ behavior: 'smooth', inline: 'start' });
+      const width = pageLayout.clientWidth || window.innerWidth;
+      pageLayout.scrollTo({ left: clamped * width, behavior: 'smooth' });
       setTimeout(updateActiveSlide, 220);
     };
     carouselPrevBtn.addEventListener('click', () => {
-      scrollToIndex(getCurrentIndex() - 1);
+      scrollToIndex(currentIndex - 1);
     });
     carouselNextBtn.addEventListener('click', () => {
-      scrollToIndex(getCurrentIndex() + 1);
+      scrollToIndex(currentIndex + 1);
     });
     let rafId = 0;
     pageLayout.addEventListener('scroll', () => {
@@ -83,7 +77,8 @@ if (!api) {
     updateActiveSlide();
     if (isMobile() && slides[1]) {
       requestAnimationFrame(() => {
-        slides[1].scrollIntoView({ behavior: 'auto', inline: 'start' });
+        const width = pageLayout.clientWidth || window.innerWidth;
+        pageLayout.scrollTo({ left: width, behavior: 'auto' });
         updateActiveSlide();
       });
     }

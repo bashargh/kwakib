@@ -742,16 +742,6 @@ html, body { margin: 0; height: 100%; overflow: hidden; background:#020712; colo
     .analemma-inset-embed { width: 100%; margin-left: 0; }
   }
     @media (max-width: 900px) {
-      html[dir="rtl"] .earth-main .page-layout,
-      html[dir="rtl"] .seasons-page .page-layout {
-        direction: ltr;
-      }
-      html[dir="rtl"] .earth-main #leftPanels,
-      html[dir="rtl"] .earth-main #sidePanels,
-      html[dir="rtl"] .seasons-page #leftPanels,
-      html[dir="rtl"] .seasons-page #sidePanels {
-        direction: rtl;
-      }
       .earth-main .page-layout {
         display: flex;
         flex-direction: row;
