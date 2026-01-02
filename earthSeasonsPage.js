@@ -224,11 +224,13 @@ if (!api) {
       }
     };
     const getCurrentIndex = () => {
-      const scrollLeft = pageLayout.scrollLeft;
+      const center = window.innerWidth / 2;
       let bestIndex = 0;
       let bestDist = Infinity;
       slides.forEach((slide, index) => {
-        const dist = Math.abs(slide.offsetLeft - scrollLeft);
+        const rect = slide.getBoundingClientRect();
+        const slideCenter = rect.left + rect.width / 2;
+        const dist = Math.abs(slideCenter - center);
         if (dist < bestDist) {
           bestDist = dist;
           bestIndex = index;
@@ -239,7 +241,7 @@ if (!api) {
     const scrollToIndex = (index) => {
       if (!slides.length) return;
       const clamped = Math.max(0, Math.min(slides.length - 1, index));
-      pageLayout.scrollTo({ left: slides[clamped].offsetLeft, behavior: 'smooth' });
+      slides[clamped].scrollIntoView({ behavior: 'smooth', inline: 'start' });
       setTimeout(updateActiveSlide, 220);
     };
     carouselPrevBtn.addEventListener('click', () => {
@@ -259,7 +261,7 @@ if (!api) {
     updateActiveSlide();
     if (isMobile() && slides[1]) {
       requestAnimationFrame(() => {
-        pageLayout.scrollLeft = slides[1].offsetLeft;
+        slides[1].scrollIntoView({ behavior: 'auto', inline: 'start' });
         updateActiveSlide();
       });
     }
