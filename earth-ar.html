@@ -104,11 +104,12 @@
     document.documentElement.dir = 'rtl';
   </script>
 </head>
-<body class="earth-main" data-show-ecliptic="false" data-include-mean-sun="false" data-include-moon="true">
+<body class="earth-main" data-show-ecliptic="false" data-include-mean-sun="false" data-include-moon="true" data-mobile-panels-visible="true" data-mobile-camera-distance="3.4">
   <h1 class="sr-only">محاكاة الأرض - الشمس والقمر</h1>
-  <div id="scene"></div>
   <button id="toggleInfoBtn" class="floating-btn">معلومات</button>
   <button id="toggleControlsBtn" class="floating-btn">التحكم</button>
+  <button id="carouselPrevBtn" class="mobile-carousel-btn mobile-carousel-prev" type="button" aria-label="Previous section">&#x2039;</button>
+  <button id="carouselNextBtn" class="mobile-carousel-btn mobile-carousel-next" type="button" aria-label="Next section">&#x203A;</button>
   <div id="langSwitcher">
     <a id="langLinkEn" href="index.html">English</a> |
     <a id="langLinkAr" href="earth-ar.html" class="active">العربية</a>
@@ -124,8 +125,10 @@
     </select>
   </div>
   <script type="module" src="topicSelect.js"></script>
-  <div id="leftPanels">
-    <div id="infoPanel">
+  <div id="pageLayout" class="page-layout">
+    <div id="leftPanels">
+      <div class="panel-scroll">
+        <div id="infoPanel">
       <h2 id="infoTitle">محاكاة الأرض</h2>
       <p id="infoIntro">كرة أرضية تفاعلية بشبكة جغرافية، ونقطتي تعامد الشمس/القمر، ومواقع يحددها المستخدم.</p>
       <ul>
@@ -158,9 +161,14 @@
        
       </div>
     </div>
-  </div>
-  <div id="sidePanels">
-    <div id="controls">
+      </div>
+    </div>
+    <div id="scene">
+      <div class="mobile-scene-footer">Texture map credit: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a></div>
+    </div>
+    <div id="sidePanels">
+      <div class="panel-scroll">
+        <div id="controls">
     <div class="section" title="ضبط الوقت بالتوقيت العالمي؛ القفز بالأيام النجمية يحرك خط الطول تحت الشمس شرقاً.">
       <h3 id="timeAnimHeading">الوقت والتحريك</h3>
       <label id="datetimeLabel">التاريخ/الوقت (UTC)</label>
@@ -232,6 +240,10 @@
   </div>
   <div id="dataPanel">
     <h3 id="dataHeading">بيانات الشمس والقمر</h3>
+    <div class="subpoint-legend" aria-label="دليل نقاط تعامد الشمس والقمر">
+      <div class="subpoint-legend-item"><span class="subpoint-dot subpoint-dot-sun"></span>تعامد الشمس</div>
+      <div class="subpoint-legend-item"><span class="subpoint-dot subpoint-dot-moon"></span>تعامد القمر</div>
+    </div>
     <div id="subpoints" style="font-size:12px; line-height:1.4;"></div>
     <div id="durations" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;"></div>
     <div id="pointMetrics" style="font-size:12px; line-height:1.4; margin-top:6px; color:#cfdcff;"></div>
@@ -239,6 +251,8 @@
       <div id="hoverLabel"></div>
     </div>
   </div>
+      </div>
+    </div>
   </div>
   <script type="importmap">
     {
