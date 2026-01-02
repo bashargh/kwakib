@@ -743,26 +743,25 @@ html, body { margin: 0; height: 100%; overflow: hidden; background:#020712; colo
   }
     @media (max-width: 900px) {
       .earth-main .page-layout {
-        display: flex;
-        flex-direction: row;
+        display: block;
         position: fixed;
         inset: 0;
         width: 100vw;
         height: 100vh;
-        overflow-x: auto;
-        overflow-y: hidden;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        align-items: stretch;
+        overflow: hidden;
       }
       .earth-main .page-layout > #leftPanels,
       .earth-main .page-layout > #scene,
       .earth-main .page-layout > #sidePanels {
-        flex: 0 0 100vw;
         width: 100vw;
         height: 100vh;
-        scroll-snap-align: start;
       }
+      .earth-main #leftPanels,
+      .earth-main #scene,
+      .earth-main #sidePanels { display: none; }
+      .earth-main[data-active-slide="leftPanels"] #leftPanels,
+      .earth-main[data-active-slide="scene"] #scene,
+      .earth-main[data-active-slide="sidePanels"] #sidePanels { display: block; }
       .earth-main .page-layout > #scene {
         position: relative;
         inset: auto;
@@ -844,26 +843,25 @@ html, body { margin: 0; height: 100%; overflow: hidden; background:#020712; colo
       }
       .earth-main .mobile-scene-footer a:hover { text-decoration: underline; }
       .seasons-page .page-layout {
-        display: flex;
-        flex-direction: row;
+        display: block;
         position: fixed;
         inset: 0;
         width: 100vw;
         height: 100vh;
-        overflow-x: auto;
-        overflow-y: hidden;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        align-items: stretch;
+        overflow: hidden;
       }
       .seasons-page .page-layout > #leftPanels,
       .seasons-page .page-layout > #scene,
       .seasons-page .page-layout > #sidePanels {
-        flex: 0 0 100vw;
         width: 100vw;
         height: 100vh;
-        scroll-snap-align: start;
       }
+      .seasons-page #leftPanels,
+      .seasons-page #scene,
+      .seasons-page #sidePanels { display: none; }
+      .seasons-page[data-active-slide="leftPanels"] #leftPanels,
+      .seasons-page[data-active-slide="scene"] #scene,
+      .seasons-page[data-active-slide="sidePanels"] #sidePanels { display: block; }
       .seasons-page .page-layout > #scene {
         position: relative;
         inset: auto;
