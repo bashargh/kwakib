@@ -120,6 +120,10 @@
 </head>
 <body class="analemma-page" data-show-ecliptic="true" data-include-mean-sun="true" data-include-moon="false" data-allow-point-selection="false" data-left-panels-always="true">
   <h1 class="sr-only">Earth Analemma Tour</h1>
+  <div class="analemma-mobile-only" role="status" aria-live="polite">
+    <h2>Desktop only</h2>
+    <p>This page is designed for desktop screens. Please open it on a larger display.</p>
+  </div>
   <div id="scene"></div>
   <div id="langSwitcher">
     <a id="langLinkEn" href="earth-analemma.html">English</a> |
@@ -173,7 +177,13 @@
                 <h4 class="analemma-card-title">Introduction</h4>
               </div>
               <div class="analemma-card-content">
-                <p class="analemma-card-lede analemma-card-intro"></p>
+                <p class="analemma-card-lede analemma-card-intro">
+                  It’s common knowledge that a day is 24 hours long. But if you measure the time from one solar noon to the next (when the Sun reaches its highest point in the sky), you’ll find that this interval is not exactly 24 hours: on most days it is slightly longer or slightly shorter.
+                  <br><br>
+                  This is not mainly due to seasonal changes in daylight length. Those changes mostly shift sunrise and sunset earlier or later in a way that is roughly balanced around midday, while the “noon” itself can drift relative to clock time.
+                  <br><br>
+                  This page explains why solar noon drifts through the year—a pattern described by the Equation of Time—and how the same effect produces the Sun’s analemma.
+                </p>
                 <h5 class="analemma-card-subtitle">Prerequisites</h5>
                 <p class="analemma-card-lede">
                   Understanding the difference between a sidereal day and a solar day is a prerequisite for this topic.
@@ -378,6 +388,36 @@
 
   <script type="module" src="earthViewer.js"></script>
   <script type="module" src="earthAnalemmaPage.js"></script>
+  <script>
+    (() => {
+      const update = () => {
+        const vv = window.visualViewport;
+        const dpr = window.devicePixelRatio || 1;
+        const width = (vv && vv.width) || document.documentElement.clientWidth || window.innerWidth;
+        const height = (vv && vv.height) || document.documentElement.clientHeight || window.innerHeight;
+        const isSmall = Math.min(width, height) <= 900;
+        document.body.classList.toggle('analemma-mobile-blocked', isSmall);
+        const overlay = document.querySelector('.analemma-mobile-only');
+        if (overlay) {
+          overlay.style.display = isSmall ? 'flex' : 'none';
+          const offsetX = -window.scrollX || 0;
+          const offsetY = -window.scrollY || 0;
+          overlay.style.left = `${offsetX}px`;
+          overlay.style.top = `${offsetY}px`;
+          overlay.style.right = 'auto';
+          overlay.style.bottom = 'auto';
+          overlay.style.width = `${width}px`;
+          overlay.style.height = `${height}px`;
+        }
+      };
+      window.addEventListener('resize', update);
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', update);
+        window.visualViewport.addEventListener('scroll', update);
+      }
+      update();
+    })();
+  </script>
   <footer>
     Texture map credit: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a>
   </footer>

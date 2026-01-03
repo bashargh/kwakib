@@ -107,15 +107,17 @@
   <link rel="stylesheet" href="viewerBase.css" />
   <link rel="stylesheet" href="venusViewer.css" />
 </head>
-<body class="planets-page">
+<body class="planets-page" data-active-slide="scene">
   <h1 class="sr-only">Earth/Planets Visibility & Orbit Viewer</h1>
   <div id="scene"></div>
   <div id="langSwitcher">
     <a id="langLinkEn" href="planets.html" class="active">English</a> |
     <a id="langLinkAr" href="planets-ar.html">العربية</a>
   </div>
-  <button id="toggleInfoBtn" class="floating-btn" title="Show or hide the info panel">Info panel</button>
+  <button id="toggleInfoBtn" class="floating-btn" title="Show or hide the info panel" style="display:none;">Info</button>
   <button id="toggleControlsBtn" class="floating-btn">Controls</button>
+  <button id="carouselPrevBtn" class="mobile-carousel-btn mobile-carousel-prev" type="button" aria-label="Previous section" style="display:inline-flex">&#x2039;</button>
+  <button id="carouselNextBtn" class="mobile-carousel-btn mobile-carousel-next" type="button" aria-label="Next section" style="display:inline-flex">&#x203A;</button>
   <div class="topic-select" aria-label="Earth topics">
     <label for="topicSelect">Earth topics</label>
         <select id="topicSelect">
@@ -137,18 +139,6 @@
       <div id="skySunWarning">Sun above horizon</div>
     </div>
     <div id="planetsReadout"></div>
-  </div>
-  <div id="infoPanel">
-    <h2>Earth &amp; Planets Viewer</h2>
-    <p>Inspect where the Sun and planets sit over Earth plus a compressed heliocentric sketch.</p>
-    <ul>
-      <li>Plot one custom lat/lon point with highlight rings.</li>
-      <li>Inspect the subsolar point with a numeric readout.</li>
-      <li>Scrub date/time or jump by months to animate positions.</li>
-      <li>Toggle night overlay and view local sky arrows.</li>
-      <li>Show twilight bands with a configurable sun-below-horizon angle.</li>
-      <li>Orbit sketch uses a compressed scale so all planets fit.</li>
-    </ul>
   </div>
   <div id="sidePanels">
     <div id="controls">
@@ -231,6 +221,7 @@
   <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.js"></script>
   <script src="https://unpkg.com/tz-lookup@6.1.25/tz.js"></script>
 
+  <script type="module" src="planetsPage.js"></script>
   <script type="module" src="planetsViewer.js"></script>
   <footer>
     Texture map credit: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a>

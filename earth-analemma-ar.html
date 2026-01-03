@@ -125,6 +125,10 @@
 </head>
 <body class="analemma-page" data-show-ecliptic="true" data-include-mean-sun="true" data-include-moon="false" data-allow-point-selection="false" data-left-panels-always="true">
   <h1 class="sr-only">جولة الأناليمّا</h1>
+  <div class="analemma-mobile-only" role="status" aria-live="polite">
+    <h2>الشاشات المكتبية فقط</h2>
+    <p>هذه الصفحة مصممة للشاشات المكتبية. الرجاء فتحها على شاشة أكبر.</p>
+  </div>
   <div id="scene"></div>
   <div id="langSwitcher">
     <a id="langLinkEn" href="earth-analemma.html">English</a> |
@@ -178,7 +182,13 @@
                 <h4 class="analemma-card-title">مقدمة</h4>
               </div>
               <div class="analemma-card-content">
-                <p class="analemma-card-lede analemma-card-intro"></p>
+                <p class="analemma-card-lede analemma-card-intro">
+                  من المتعارف عليه أن مدة اليوم ٢٤ ساعة. لكن لو راقبت تغيّر وقت الزوال (أي الظهر الشمسي: اللحظة التي تبلغ فيها الشمس أعلى ارتفاع لها في السماء) من يومٍ إلى اليوم التالي، ستجد أن الفترة بين زوالين متتاليين ليست دائمًا ٢٤ ساعة تمامًا؛ ففي أغلب الأيام تكون إمّا أقل قليلًا أو أكثر قليلًا من ٢٤ ساعة
+                  <br><br>
+                  وهذا. الاختلاف لا يعود أساسًا إلى تغيّر طول النهار عبر الفصول. فتغيّر طول النهار يؤثر على موعدي الشروق والغروب، وغالبًا ما يكون هذا التأثير قريبًا من التوازن حول وقت الزوال، بينما يمكن لوقت الزوال نفسه أن يتقدّم أو يتأخّر مقارنةً بالساعة
+                  <br><br>
+                  تهدف هذه الصفحة إلى شرح سبب هذا التغيّر، وهو ما تصفه معادلة الوقت، وهو أيضًا السبب وراء الشكل المعروف باسم أنالِمّا الشمس (Analemma).
+                </p>
                 <h5 class="analemma-card-subtitle">المتطلبات</h5>
                 <p class="analemma-card-lede">
                   لفهم موضوع الأنالِمَّة (معادلة الزمن)، من المهم معرفة الفرق بين اليوم النجمي واليوم الشمسي.<br>
@@ -390,6 +400,36 @@
 
   <script type="module" src="earthViewer.js"></script>
   <script type="module" src="earthAnalemmaPage.js"></script>
+  <script>
+    (() => {
+      const update = () => {
+        const vv = window.visualViewport;
+        const dpr = window.devicePixelRatio || 1;
+        const width = (vv && vv.width) || document.documentElement.clientWidth || window.innerWidth;
+        const height = (vv && vv.height) || document.documentElement.clientHeight || window.innerHeight;
+        const isSmall = Math.min(width, height) <= 900;
+        document.body.classList.toggle('analemma-mobile-blocked', isSmall);
+        const overlay = document.querySelector('.analemma-mobile-only');
+        if (overlay) {
+          overlay.style.display = isSmall ? 'flex' : 'none';
+          const offsetX = -window.scrollX || 0;
+          const offsetY = -window.scrollY || 0;
+          overlay.style.left = `${offsetX}px`;
+          overlay.style.top = `${offsetY}px`;
+          overlay.style.right = 'auto';
+          overlay.style.bottom = 'auto';
+          overlay.style.width = `${width}px`;
+          overlay.style.height = `${height}px`;
+        }
+      };
+      window.addEventListener('resize', update);
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', update);
+        window.visualViewport.addEventListener('scroll', update);
+      }
+      update();
+    })();
+  </script>
   <footer>
     Texture map credit: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a>
   </footer>

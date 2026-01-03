@@ -376,7 +376,13 @@ import {
         <div>Venus elongation: ${info.elongDeg.toFixed(1)}&deg;</div>
         `;
       }
-    const markerRadius = () => (innerWidth <= 900 ? 0.018 : 0.01);
+    const isMobileView = () => {
+      const vv = window.visualViewport;
+      if (vv && Number.isFinite(vv.width)) return vv.width <= 900;
+      if (window.matchMedia) return window.matchMedia('(max-width: 900px)').matches;
+      return innerWidth <= 900;
+    };
+    const markerRadius = () => (isMobileView() ? 0.018 : 0.01);
 
     function addHighlightLines(latDeg, lonDeg, color) {
       // Latitude line
@@ -673,7 +679,7 @@ import {
     const tourPanel = document.getElementById('tourPanel');
     const creditsToggle = document.getElementById('creditsToggle');
     const footer = document.querySelector('footer');
-    const isMobile = () => innerWidth <= 900;
+    const isMobile = () => isMobileView();
 
     function resizeRendererToContainer() {
       resizeCore();
@@ -689,7 +695,7 @@ import {
       footer,
       isMobile,
       collapsibleIds: ['sunVenusSection', 'cameraSection', 'twilightSection', 'pointSection'],
-      defaultInfoVisible: innerWidth > 900 ? false : true,
+      defaultInfoVisible: isMobileView() ? true : false,
       defaultControlsVisible: true,
       onApply: resizeRendererToContainer,
       onResize: resizeSkyRenderer

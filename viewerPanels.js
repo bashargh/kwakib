@@ -18,6 +18,7 @@ export const initViewerPanels = ({
   let infoVisible = defaultInfoVisible;
   let controlsVisible = defaultControlsVisible;
   let lastMobileState = isMobile();
+  const hasMobileCarousel = () => !!document.body?.dataset?.activeSlide;
 
   const setCollapsed = (id, collapsed) => {
     const el = root.getElementById(id);
@@ -62,6 +63,10 @@ export const initViewerPanels = ({
   };
 
   const applyPanelVisibility = () => {
+    if (hasMobileCarousel()) {
+      if (typeof onApply === 'function') onApply();
+      return;
+    }
     if (forcePanelsOnMobile && isMobile()) {
       infoVisible = true;
       controlsVisible = true;

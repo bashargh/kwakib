@@ -591,7 +591,13 @@ import {
     const sidePanels = document.getElementById('sidePanels');
     const toggleInfoBtn = document.getElementById('toggleInfoBtn');
     const toggleControlsBtn = document.getElementById('toggleControlsBtn');
-    const isMobile = () => innerWidth <= 900;
+    const isMobile = () => {
+      if (typeof window === 'undefined') return false;
+      const vv = window.visualViewport;
+      if (vv && Number.isFinite(vv.width)) return vv.width <= 900;
+      if (window.matchMedia) return window.matchMedia('(max-width: 900px)').matches;
+      return innerWidth <= 900;
+    };
     applyPageMeta();
 
     if (typeof window !== 'undefined') {

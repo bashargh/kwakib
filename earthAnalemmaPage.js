@@ -95,6 +95,9 @@ if (!api || !isAnalemmaPage) {
 
   const startAnalemmaPlayback = (resume = false) => {
     api.stopTimePlayback?.();
+    if (api.setCameraMode) {
+      api.setCameraMode('sun');
+    }
     const poi = { lat: 0, lon: 0 };
     api.setPoint(0, poi.lat, poi.lon);
     let baseDate = api.getTimeOverride?.()
@@ -123,6 +126,9 @@ if (!api || !isAnalemmaPage) {
       stepMs: 86400000
     });
     api.updateCelestial();
+    if (api.setCameraMode) {
+      api.setCameraMode('geo');
+    }
   };
 
   const pauseAnalemmaPlayback = () => {

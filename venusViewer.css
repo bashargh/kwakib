@@ -93,11 +93,15 @@ html, body { margin: 0; height: 100%; overflow-x: hidden; overflow-y: auto; back
       }
       #desktopHint { display: none; }
     }
+    @media (max-width: 900px) {
+      .venus-page #langSwitcher,
+      .venus-page .topic-select { display: none; }
+    }
     #infoPanel {
       position: absolute;
       left: 12px;
       top: 44px;
-      width: 374px;
+      width: 340px;
       box-sizing: border-box;
       background: rgba(0,0,0,0.6);
       padding: 10px 12px;
@@ -258,12 +262,195 @@ html, body { margin: 0; height: 100%; overflow-x: hidden; overflow-y: auto; back
       z-index: 2;
       pointer-events: none;
     }
+    .mobile-carousel-btn {
+      display: none;
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 90;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid #2a89ff;
+      background: rgba(0,0,0,0.7);
+      color: #e6e6e6;
+      font-size: 18px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      direction: ltr;
+      unicode-bidi: isolate;
+    }
+    .mobile-carousel-prev { left: 8px; }
+    .mobile-carousel-next { right: 8px; }
+    .mobile-carousel-btn:hover { background: rgba(42,137,255,0.35); }
+    @media (min-width: 901px) {
+      .mobile-carousel-btn { display: none !important; }
+    }
+    @media (max-width: 900px) {
+      .planets-page #langSwitcher,
+      .planets-page .topic-select { display: none; }
+    }
+    .panel-scroll {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .force-mobile.planets-page {
+      overflow: hidden;
+    }
+    .force-mobile.planets-page #scene,
+    .force-mobile.planets-page #tourPanel,
+    .force-mobile.planets-page #sidePanels {
+      position: fixed;
+      left: var(--viewport-offset-x, 0px);
+      top: var(--viewport-offset-y, 0px);
+      right: auto;
+      bottom: auto;
+      width: var(--viewport-width, 100vw);
+      height: var(--viewport-height, 100vh);
+      display: none;
+    }
+    .force-mobile.planets-page[data-active-slide="scene"] #scene,
+    .force-mobile.planets-page[data-active-slide="tourPanel"] #tourPanel,
+    .force-mobile.planets-page[data-active-slide="sidePanels"] #sidePanels {
+      display: block;
+    }
+    .force-mobile.planets-page #scene {
+      overflow: hidden;
+    }
+    .force-mobile.planets-page #scene canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .force-mobile.planets-page #tourPanel,
+    .force-mobile.planets-page #sidePanels {
+      max-width: none;
+      border-radius: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 64px 12px 96px;
+      box-sizing: border-box;
+    }
+    .force-mobile.planets-page #sidePanels {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .force-mobile.planets-page #toggleControlsBtn { display: none; }
+    .force-mobile.planets-page #langSwitcher {
+      position: fixed;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 90;
+    }
+    .force-mobile.planets-page .topic-select {
+      position: fixed;
+      top: 44px;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+      z-index: 90;
+    }
+    .force-mobile.planets-page[data-active-slide="scene"] #langSwitcher,
+    .force-mobile.planets-page[data-active-slide="scene"] .topic-select {
+      display: flex;
+    }
+    .force-mobile.venus-page {
+      overflow: hidden;
+    }
+    .force-mobile.venus-page #leftPanels,
+    .force-mobile.venus-page #scene,
+    .force-mobile.venus-page #sidePanels {
+      position: fixed;
+      left: var(--viewport-offset-x, 0px);
+      top: var(--viewport-offset-y, 0px);
+      right: auto;
+      bottom: auto;
+      width: var(--viewport-width, 100vw);
+      height: var(--viewport-height, 100vh);
+      display: none;
+    }
+    .force-mobile.venus-page #scene { z-index: 1; }
+    .force-mobile.venus-page #leftPanels,
+    .force-mobile.venus-page #sidePanels { z-index: 20; }
+    .force-mobile.venus-page[data-active-slide="leftPanels"] #leftPanels,
+    .force-mobile.venus-page[data-active-slide="scene"] #scene,
+    .force-mobile.venus-page[data-active-slide="sidePanels"] #sidePanels {
+      display: block;
+    }
+    .force-mobile.venus-page #scene {
+      overflow: hidden;
+    }
+    .force-mobile.venus-page #scene canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .force-mobile.venus-page #leftPanels {
+      overflow: hidden;
+    }
+    .force-mobile.venus-page #leftPanels .panel-scroll {
+      position: absolute;
+      inset: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 64px 12px 96px;
+      box-sizing: border-box;
+    }
+    .force-mobile.venus-page #tourPanel,
+    .force-mobile.venus-page #infoPanel {
+      position: relative;
+      left: auto;
+      top: auto;
+      width: 100%;
+      max-width: none;
+      border-radius: 12px;
+    }
+    .force-mobile.venus-page #infoPanel {
+      margin-top: 10px;
+    }
+    .force-mobile.venus-page #sidePanels {
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 64px 12px 96px;
+      box-sizing: border-box;
+    }
+    .force-mobile.venus-page #toggleInfoBtn,
+    .force-mobile.venus-page #toggleControlsBtn { display: none; }
+    .force-mobile.venus-page #langSwitcher {
+      position: fixed;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 90;
+    }
+    .force-mobile.venus-page .topic-select {
+      position: fixed;
+      top: 44px;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+      z-index: 90;
+    }
+    .force-mobile.venus-page[data-active-slide="scene"] #langSwitcher,
+    .force-mobile.venus-page[data-active-slide="scene"] .topic-select {
+      display: flex;
+    }
     #sky3dContainer.sun-visible {
       box-shadow: inset 0 0 30px rgba(255, 170, 80, 0.35);
     }
     .planets-page #sky3dContainer { height: 360px; }
 @media (min-width: 901px) {
       .venus-page #tourPanel { width: 440px; }
+      .venus-page #infoPanel { width: 440px; }
       .planets-page #tourPanel { width: 440px; }
       .planets-page #sidePanels { width: 360px; }
     }

@@ -12,8 +12,13 @@ export const initEarthPanels = ({
   const defaultVisible = isMobile() ? mobilePanelsVisible : true;
   let infoVisible = defaultVisible;
   let controlsVisible = defaultVisible;
+  const hasMobileCarousel = !!document.body?.dataset?.activeSlide;
 
   const applyPanelVisibility = () => {
+    if (hasMobileCarousel) {
+      if (typeof onApply === 'function') onApply();
+      return;
+    }
     if (leftPanels) {
       if (leftPanelsAlways) {
         leftPanels.style.display = 'flex';

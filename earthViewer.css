@@ -125,6 +125,7 @@ html, body { margin: 0; height: 100%; overflow: hidden; background:#020712; colo
     #langSwitcher a:hover { text-decoration: underline; }
     @media (min-width: 901px) {
       #toggleControlsBtn { right: 12px; top: 12px; bottom: auto; }
+      .mobile-carousel-btn { display: none !important; }
     }
     @media (max-width: 900px) {
       #sidePanels {
@@ -355,6 +356,8 @@ html, body { margin: 0; height: 100%; overflow: hidden; background:#020712; colo
       align-items: center;
       justify-content: center;
       padding: 0;
+      direction: ltr;
+      unicode-bidi: isolate;
     }
     .mobile-carousel-prev { left: 8px; }
     .mobile-carousel-next { right: 8px; }
@@ -367,6 +370,44 @@ html, body { margin: 0; height: 100%; overflow: hidden; background:#020712; colo
     .analemma-page #scene { margin-left: var(--analemma-left); width: calc(100vw - var(--analemma-left)); height: 100vh; }
     .analemma-page #leftPanels { width: calc(var(--analemma-left) - 24px); }
     .analemma-page .topic-select { left: calc(var(--analemma-left) + (100vw - var(--analemma-left)) / 2); }
+    .analemma-mobile-only {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: radial-gradient(circle at 20% 20%, rgba(42,137,255,0.18), transparent 45%),
+        radial-gradient(circle at 80% 30%, rgba(255,190,80,0.12), transparent 45%),
+        #060b18;
+      color: #e6e6e6;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      padding: 24px;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+      box-sizing: border-box;
+    }
+    html[dir="rtl"] .analemma-mobile-only { direction: rtl; }
+    .analemma-mobile-only h2 {
+      margin: 0;
+      font-size: 20px;
+      color: #9dc5ff;
+    }
+    .analemma-mobile-only p {
+      margin: 0;
+      max-width: 480px;
+      color: #cfdcff;
+    }
+    .analemma-page.analemma-mobile-blocked #scene,
+    .analemma-page.analemma-mobile-blocked #leftPanels,
+    .analemma-page.analemma-mobile-blocked #langSwitcher,
+    .analemma-page.analemma-mobile-blocked .topic-select {
+      display: none !important;
+    }
+    .analemma-page.analemma-mobile-blocked .analemma-mobile-only { display: flex; }
     .analemma-breakdown { background: rgba(0,0,0,0.6); width: 100%; box-sizing: border-box; padding: 12px; }
     .analemma-controls-bar {
       display: grid;
@@ -733,7 +774,14 @@ html, body { margin: 0; height: 100%; overflow: hidden; background:#020712; colo
     #analemmaInspectorCombined {
       white-space: pre-line;
     }
-    @media (max-width: 900px) {
+    @media (max-width: 900px), (max-device-width: 900px), (pointer: coarse) {
+      .analemma-page #scene,
+      .analemma-page #leftPanels,
+      .analemma-page #langSwitcher,
+      .analemma-page .topic-select {
+        display: none !important;
+      }
+      .analemma-mobile-only { display: flex; }
       .analemma-page #scene { margin-left: 0; width: 100vw; }
       .analemma-page #leftPanels { width: auto; }
     .analemma-controls-bar { grid-template-columns: 1fr; }
@@ -821,6 +869,11 @@ html, body { margin: 0; height: 100%; overflow: hidden; background:#020712; colo
       .earth-main .topic-select { display: none; }
       .earth-main[data-active-slide="scene"] #langSwitcher,
       .earth-main[data-active-slide="scene"] .topic-select { display: flex; }
+      .earth-main .mobile-carousel-btn { display: inline-flex !important; z-index: 9999; }
+      .earth-main #langSwitcher,
+      .earth-main .topic-select { z-index: 9999; }
+      .earth-main[data-active-slide="scene"] #langSwitcher,
+      .earth-main[data-active-slide="scene"] .topic-select { display: flex !important; }
       .earth-main footer { display: none; }
       .earth-main .mobile-scene-footer {
         display: block;
@@ -921,6 +974,11 @@ html, body { margin: 0; height: 100%; overflow: hidden; background:#020712; colo
       .seasons-page .topic-select { display: none; }
       .seasons-page[data-active-slide="scene"] #langSwitcher,
       .seasons-page[data-active-slide="scene"] .topic-select { display: flex; }
+      .seasons-page .mobile-carousel-btn { display: inline-flex !important; z-index: 9999; }
+      .seasons-page #langSwitcher,
+      .seasons-page .topic-select { z-index: 9999; }
+      .seasons-page[data-active-slide="scene"] #langSwitcher,
+      .seasons-page[data-active-slide="scene"] .topic-select { display: flex !important; }
       .seasons-page footer { display: none; }
       .seasons-page .mobile-scene-footer {
         display: block;
@@ -942,6 +1000,135 @@ html, body { margin: 0; height: 100%; overflow: hidden; background:#020712; colo
       }
       .seasons-page .mobile-scene-footer a:hover { text-decoration: underline; }
     }
+    .force-mobile.earth-main .page-layout,
+    .force-mobile.seasons-page .page-layout {
+      display: block;
+      position: fixed;
+      inset: 0;
+      width: var(--viewport-width, 100vw);
+      height: var(--viewport-height, 100vh);
+      overflow: hidden;
+    }
+    .force-mobile.earth-main .page-layout > #leftPanels,
+    .force-mobile.earth-main .page-layout > #scene,
+    .force-mobile.earth-main .page-layout > #sidePanels,
+    .force-mobile.seasons-page .page-layout > #leftPanels,
+    .force-mobile.seasons-page .page-layout > #scene,
+    .force-mobile.seasons-page .page-layout > #sidePanels {
+      width: var(--viewport-width, 100vw);
+      height: var(--viewport-height, 100vh);
+    }
+    .force-mobile.earth-main #leftPanels,
+    .force-mobile.earth-main #scene,
+    .force-mobile.earth-main #sidePanels,
+    .force-mobile.seasons-page #leftPanels,
+    .force-mobile.seasons-page #scene,
+    .force-mobile.seasons-page #sidePanels {
+      display: none;
+    }
+    .force-mobile.earth-main[data-active-slide="leftPanels"] #leftPanels,
+    .force-mobile.earth-main[data-active-slide="scene"] #scene,
+    .force-mobile.earth-main[data-active-slide="sidePanels"] #sidePanels,
+    .force-mobile.seasons-page[data-active-slide="leftPanels"] #leftPanels,
+    .force-mobile.seasons-page[data-active-slide="scene"] #scene,
+    .force-mobile.seasons-page[data-active-slide="sidePanels"] #sidePanels {
+      display: block;
+    }
+    .force-mobile.earth-main .page-layout > #scene,
+    .force-mobile.seasons-page .page-layout > #scene {
+      position: relative;
+      inset: auto;
+    }
+    .force-mobile.earth-main #leftPanels,
+    .force-mobile.earth-main #sidePanels,
+    .force-mobile.seasons-page #leftPanels,
+    .force-mobile.seasons-page #sidePanels {
+      position: relative;
+      left: auto;
+      right: auto;
+      top: auto;
+      bottom: auto;
+      max-height: none;
+      overflow: hidden;
+      padding: 0;
+      box-sizing: border-box;
+      min-height: 0;
+      height: var(--viewport-height, 100vh);
+      max-height: var(--viewport-height, 100vh);
+      overflow-x: hidden;
+    }
+    .force-mobile.earth-main #leftPanels .panel-scroll,
+    .force-mobile.earth-main #sidePanels .panel-scroll,
+    .force-mobile.seasons-page #leftPanels .panel-scroll,
+    .force-mobile.seasons-page #sidePanels .panel-scroll {
+      position: absolute;
+      inset: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 64px 12px 96px;
+      box-sizing: border-box;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      touch-action: pan-y;
+    }
+    .force-mobile.earth-main #leftPanels,
+    .force-mobile.seasons-page #leftPanels {
+      width: var(--viewport-width, 100vw);
+    }
+    .force-mobile.earth-main #sidePanels,
+    .force-mobile.seasons-page #sidePanels { gap: 8px; }
+    .force-mobile.earth-main #controls,
+    .force-mobile.earth-main #dataPanel,
+    .force-mobile.seasons-page #controls,
+    .force-mobile.seasons-page #dataPanel { width: 100%; }
+    .force-mobile.earth-main #scene,
+    .force-mobile.seasons-page #scene {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    .force-mobile.earth-main #scene canvas,
+    .force-mobile.seasons-page #scene canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    .force-mobile.earth-main .mobile-carousel-btn,
+    .force-mobile.seasons-page .mobile-carousel-btn {
+      display: inline-flex !important;
+      z-index: 9999;
+    }
+    .force-mobile.earth-main #toggleInfoBtn,
+    .force-mobile.earth-main #toggleControlsBtn,
+    .force-mobile.seasons-page #toggleInfoBtn,
+    .force-mobile.seasons-page #toggleControlsBtn { display: none; }
+    .force-mobile.earth-main footer,
+    .force-mobile.seasons-page footer { display: none; }
+    .force-mobile.earth-main .mobile-scene-footer,
+    .force-mobile.seasons-page .mobile-scene-footer {
+      display: block;
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      padding: 6px 10px;
+      background: rgba(0,0,0,0.65);
+      border: 1px solid #2a89ff;
+      border-radius: 6px;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      color: #cfdcff;
+      z-index: 10;
+    }
+    .force-mobile.earth-main .mobile-scene-footer a,
+    .force-mobile.seasons-page .mobile-scene-footer a {
+      color: #8fb5ff;
+      text-decoration: none;
+    }
+    .force-mobile.earth-main .mobile-scene-footer a:hover,
+    .force-mobile.seasons-page .mobile-scene-footer a:hover { text-decoration: underline; }
     @media (max-height: 780px) {
       .analemma-breakdown { padding: 10px; }
       .analemma-controls-bar { gap: 10px; }

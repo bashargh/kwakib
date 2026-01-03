@@ -152,11 +152,13 @@
   <link rel="stylesheet" href="viewerBase.css" />
   <link rel="stylesheet" href="venusViewer.css" />
 </head>
-<body class="venus-page">
+<body class="venus-page" data-active-slide="scene">
   <h1 class="sr-only">رؤية الزهرة من الأرض</h1>
   <div id="scene"></div>
   <button id="toggleInfoBtn" class="floating-btn" title="إظهار أو إخفاء لوحة المعلومات">معلومات</button>
   <button id="toggleControlsBtn" class="floating-btn">عناصر التحكم</button>
+  <button id="carouselPrevBtn" class="mobile-carousel-btn mobile-carousel-prev" type="button" aria-label="Previous section" style="display:inline-flex">&#x2039;</button>
+  <button id="carouselNextBtn" class="mobile-carousel-btn mobile-carousel-next" type="button" aria-label="Next section" style="display:inline-flex">&#x203A;</button>
   <div id="langSwitcher">
     <a id="langLinkEn" href="venus.html">English</a> |
     <a id="langLinkAr" href="venus-ar.html" class="active">العربية</a>
@@ -172,7 +174,9 @@
     </select>
   </div>
   <script type="module" src="topicSelect.js"></script>
-    <div id="tourPanel">
+  <div id="leftPanels">
+    <div class="panel-scroll">
+      <div id="tourPanel">
     <div class="tour-title" style="margin:0;">السماء المحلية (الشمس والزهرة)</div>
     <div class="tour-body">عرض للنظام الشمسي مع السماء المحلية: استخدم أدوات الزمن للتحريك، ودوّر اللوحة لرؤية الاتجاهات.</div>
     <canvas id="orbitCanvas" width="320" height="320" style="width:100%; height:auto; margin-top:6px; background:#0b1222; border:1px solid #2a89ff; border-radius:8px;"></canvas>
@@ -210,6 +214,8 @@
       <div class="a">ج: لأن مدار الزهرة أقرب إلى الشمس، فتظل قريبة من اتجاه الشمس وتظهر في الشفق قرب الأفق.</div>
       <div class="q" style="margin-top:6px;">س: كيف أجد الزهرة في السماء؟</div>
       <div class="a">ج: ابحث قرب اتجاه غروب أو شروق الشمس، واستعمل أسهم اللوحة لقراءة السمت والارتفاع لموقعك ووقتك.</div>
+    </div>
+      </div>
     </div>
   </div>
   <div id="sidePanels">
@@ -296,6 +302,7 @@
   <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.js"></script>
   <script src="https://unpkg.com/tz-lookup@6.1.25/tz.js"></script>
 
+  <script type="module" src="venusPage.js"></script>
   <script type="module" src="venusViewer.js"></script>
   <footer>
     Texture map credit: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a>

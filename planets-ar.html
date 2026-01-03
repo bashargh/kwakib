@@ -107,7 +107,7 @@
   <link rel="stylesheet" href="viewerBase.css" />
   <link rel="stylesheet" href="venusViewer.css" />
 </head>
-<body class="planets-page"
+<body class="planets-page" data-active-slide="scene"
   data-label-sun="الشمس"
   data-label-subsolar="تحت الشمس"
   data-label-visible-planets="الكواكب المرئية"
@@ -134,8 +134,10 @@
     <a id="langLinkEn" href="planets.html">English</a> |
     <a id="langLinkAr" href="planets-ar.html" class="active">العربية</a>
   </div>
-  <button id="toggleInfoBtn" class="floating-btn" title="إظهار أو إخفاء لوحة المعلومات">لوحة المعلومات</button>
+  <button id="toggleInfoBtn" class="floating-btn" title="إظهار أو إخفاء لوحة المعلومات" style="display:none;">معلومات</button>
   <button id="toggleControlsBtn" class="floating-btn">عناصر التحكم</button>
+  <button id="carouselPrevBtn" class="mobile-carousel-btn mobile-carousel-prev" type="button" aria-label="Previous section" style="display:inline-flex">&#x2039;</button>
+  <button id="carouselNextBtn" class="mobile-carousel-btn mobile-carousel-next" type="button" aria-label="Next section" style="display:inline-flex">&#x203A;</button>
   <div class="topic-select" aria-label="موضوعات الأرض">
     <label for="topicSelect">موضوعات الأرض</label>
         <select id="topicSelect">
@@ -157,18 +159,6 @@
       <div id="skySunWarning">الشمس فوق الأفق</div>
     </div>
     <div id="planetsReadout"></div>
-  </div>
-  <div id="infoPanel">
-    <h2>عارض الأرض والكواكب</h2>
-    <p>استعرض مواضع الشمس والكواكب فوق الأرض مع مخطط مدارات مضغوط.</p>
-    <ul>
-      <li>ارسم نقطة مخصصة (خط عرض/خط طول) مع حلقات تمييز.</li>
-      <li>اعرض نقطة تحت الشمس مع قراءة رقمية.</li>
-      <li>حرّك الوقت أو اقفز بالشهور لتحريك المواضع.</li>
-      <li>فعّل طبقة الليل وشاهد أسهم السماء المحلية.</li>
-      <li>أظهر نطاقات الشفق بزاوية الشمس تحت الأفق.</li>
-      <li>مخطط المدار يستخدم مقياسا مضغوطا لتظهر كل الكواكب.</li>
-    </ul>
   </div>
   <div id="sidePanels">
     <div id="controls">
@@ -251,6 +241,7 @@
   <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.js"></script>
   <script src="https://unpkg.com/tz-lookup@6.1.25/tz.js"></script>
 
+  <script type="module" src="planetsPage.js"></script>
   <script type="module" src="planetsViewer.js"></script>
   <footer>
     Texture map credit: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a>

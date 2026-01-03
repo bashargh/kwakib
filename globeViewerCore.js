@@ -5,8 +5,23 @@ import { addEarthGrid, loadEarthTexture } from './viewerGlobe.js';
 export const createGlobeViewerCore = ({ container, onTextureLoad } = {}) => {
   const getSceneSize = () => {
     const rect = container?.getBoundingClientRect();
-    const width = Math.max(1, rect?.width || innerWidth);
-    const height = Math.max(1, rect?.height || innerHeight);
+    const rectWidth = rect?.width || 0;
+    const rectHeight = rect?.height || 0;
+    if (rectWidth > 1 && rectHeight > 1) {
+      return { width: rectWidth, height: rectHeight };
+    }
+    const root = document.documentElement;
+    const cssWidth = parseFloat(root.style.getPropertyValue('--viewport-width'));
+    const cssHeight = parseFloat(root.style.getPropertyValue('--viewport-height'));
+    const vv = window.visualViewport;
+    const fallbackWidth = Number.isFinite(cssWidth) && cssWidth > 0
+      ? cssWidth
+      : (vv?.width || innerWidth);
+    const fallbackHeight = Number.isFinite(cssHeight) && cssHeight > 0
+      ? cssHeight
+      : (vv?.height || innerHeight);
+    const width = Math.max(1, fallbackWidth || innerWidth);
+    const height = Math.max(1, fallbackHeight || innerHeight);
     return { width, height };
   };
 

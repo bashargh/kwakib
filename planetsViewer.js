@@ -112,6 +112,12 @@ import {
 
     const indicatorGroup = new THREE.Group(); // arrows or other indicators
     planetGroup.add(indicatorGroup);
+    const isMobileView = () => {
+      const vv = window.visualViewport;
+      if (vv && Number.isFinite(vv.width)) return vv.width <= 900;
+      if (window.matchMedia) return window.matchMedia('(max-width: 900px)').matches;
+      return innerWidth <= 900;
+    };
     const skyInset = createSkyInset({
       containerId: 'sky3dContainer',
       cameraPosition: [1.6, 1.2, 1.6],
@@ -137,8 +143,8 @@ import {
       const nodeLon = normalizeLon(-gast * 15);
       const basisU = latLonToVec3(0, nodeLon, 1).normalize();
       const basisV = new THREE.Vector3().crossVectors(normal, basisU).normalize();
-      const tickHeight = innerWidth <= 900 ? 0.045 : 0.035;
-      const tickRadius = innerWidth <= 900 ? 0.0045 : 0.0035;
+      const tickHeight = isMobileView() ? 0.045 : 0.035;
+      const tickRadius = isMobileView() ? 0.0045 : 0.0035;
       for (let angle = 0; angle < 360; angle += 30) {
         const rad = THREE.MathUtils.degToRad(angle);
         const dir = basisU.clone().multiplyScalar(Math.cos(rad))
@@ -441,7 +447,7 @@ import {
         box.innerHTML = `<div style="font-size:11px; line-height:1.4;">${legend}</div>`;
       }
     }
-    const markerRadius = () => (innerWidth <= 900 ? 0.018 : 0.01);
+    const markerRadius = () => (isMobileView() ? 0.018 : 0.01);
 
     function addHighlightLines(latDeg, lonDeg, color) {
       // Latitude line
@@ -678,7 +684,7 @@ import {
     const tourPanel = document.getElementById('tourPanel');
     const creditsToggle = document.getElementById('creditsToggle');
     const footer = document.querySelector('footer');
-    const isMobile = () => innerWidth <= 900;
+    const isMobile = () => isMobileView();
 
     function resizeRendererToContainer() {
       resizeCore();
